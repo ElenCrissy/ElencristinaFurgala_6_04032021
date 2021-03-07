@@ -1,0 +1,21 @@
+{
+  "name": "ElencristinaFurgala_6_04032021",
+  "version": "1.0.0",
+  "description": "ElencristinaFurgala_6_04032021",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass": "sass --watch ./sass/style.scss:./css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021/issues"
+  },
+  "homepage": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021#readme"
+}
