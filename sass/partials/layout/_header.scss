@@ -1,0 +1,25 @@
+header{
+    height: 10%;
+    width: 70%;
+}
+
+.contenu{
+    width: 160px;
+    padding: 1px;
+    background: $colour-secondary-coral;
+    border-radius: 5px;
+    font-weight: bold;
+    line-height: 23px;
+    text-align: center;
+}
+
+
+nav{
+    & ul{
+        & li{
+            list-style-type: none;
+            display: inline;
+            margin-right: 10px;
+        }
+    }
+}

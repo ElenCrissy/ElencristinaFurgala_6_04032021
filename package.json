@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch ./sass/style.scss:./css/style.css"
+    "sass": "sass --watch ./sass/style.scss:./css/style.css",
+    "lint": "eslint ./"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021/issues"
   },
-  "homepage": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021#readme"
+  "homepage": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
 }

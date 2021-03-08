@@ -1,0 +1,19 @@
+.tag {
+    padding: 3px;
+    font-weight: 500;
+    font-size: 12px;
+    text-align: center;
+
+    border: 0.5px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 11px;
+    a{
+        color: $colour-primary-red;
+    }
+    &:hover{
+        background-color: $colour-primary-red;
+        a{
+            color: white;
+        }
+    }
+}
