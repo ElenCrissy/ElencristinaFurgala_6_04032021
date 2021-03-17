@@ -3,7 +3,7 @@ body {
   font-size: normal;
   font-weight: normal;
   font-style: normal;
-  width: 95%;
+  width: 90%;
   margin: auto;
   position: relative;
 }
@@ -14,36 +14,111 @@ a {
 
 h1 {
   font-weight: normal;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 47px;
   color: #901C1C;
 }
 
+h2 {
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 47px;
+  text-align: center;
+  color: #D3573C;
+  margin: 0;
+}
+
 .tag {
   padding: 3px;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 12px;
   text-align: center;
   border: 0.5px solid #C4C4C4;
   box-sizing: border-box;
   border-radius: 11px;
+  margin: 2px;
+  padding: 3px 4px;
 }
 .tag a {
   color: #901C1C;
 }
 .tag:hover {
   background-color: #901C1C;
+  color: white;
 }
 .tag:hover a {
   color: white;
 }
 
-header {
-  height: 10%;
-  width: 70%;
+.sr-only {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
 }
 
-.contenu {
+.hero {
+  text-align: center;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero img {
+  overflow: hidden;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+.hero img:after {
+  display: block;
+  content: url("images/Sample_Photos/Photographers_ID_Photos/MimiKeel.jpg");
+  position: absolute;
+  top: calc(50% + 8px);
+  left: calc(50% + 10px);
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  filter: blur(10px);
+  opacity: 0.85;
+}
+
+.hero-info__location {
+  color: #901C1C;
+  font-size: 13px;
+}
+.hero-info__slogan {
+  font-size: 10px;
+  margin-top: 5px;
+}
+.hero-info__price {
+  font-size: 9px;
+  color: #757575;
+  margin-top: 5px;
+}
+.hero-info__tagbox {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.hero-info__tagbox a {
+  color: #901C1C;
+}
+
+header {
+  height: 10%;
+  width: 65%;
+  position: absolute;
+}
+
+#contenu {
   width: 160px;
   padding: 1px;
   background: #DB8876;
@@ -51,16 +126,54 @@ header {
   font-weight: bold;
   line-height: 23px;
   text-align: center;
+  display: none;
 }
 
+.header-elements {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.logo {
+  width: 30%;
+  display: flex;
+}
+.logo img {
+  width: 60%;
+}
+
+nav {
+  width: 65%;
+  text-align: center;
+}
+nav ul {
+  padding-inline-start: 0px;
+}
 nav ul li {
   list-style-type: none;
   display: inline;
   margin-right: 10px;
 }
 
-.carte {
-  background-color: #DB8876;
+h1 {
+  text-align: right;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 10px 0 0;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+section .hero {
+  width: 33%;
 }
 
 /*# sourceMappingURL=style.css.map */

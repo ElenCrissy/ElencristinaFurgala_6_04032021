@@ -1,0 +1,18 @@
+// Responsive
+
+$breakpoints:(
+    small: 670px,
+    medium: 1015px,
+);
+
+@mixin small{
+    @media screen and (min-width: map-get($breakpoints, small)){
+      @content;
+    }
+}
+
+@mixin medium{
+    @media screen and (min-width: map-get($breakpoints, medium)){
+      @content;
+    }
+}

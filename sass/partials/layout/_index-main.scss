@@ -1,3 +1,18 @@
-.carte{
-    background-color: $colour-secondary-coral;
+h1{
+    text-align: right;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 10px 0 0;
+}
+
+section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    & .hero{
+        width: 33%;
+    }
 }

@@ -1,9 +1,10 @@
 header{
     height: 10%;
-    width: 70%;
+    width: 65%;
+    position: absolute;
 }
 
-.contenu{
+#contenu{
     width: 160px;
     padding: 1px;
     background: $colour-secondary-coral;
@@ -11,11 +12,30 @@ header{
     font-weight: bold;
     line-height: 23px;
     text-align: center;
+    display: none;
 }
 
+.header-elements{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-top: 10px;
+    
+}
+
+.logo{
+    width: 30%;
+    display: flex;
+    img{
+        width: 60%;
+    }
+}
 
 nav{
+    width: 65%;
+    text-align: center;
     & ul{
+        padding-inline-start: 0px;
         & li{
             list-style-type: none;
             display: inline;
