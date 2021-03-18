@@ -43,6 +43,9 @@
     &__tagbox{
         font-size: 12px;
         margin-top: $margin-top-hero-tagbox;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         & a{
             color: $colour-primary-red;
         }

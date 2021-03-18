@@ -1,7 +1,12 @@
 header{
     height: 10%;
-    width: 65%;
+    width: 70%;
     position: absolute;
+    @include small{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 #contenu{
@@ -18,8 +23,14 @@ header{
 .header-elements{
     display: flex;
     height: 100%;
+    justify-content: space-around;
     align-items: center;
     margin-top: 10px;
+    @include small{
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
     
 }
 
@@ -27,19 +38,34 @@ header{
     width: 30%;
     display: flex;
     img{
-        width: 60%;
+        width: 150px;
+        @include medium{
+            width: 70%;
+        }
+        @include small{
+            width: 110px;
+            margin: 25PX 0 30PX 10PX;
+        }
+        @include xsmall{
+            width: 100%;
+        }
     }
 }
 
 nav{
-    width: 65%;
+    width: 60%;
     text-align: center;
-    & ul{
-        padding-inline-start: 0px;
-        & li{
-            list-style-type: none;
-            display: inline;
-            margin-right: 10px;
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    & a{
+        color: $colour-primary-red;
+    }
+    @include medium{
+        margin-right: 5%;
+    }
+    @include small{
+        width: 100%;
     }
 }
