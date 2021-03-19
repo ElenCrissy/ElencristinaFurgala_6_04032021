@@ -65,17 +65,22 @@ const JSONPhotographers = `{"photographers": [
 
 // Parser les données
 const parseJSONPhotographers = JSON.parse(JSONPhotographers);
+console.log(parseJSONPhotographers);
+
 // Récupérer données pertinentes
+
+for (let i = 0; i < parseJSONPhotographers.photographers.length; i += 1) {
+  console.log(parseJSONPhotographers.photographers[i]);
+}
 
 // Créer éléments DOM
 const section = document.querySelector('section');
-const hero = section.createElement('div');
+const hero = document.createElement('div');
 section.appendChild(hero).classList.add('hero');
 
 const heroLink = document.createElement('a');
-hero.appendChild(a).classList.add('hero-link');
-const photoProfile = heroLink.createElement('img');
-//photoProfile.src = '';
+hero.appendChild(heroLink).classList.add('hero-link');
+const photoProfile = document.createElement('img');
 heroLink.appendChild(photoProfile);
 const heroH2 = document.createElement('h2');
 heroLink.appendChild(heroH2);
@@ -83,16 +88,15 @@ heroLink.appendChild(heroH2);
 const heroInfo = document.createElement('div');
 hero.appendChild(heroInfo).classList.add('hero-info');
 
-const location = document.createElement('div').classList.add('hero-info__location');
+const location1 = document.createElement('div').classList.add('hero-info__location');
 const slogan = document.createElement('div').classList.add('hero-info__slogan');
 const price = document.createElement('div').classList.add('hero-info__price');
 const tagbox = document.createElement('div').classList.add('hero-info__tagbox');
-heroInfo.appendChild(location, slogan, price, tagbox);
+heroInfo.append(location1, slogan, price, tagbox);
 
 // Insérer les données
-// Attacher noeud DOM au document principal
 
-class Card {
+class Hero {
   constructor(photo, name, location, slogan, price, tagbox) {
     this.photo = photo;
     this.name = name;
@@ -103,12 +107,21 @@ class Card {
   }
 }
 
-const photographersCard = new Card('MimiKeel', 'mimi', 'paris', 'un deux trois', 13, '#sport');
+const photographersHero = new Hero('MimiKeel', 'mimi', 'paris', 'un deux trois', 13, '#sport');
 
-const parseJSON = JSON.parse(JSONPhotographers);
-for (let i = 0; i < 6; i++) {
-  console.log(parseJSON.photographers[i]);
+function createHero (heroLink, heroInfo){
+
+  for ()
+  function createHeroLink(photoProfile, heroH2){
+    photoProfile = 
+  }
+  function createHeroInfo(location1, slogan, price, tagbox){
+
+  }
+  return {heroLink, heroInfo};
 }
+
+// Attacher noeud DOM au document principal
 
 // Event - clic sur tag de la barre de navigation
 
