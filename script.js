@@ -1,84 +1,94 @@
-// JSON
-const JSONPhotographers = `{"photographers": [
-    {
-      "name": "Mimi Keel",
-      "id": 243,
-      "city": "London",
-      "country": "UK",
-      "tags": ["portrait", "events", "travel", "animals"],
-      "tagline": "Voir le beau dans le quotidien",
-      "price": 400,
-      "portrait": "MimiKeel.jpg"
-    },
-    {
-      "name": "Ellie-Rose Wilkens",
-      "id": 930,
-      "city": "Paris",
-      "country": "France",
-      "tags": ["sports", "architecture"],
-      "tagline": "Capturer des compositions complexes",
-      "price": 250,
-      "portrait": "EllieRoseWilkens.jpg"
-    },
-    {
-      "name": "Tracy Galindo",
-      "id": 82,
-      "city": "Montreal",
-      "country": "Canada",
-      "tags": ["art", "fashion", "events"],
-      "tagline": "Photographe freelance",
-      "price": 500,
-      "portrait": "TracyGalindo.jpg"
-    },
-    {
-      "name": "Nabeel Bradford",
-      "id": 527,
-      "city": "Mexico City",
-      "country": "Mexico",
-      "tags": ["travel", "portrait"],
-      "tagline": "Toujours aller de l'avant",
-      "price": 350,
-      "portrait": "NabeelBradford.jpg"
-    },
-    {
-      "name": "Rhode Dubois",
-      "id": 925,
-      "city": "Barcelona",
-      "country": "Spain",
-      "tags": ["sport", "fashion", "events", "animals"],
-      "tagline": "Je crée des souvenirs",
-      "price": 275,
-      "portrait": "RhodeDubois.jpg"
-    },
-    {
-      "name": "Marcel Nikolic",
-      "id": 195,
-      "city": "Berlin",
-      "country": "Germany",
-      "tags": ["travel", "architecture"],
-      "tagline": "Toujours à la recherche de LA photo",
-      "price": 300,
-      "portrait": "MarcelNikolic.jpg"
-    }
-  ]}`;
-
-// Elements DOM
-const carte = document.getElementsByClassName('carte');
-const carteLien = document.getElementsByClassName('carte__lien');
-const photoProfil = document.getElementsByClassName('photo-profil');
-const nom = document.querySelector('.nom');
-const carteInfo = document.getElementsByClassName('carte__info');
-const localisation = document.getElementsByClassName('localisation');
-const slogan = document.querySelector('.slogan');
-const prix = document.getElementsByClassName('prix');
-const tagbox = document.getElementsByClassName('tagbox');
-
 // INDEX
-// Hero photographe
 // Récupérer données
+const JSONPhotographers = `{"photographers": [
+  {
+    "name": "Mimi Keel",
+    "id": 243,
+    "city": "London",
+    "country": "UK",
+    "tags": ["portrait", "events", "travel", "animals"],
+    "tagline": "Voir le beau dans le quotidien",
+    "price": 400,
+    "portrait": "MimiKeel.jpg"
+  },
+  {
+    "name": "Ellie-Rose Wilkens",
+    "id": 930,
+    "city": "Paris",
+    "country": "France",
+    "tags": ["sports", "architecture"],
+    "tagline": "Capturer des compositions complexes",
+    "price": 250,
+    "portrait": "EllieRoseWilkens.jpg"
+  },
+  {
+    "name": "Tracy Galindo",
+    "id": 82,
+    "city": "Montreal",
+    "country": "Canada",
+    "tags": ["art", "fashion", "events"],
+    "tagline": "Photographe freelance",
+    "price": 500,
+    "portrait": "TracyGalindo.jpg"
+  },
+  {
+    "name": "Nabeel Bradford",
+    "id": 527,
+    "city": "Mexico City",
+    "country": "Mexico",
+    "tags": ["travel", "portrait"],
+    "tagline": "Toujours aller de l'avant",
+    "price": 350,
+    "portrait": "NabeelBradford.jpg"
+  },
+  {
+    "name": "Rhode Dubois",
+    "id": 925,
+    "city": "Barcelona",
+    "country": "Spain",
+    "tags": ["sport", "fashion", "events", "animals"],
+    "tagline": "Je crée des souvenirs",
+    "price": 275,
+    "portrait": "RhodeDubois.jpg"
+  },
+  {
+    "name": "Marcel Nikolic",
+    "id": 195,
+    "city": "Berlin",
+    "country": "Germany",
+    "tags": ["travel", "architecture"],
+    "tagline": "Toujours à la recherche de LA photo",
+    "price": 300,
+    "portrait": "MarcelNikolic.jpg"
+  }
+]}`;
+
 // Parser les données
+const parseJSONPhotographers = JSON.parse(JSONPhotographers);
 // Récupérer données pertinentes
+
 // Créer éléments DOM
+const section = document.querySelector('section');
+const hero = section.createElement('div');
+section.appendChild(hero).classList.add('hero');
+
+const heroLink = document.createElement('a');
+hero.appendChild(a).classList.add('hero-link');
+const photoProfile = heroLink.createElement('img');
+//photoProfile.src = '';
+heroLink.appendChild(photoProfile);
+const heroH2 = document.createElement('h2');
+heroLink.appendChild(heroH2);
+
+const heroInfo = document.createElement('div');
+hero.appendChild(heroInfo).classList.add('hero-info');
+
+const location = document.createElement('div').classList.add('hero-info__location');
+const slogan = document.createElement('div').classList.add('hero-info__slogan');
+const price = document.createElement('div').classList.add('hero-info__price');
+const tagbox = document.createElement('div').classList.add('hero-info__tagbox');
+heroInfo.appendChild(location, slogan, price, tagbox);
+
 // Insérer les données
 // Attacher noeud DOM au document principal
 
@@ -99,8 +109,6 @@ const parseJSON = JSON.parse(JSONPhotographers);
 for (let i = 0; i < 6; i++) {
   console.log(parseJSON.photographers[i]);
 }
-
-console.log(photographersCard);
 
 // Event - clic sur tag de la barre de navigation
 
