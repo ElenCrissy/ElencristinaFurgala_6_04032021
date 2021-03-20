@@ -14,7 +14,7 @@
     z-index: 2;
         &:after{
             display:block;
-            content:url(""); // photo-profile
+            content:url(""); // portrait
             position:absolute;
             top: calc(50% + 8px);
             left: calc(50% + 10px);

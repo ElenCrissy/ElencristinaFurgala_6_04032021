@@ -65,12 +65,12 @@ const JSONPhotographers = `{"photographers": [
 
 // Parser les données
 const parseJSONPhotographers = JSON.parse(JSONPhotographers);
-console.log(parseJSONPhotographers);
+// console.log(parseJSONPhotographers);
 
 // Récupérer données pertinentes
 
 for (let i = 0; i < parseJSONPhotographers.photographers.length; i += 1) {
-  console.log(parseJSONPhotographers.photographers[i]);
+  // console.log(parseJSONPhotographers.photographers[i]);
 }
 
 // Créer éléments DOM
@@ -78,11 +78,11 @@ const section = document.querySelector('section');
 const hero = document.createElement('div');
 section.appendChild(hero).classList.add('hero');
 
-const heroLink = document.createElement('a');
+const heroLink = document.createElement('a'); // aria-label
 hero.appendChild(heroLink).classList.add('hero-link');
-const photoProfile = document.createElement('img');
-heroLink.appendChild(photoProfile);
-const heroH2 = document.createElement('h2');
+const portrait = document.createElement('img');// .classList.add('portrait')
+heroLink.appendChild(portrait);
+const heroH2 = document.createElement('h2'); // .classList.add('name')
 heroLink.appendChild(heroH2);
 
 const heroInfo = document.createElement('div');
@@ -96,7 +96,7 @@ heroInfo.append(location1, slogan, price, tagbox);
 
 // Insérer les données
 
-class Hero {
+/* class Hero {
   constructor(photo, name, location, slogan, price, tagbox) {
     this.photo = photo;
     this.name = name;
@@ -105,27 +105,41 @@ class Hero {
     this.price = price;
     this.tagbox = tagbox;
   }
+} */
+
+class Hero {
+  constructor(heroLink, heroInfo) {
+    // Déclaration propriétés
+    this.heroLink = heroLink;
+    this.heroInfo = heroInfo;
+
+    // Déclaration méthodes
+    this.createHeroLink = function createHeroLink() {
+      this.portrait = portrait.setAttribute('src', 'parseJSONPhotographers.photographers[i].portrait');
+      this.heroH2.innerHTML = parseJSONPhotographers.photographers[i].name;
+    };
+    this.createHeroInfo = function createHeroInfo() {
+      this.location1.innerHTML = `${parseJSONPhotographers.photographers[i].city}${parseJSONPhotographers.photographers[i].country}`;
+    };
+    return { heroLink, heroInfo };
+  }
 }
 
-const photographersHero = new Hero('MimiKeel', 'mimi', 'paris', 'un deux trois', 13, '#sport');
-
-function createHero (heroLink, heroInfo){
-
-  for ()
-  function createHeroLink(photoProfile, heroH2){
-    photoProfile = 
-  }
-  function createHeroInfo(location1, slogan, price, tagbox){
-
-  }
-  return {heroLink, heroInfo};
-}
+const test = new Hero(parseJSONPhotographers.photographers);
+console.log(test);
 
 // Attacher noeud DOM au document principal
+document.appendChild(section);
 
 // Event - clic sur tag de la barre de navigation
+// si un tag est actif/cliqué
+// alors le reste display none
 
 // Event - clic sur vignette => page profil
+heroLink.addEventListener('click', pageProfil);
+function pageProfil() {
+  window.location = 'photographer-page.html';
+}
 
 // PAGE PROFIL
 
