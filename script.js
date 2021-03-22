@@ -65,35 +65,44 @@ const JSONPhotographers = `{"photographers": [
 
 // Parser les données
 const parseJSONPhotographers = JSON.parse(JSONPhotographers);
-// console.log(parseJSONPhotographers);
 
 // Récupérer données pertinentes
 
-const {photographers} = parseJSONPhotographers;
+var photographers = parseJSONPhotographers.photographers;
 
 for (let i = 0; i < photographers.length; i += 1) {
-  const infoPertinentes = `${photographers[i].name}
-  ${photographers[i].city}, ${photographers[i].country}
-  ${photographers[i].tagline}
-  ${photographers[i].price}€/jour
-  ${photographers[i].tags}`;
-  console.log(infoPertinentes);
+  var portraitData = photographers[i].portrait;
+  var nameData = photographers[i].name;
+  var locationData = `${photographers[i].city}, ${photographers[i].country}`;
+  var taglineData = photographers[i].tagline;
+  var priceData = photographers[i].price + '€/jour';
+  var tagsData = photographers[i].tags;
 }
 
 // Créer éléments DOM
-const section = document.querySelector('section');
-const hero = document.createElement('div').classList.add('hero');
+var section = document.querySelector('section');
+var hero = document.createElement('div');
+hero.classList.add('hero');
 
-const heroLink = document.createElement('a').classList.add('hero-link'); // aria-label
-const portrait = document.createElement('img').classList.add('portrait');
-const heroH2 = document.createElement('h2').classList.add('name');
+var heroLink = document.createElement('a'); // aria-label
+heroLink.classList.add('hero-link');
+var portrait = document.createElement('img');
+portrait.classList.add('portrait');
+var heroH2 = document.createElement('h2');
+heroH2.classList.add('name');
 
-const heroInfo = document.createElement('div').classList.add('hero-info');
-
-const location1 = document.createElement('div').classList.add('hero-info__location');
-const slogan = document.createElement('div').classList.add('hero-info__slogan');
-const price = document.createElement('div').classList.add('hero-info__price');
-const tagbox = document.createElement('div').classList.add('hero-info__tagbox');
+var heroInfo = document.createElement('div');
+heroInfo.classList.add('hero-info');
+var location1 = document.createElement('div');
+location1.classList.add('hero-info__location');
+var slogan = document.createElement('div');
+slogan.classList.add('hero-info__slogan');
+var price = document.createElement('div');
+price.classList.add('hero-info__price');
+var tagbox = document.createElement('div');
+tagbox.classList.add('hero-info__tagbox');
+var tag = document.createElement('div');
+tag.classList.add('tag');
 
 // Insérer les données
 
@@ -108,50 +117,40 @@ const tagbox = document.createElement('div').classList.add('hero-info__tagbox');
   }
 } */
 
-/* class Hero {
-  constructor(heroLink, heroInfo) {
-    // Déclaration propriétés
-    this.heroLink = heroLink;
-    this.heroInfo = heroInfo;
-
-    // Déclaration méthodes
-    this.createHeroLink = function createHeroLink() {
-      this.portrait = portrait.setAttribute('src', 'parseJSONPhotographers.photographers[i].portrait');
-      this.heroH2.innerHTML = parseJSONPhotographers.photographers[i].name;
-    };
-    this.createHeroInfo = function createHeroInfo() {
-      this.location1.innerHTML = `${parseJSONPhotographers.photographers[i].city}${parseJSONPhotographers.photographers[i].country}`;
-    };
-    return { heroLink, heroInfo };
-  }
-} */
-
-function showHero() {
+function createHero(parseJSONPhotographers) {
   for (let i = 0; i < photographers.length; i += 1) {
-    heroH2.textContent = photographers[i].name;
-    return {location1};
+    heroH2.innerHTML = nameData;
+    location1.innerHTML = locationData;
+    slogan.innerHTML = taglineData;
+    price.innerHTML = priceData;
+    tagbox.innerHTML = tagsData;
   }
+  console.log(heroH2, location1);
 }
-console.log(heroH2);
 
-// pour chaque photographe, créer un hero
+document.addEventListener('DOMContentLoaded', createHero);
 
 // Attacher noeuds DOM au document principal
-section.appendChild(hero);
 hero.appendChild(heroLink);
 heroLink.append(portrait, heroH2);
 hero.appendChild(heroInfo);
 heroInfo.append(location1, slogan, price, tagbox);
+tagbox.appendChild(tag);
+
+section.appendChild(hero);
 
 // Event - clic sur tag de la barre de navigation
 // si un tag est actif/cliqué
 // alors le reste display none
+function tagFilter() {
+  if()
+}
 
 // Event - clic sur vignette => page profil
-heroLink.addEventListener('click', pageProfil);
-function pageProfil() {
+function pageProfile() {
   window.location = 'photographer-page.html';
 }
+heroLink.addEventListener('click', pageProfile);
 
 // PAGE PROFIL
 
