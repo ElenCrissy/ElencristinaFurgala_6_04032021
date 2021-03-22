@@ -69,30 +69,31 @@ const parseJSONPhotographers = JSON.parse(JSONPhotographers);
 
 // Récupérer données pertinentes
 
-for (let i = 0; i < parseJSONPhotographers.photographers.length; i += 1) {
-  // console.log(parseJSONPhotographers.photographers[i]);
+const {photographers} = parseJSONPhotographers;
+
+for (let i = 0; i < photographers.length; i += 1) {
+  const infoPertinentes = `${photographers[i].name}
+  ${photographers[i].city}, ${photographers[i].country}
+  ${photographers[i].tagline}
+  ${photographers[i].price}€/jour
+  ${photographers[i].tags}`;
+  console.log(infoPertinentes);
 }
 
 // Créer éléments DOM
 const section = document.querySelector('section');
-const hero = document.createElement('div');
-section.appendChild(hero).classList.add('hero');
+const hero = document.createElement('div').classList.add('hero');
 
-const heroLink = document.createElement('a'); // aria-label
-hero.appendChild(heroLink).classList.add('hero-link');
-const portrait = document.createElement('img');// .classList.add('portrait')
-heroLink.appendChild(portrait);
-const heroH2 = document.createElement('h2'); // .classList.add('name')
-heroLink.appendChild(heroH2);
+const heroLink = document.createElement('a').classList.add('hero-link'); // aria-label
+const portrait = document.createElement('img').classList.add('portrait');
+const heroH2 = document.createElement('h2').classList.add('name');
 
-const heroInfo = document.createElement('div');
-hero.appendChild(heroInfo).classList.add('hero-info');
+const heroInfo = document.createElement('div').classList.add('hero-info');
 
 const location1 = document.createElement('div').classList.add('hero-info__location');
 const slogan = document.createElement('div').classList.add('hero-info__slogan');
 const price = document.createElement('div').classList.add('hero-info__price');
 const tagbox = document.createElement('div').classList.add('hero-info__tagbox');
-heroInfo.append(location1, slogan, price, tagbox);
 
 // Insérer les données
 
@@ -107,7 +108,7 @@ heroInfo.append(location1, slogan, price, tagbox);
   }
 } */
 
-class Hero {
+/* class Hero {
   constructor(heroLink, heroInfo) {
     // Déclaration propriétés
     this.heroLink = heroLink;
@@ -123,13 +124,24 @@ class Hero {
     };
     return { heroLink, heroInfo };
   }
+} */
+
+function showHero() {
+  for (let i = 0; i < photographers.length; i += 1) {
+    heroH2.textContent = photographers[i].name;
+    return {location1};
+  }
 }
+console.log(heroH2);
 
-const test = new Hero(parseJSONPhotographers.photographers);
-console.log(test);
+// pour chaque photographe, créer un hero
 
-// Attacher noeud DOM au document principal
-document.appendChild(section);
+// Attacher noeuds DOM au document principal
+section.appendChild(hero);
+hero.appendChild(heroLink);
+heroLink.append(portrait, heroH2);
+hero.appendChild(heroInfo);
+heroInfo.append(location1, slogan, price, tagbox);
 
 // Event - clic sur tag de la barre de navigation
 // si un tag est actif/cliqué
