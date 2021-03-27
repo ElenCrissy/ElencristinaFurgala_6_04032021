@@ -1,4 +1,5 @@
-header{
+// Header index
+.header-index{
     height: 10%;
     width: 70%;
     position: absolute;
@@ -26,12 +27,15 @@ header{
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;
+    @include medium{
+        margin-top: 0;
+    }
     @include small{
         flex-direction: column;
         align-items: flex-start;
         height: auto;
+        margin-top: 10px;
     }
-    
 }
 
 .logo{
@@ -69,3 +73,13 @@ nav{
         width: 100%;
     }
 }
+
+/* Header photographer-page
+
+.header-photographer-page{
+    width:100%;
+    margin: 20px 0;
+    & img{
+        width: 60%;
+    }
+}*/

@@ -64,95 +64,114 @@ const JSONPhotographers = `{"photographers": [
 ]}`;
 
 // Parser les données
-const parseJSONPhotographers = JSON.parse(JSONPhotographers);
+const dataPhotographers = JSON.parse(JSONPhotographers);
 
 // Récupérer données pertinentes
 
-var photographers = parseJSONPhotographers.photographers;
-
-for (let i = 0; i < photographers.length; i += 1) {
-  var portraitData = photographers[i].portrait;
-  var nameData = photographers[i].name;
-  var locationData = `${photographers[i].city}, ${photographers[i].country}`;
-  var taglineData = photographers[i].tagline;
-  var priceData = photographers[i].price + '€/jour';
-  var tagsData = photographers[i].tags;
-}
-
 // Créer éléments DOM
-var section = document.querySelector('section');
-var hero = document.createElement('div');
-hero.classList.add('hero');
-
-var heroLink = document.createElement('a'); // aria-label
-heroLink.classList.add('hero-link');
-var portrait = document.createElement('img');
-portrait.classList.add('portrait');
-var heroH2 = document.createElement('h2');
-heroH2.classList.add('name');
-
-var heroInfo = document.createElement('div');
-heroInfo.classList.add('hero-info');
-var location1 = document.createElement('div');
-location1.classList.add('hero-info__location');
-var slogan = document.createElement('div');
-slogan.classList.add('hero-info__slogan');
-var price = document.createElement('div');
-price.classList.add('hero-info__price');
-var tagbox = document.createElement('div');
-tagbox.classList.add('hero-info__tagbox');
-var tag = document.createElement('div');
-tag.classList.add('tag');
 
 // Insérer les données
+const section = document.querySelector('section');
 
-/* class Hero {
-  constructor(photo, name, location, slogan, price, tagbox) {
-    this.photo = photo;
-    this.name = name;
-    this.location = location;
-    this.slogan = slogan;
-    this.price = price;
-    this.tagbox = tagbox;
-  }
-} */
+function createCard() {
+  const { photographers } = dataPhotographers;
 
-function createHero(parseJSONPhotographers) {
   for (let i = 0; i < photographers.length; i += 1) {
-    heroH2.innerHTML = nameData;
-    location1.innerHTML = locationData;
-    slogan.innerHTML = taglineData;
-    price.innerHTML = priceData;
-    tagbox.innerHTML = tagsData;
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const cardLink = document.createElement('a'); // aria-label
+    cardLink.classList.add('card-link');
+
+    const portrait = document.createElement('img');
+    portrait.classList.add('portrait');
+
+    const cardH2 = document.createElement('h2');
+    cardH2.classList.add('name');
+
+    const cardInfo = document.createElement('div');
+    cardInfo.classList.add('card-info');
+
+    const location1 = document.createElement('div');
+    location1.classList.add('card-info__location');
+
+    const slogan = document.createElement('div');
+    slogan.classList.add('card-info__slogan');
+
+    const price = document.createElement('div');
+    price.classList.add('card-info__price');
+
+    const tagBox = document.createElement('div');
+    tagBox.classList.add('card-info__tagbox');
+
+    const cardTag = document.createElement('div');
+    cardTag.classList.add('tag');
+    const portraitData = photographers[i].portrait;
+    const nameData = photographers[i].name;
+    // const nameContent = document.createTextNode('nameData');
+    const locationData = `${photographers[i].city}, ${photographers[i].country}`;
+    const taglineData = photographers[i].tagline;
+    const priceData = `${photographers[i].price}€/jour`;
+    const tagsData = photographers[i].tags;
+
+    portrait.src = 'images/Sample_Photos/Photographers_ID_Photos/' + `${portraitData}`;
+    cardH2.textContent = nameData;
+    location1.textContent = locationData;
+    slogan.textContent = taglineData;
+    price.textContent = priceData;
+
+    for (let j = 0; j < tagsData.length; j += 1) {
+      cardTag.textContent = `#${tagsData[j]}`;
+      tagBox.textContent = cardTag;
+    }
+
+    // Attacher noeuds DOM au document principal
+    card.appendChild(cardLink);
+    cardLink.append(portrait, cardH2);
+    card.appendChild(cardInfo);
+    cardInfo.append(location1, slogan, price, tagBox);
+    tagBox.appendChild(cardTag);
+    section.appendChild(card);
   }
-  console.log(heroH2, location1);
 }
 
-document.addEventListener('DOMContentLoaded', createHero);
+// Event - clic navigation tag
 
-// Attacher noeuds DOM au document principal
-hero.appendChild(heroLink);
-heroLink.append(portrait, heroH2);
-hero.appendChild(heroInfo);
-heroInfo.append(location1, slogan, price, tagbox);
-tagbox.appendChild(tag);
-
-section.appendChild(hero);
-
-// Event - clic sur tag de la barre de navigation
-// si un tag est actif/cliqué
-// alors le reste display none
-function tagFilter() {
-  if()
+function getRelevantData(navTag) {
+  if (navTag === undefined) {
+    return dataPhotographers.photographers;
+  }
+  dataPhotographers.photographers.filters();
+  const relevantData = [];
+  for (let i = 0; i < dataPhotographers.photographers.length; i += 1) {
+    const photographer = dataPhotographers.photographers[i];
+    if (photographer.tags.includes(navTag)) {
+      relevantData.push(photographer);
+    }
+  }
+  return relevantData;
 }
+
+window.onload = () => {
+  createCard();
+};
+
+const navigationItem = document.createElement('div');
+navigationItem.classList.add('navigation-item');
+navigationItem.addEventListener('click', getRelevantData);
 
 // Event - clic sur vignette => page profil
-function pageProfile() {
+function navigateToPageProfile() {
   window.location = 'photographer-page.html';
 }
-heroLink.addEventListener('click', pageProfile);
+// cardLink non défini
+cardLink.addEventListener('click', navigateToPageProfile);
 
 // PAGE PROFIL
+/* function navigateToIndex() {
+  window.location = 'index.html';
+}
+??.addEventListener('click', navigateToIndex); */
 
 // Média
 

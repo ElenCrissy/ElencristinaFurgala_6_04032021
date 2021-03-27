@@ -8,15 +8,10 @@
     border-radius: 11px;
     margin: 2px;
     padding: 3px 4px;
-    a{
-        color: $colour-primary-red;
-    }
-    &:hover{
+    color: $colour-primary-red;
+    &:hover {
         background-color: $colour-primary-red;
         color: white;
-        a{
-            color: white;
-        }
     }
 }
 

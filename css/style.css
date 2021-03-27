@@ -38,15 +38,10 @@ h2 {
   border-radius: 11px;
   margin: 2px;
   padding: 3px 4px;
-}
-.tag a {
   color: #901C1C;
 }
 .tag:hover {
   background-color: #901C1C;
-  color: white;
-}
-.tag:hover a {
   color: white;
 }
 
@@ -63,14 +58,14 @@ h2 {
   white-space: nowrap !important;
 }
 
-.hero {
+.card {
   text-align: center;
   height: 350px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.hero img {
+.card img {
   overflow: hidden;
   width: 170px;
   height: 170px;
@@ -79,7 +74,7 @@ h2 {
   position: relative;
   z-index: 2;
 }
-.hero img:after {
+.card img:after {
   display: block;
   content: url("");
   position: absolute;
@@ -91,37 +86,43 @@ h2 {
   opacity: 0.85;
 }
 
-.hero-info__location {
+.card-info__location {
   color: #901C1C;
   font-size: 13px;
 }
-.hero-info__slogan {
+.card-info__slogan {
   font-size: 10px;
   margin-top: 5px;
 }
-.hero-info__price {
+.card-info__price {
   font-size: 9px;
   color: #757575;
   margin-top: 5px;
 }
-.hero-info__tagbox {
+.card-info__tagbox {
   font-size: 12px;
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
-.hero-info__tagbox a {
-  color: #901C1C;
+
+.hero-photographer-page {
+  width: 100%;
+  background-color: #FAFAFA;
+  border-radius: 5px;
+}
+.hero-photographer-page img {
+  display: none;
 }
 
-header {
+.header-index {
   height: 10%;
   width: 70%;
   position: absolute;
 }
 @media screen and (max-width: 670px) {
-  header {
+  .header-index {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -146,11 +147,17 @@ header {
   align-items: center;
   margin-top: 10px;
 }
+@media screen and (max-width: 1015px) {
+  .header-elements {
+    margin-top: 0;
+  }
+}
 @media screen and (max-width: 670px) {
   .header-elements {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
+    margin-top: 10px;
   }
 }
 
@@ -200,6 +207,15 @@ nav a {
   }
 }
 
+/* Header photographer-page
+
+.header-photographer-page{
+    width:100%;
+    margin: 20px 0;
+    & img{
+        width: 60%;
+    }
+}*/
 h1 {
   text-align: right;
   height: 100px;
@@ -234,16 +250,16 @@ section {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-section .hero {
+section .card {
   width: 33%;
 }
 @media screen and (max-width: 1015px) {
-  section .hero {
+  section .card {
     width: 50%;
   }
 }
 @media screen and (max-width: 670px) {
-  section .hero {
+  section .card {
     width: 100%;
   }
 }

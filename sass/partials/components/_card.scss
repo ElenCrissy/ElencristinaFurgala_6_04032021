@@ -1,4 +1,6 @@
-.hero{
+// Card index
+
+.card{
     text-align: center;
     height: 350px;
     display: flex;
@@ -26,7 +28,7 @@
     }
 }
 
-.hero-info{
+.card-info{
     &__location{
         color: $colour-primary-red;
         font-size: 13px;
@@ -46,8 +48,16 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        & a{
-            color: $colour-primary-red;
-        }
+    }
+}
+
+// Hero photographer page
+
+.hero-photographer-page{
+    width: 100%;
+    background-color:$colour-secondary-lightgrey;
+    border-radius: 5px;
+    & img{
+        display: none;
     }
 }
