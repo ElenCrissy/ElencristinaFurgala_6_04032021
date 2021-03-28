@@ -12,22 +12,6 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  font-weight: normal;
-  font-size: 28px;
-  line-height: 47px;
-  color: #901C1C;
-}
-
-h2 {
-  font-weight: normal;
-  font-size: 36px;
-  line-height: 47px;
-  text-align: center;
-  color: #D3573C;
-  margin: 0;
-}
-
 .tag {
   padding: 3px;
   font-weight: bold;
@@ -86,20 +70,29 @@ h2 {
   opacity: 0.85;
 }
 
-.card-info__location {
+.name {
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 47px;
+  text-align: center;
+  color: #D3573C;
+  margin: 0;
+}
+
+.info > .location {
   color: #901C1C;
   font-size: 13px;
 }
-.card-info__slogan {
+.info > .slogan {
   font-size: 10px;
   margin-top: 5px;
 }
-.card-info__price {
+.info > .price {
   font-size: 9px;
   color: #757575;
   margin-top: 5px;
 }
-.card-info__tagbox {
+.info > .tagbox {
   font-size: 12px;
   margin-top: 10px;
   display: flex;
@@ -108,12 +101,55 @@ h2 {
 }
 
 .hero-photographer-page {
-  width: 100%;
+  padding: 30px;
   background-color: #FAFAFA;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 .hero-photographer-page img {
-  display: none;
+  overflow: hidden;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+.hero-photographer-page img:after {
+  display: block;
+  content: url("");
+  position: absolute;
+  top: calc(50% + 8px);
+  left: calc(50% + 10px);
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  filter: blur(10px);
+  opacity: 0.85;
+}
+
+.hero-photographer-page .info > .name {
+  text-align: left;
+}
+.hero-photographer-page .info > .location {
+  margin-bottom: 15px;
+}
+.hero-photographer-page .info > .slogan {
+  margin-bottom: 15px;
+}
+.hero-photographer-page .info > .tagbox {
+  justify-content: flex-start;
+}
+
+.btn-contact {
+  background-color: darkred;
+  color: white;
+  font-weight: bold;
+  padding: 15px 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: small;
+  letter-spacing: 1px;
 }
 
 .header-index {
@@ -207,16 +243,19 @@ nav a {
   }
 }
 
-/* Header photographer-page
+.header-photographer-page {
+  width: 100%;
+  margin: 20px 0;
+}
+.header-photographer-page img {
+  width: 60%;
+}
 
-.header-photographer-page{
-    width:100%;
-    margin: 20px 0;
-    & img{
-        width: 60%;
-    }
-}*/
-h1 {
+.nos-photographes {
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 47px;
+  color: #901C1C;
   text-align: right;
   height: 100px;
   display: flex;
@@ -225,19 +264,19 @@ h1 {
   margin: 0 10px 0 0;
 }
 @media screen and (max-width: 1015px) {
-  h1 {
+  .nos-photographes {
     height: 130px;
     font-size: 22px;
   }
 }
 @media screen and (max-width: 670px) {
-  h1 {
+  .nos-photographes {
     height: 100px;
     margin-bottom: 60px;
   }
 }
 @media screen and (max-width: 375px) {
-  h1 {
+  .nos-photographes {
     height: 90px;
     margin-bottom: 70px;
     font-size: 16px;

@@ -32,14 +32,14 @@ const JSONPhotographers = `{"photographers": [
     "portrait": "TracyGalindo.jpg"
   },
   {
-    "name": "Nabeel Bradford",
+    "name": "Nabeel Brandford",
     "id": 527,
     "city": "Mexico City",
     "country": "Mexico",
     "tags": ["travel", "portrait"],
     "tagline": "Toujours aller de l'avant",
     "price": 350,
-    "portrait": "NabeelBradford.jpg"
+    "portrait": "NabeelBrandford.jpg"
   },
   {
     "name": "Rhode Dubois",
@@ -82,6 +82,7 @@ function createCard() {
 
     const cardLink = document.createElement('a'); // aria-label
     cardLink.classList.add('card-link');
+    cardLink.setAttribute('href', 'photographer-page.html');
 
     const portrait = document.createElement('img');
     portrait.classList.add('portrait');
@@ -90,22 +91,23 @@ function createCard() {
     cardH2.classList.add('name');
 
     const cardInfo = document.createElement('div');
-    cardInfo.classList.add('card-info');
+    cardInfo.classList.add('info');
 
     const location1 = document.createElement('div');
-    location1.classList.add('card-info__location');
+    location1.classList.add('location');
 
     const slogan = document.createElement('div');
-    slogan.classList.add('card-info__slogan');
+    slogan.classList.add('slogan');
 
     const price = document.createElement('div');
-    price.classList.add('card-info__price');
+    price.classList.add('price');
 
     const tagBox = document.createElement('div');
-    tagBox.classList.add('card-info__tagbox');
+    tagBox.classList.add('tagbox');
 
     const cardTag = document.createElement('div');
     cardTag.classList.add('tag');
+
     const portraitData = photographers[i].portrait;
     const nameData = photographers[i].name;
     // const nameContent = document.createTextNode('nameData');
@@ -161,10 +163,16 @@ navigationItem.classList.add('navigation-item');
 navigationItem.addEventListener('click', getRelevantData);
 
 // Event - clic sur vignette => page profil
+
 function navigateToPageProfile() {
   window.location = 'photographer-page.html';
+  displayPhotographer();
 }
-// cardLink non défini
+
+function displayPhotographer(photographerLink) {
+  photographerLink.cardLink
+}
+
 cardLink.addEventListener('click', navigateToPageProfile);
 
 // PAGE PROFIL
