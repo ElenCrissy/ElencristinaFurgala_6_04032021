@@ -100,14 +100,21 @@ a {
   justify-content: center;
 }
 
-.hero-photographer-page {
+.hero {
   padding: 30px;
   background-color: #FAFAFA;
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
 }
-.hero-photographer-page img {
+.hero > .hero-button, .hero .hero-image {
+  width: 30%;
+}
+.hero > .hero-image {
+  display: flex;
+  justify-content: flex-end;
+}
+.hero img {
   overflow: hidden;
   width: 170px;
   height: 170px;
@@ -116,7 +123,7 @@ a {
   position: relative;
   z-index: 2;
 }
-.hero-photographer-page img:after {
+.hero img:after {
   display: block;
   content: url("");
   position: absolute;
@@ -128,16 +135,16 @@ a {
   opacity: 0.85;
 }
 
-.hero-photographer-page .info > .name {
+.hero .info > .name {
   text-align: left;
 }
-.hero-photographer-page .info > .location {
+.hero .info > .location {
   margin-bottom: 15px;
 }
-.hero-photographer-page .info > .slogan {
+.hero .info > .slogan {
   margin-bottom: 15px;
 }
-.hero-photographer-page .info > .tagbox {
+.hero .info > .tagbox {
   justify-content: flex-start;
 }
 
@@ -248,7 +255,7 @@ nav a {
   margin: 20px 0;
 }
 .header-photographer-page img {
-  width: 60%;
+  width: 150px;
 }
 
 .nos-photographes {

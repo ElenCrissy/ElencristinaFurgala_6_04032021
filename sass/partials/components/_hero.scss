@@ -1,11 +1,18 @@
-// Hero photographer page
+// Hero
 
-.hero-photographer-page{
+.hero{
     padding: 30px;
     background-color:$colour-secondary-lightgrey;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
+    & > .hero-button, .hero-image{
+        width: 30%;
+    }
+    & > .hero-image{
+        display: flex;
+        justify-content: flex-end;
+    }
     & img{
         overflow: hidden;
         width: 170px;
@@ -28,7 +35,7 @@
         }
 }
 
-.hero-photographer-page .info{
+.hero .info{
     & > .name{
         text-align: left;
     }
