@@ -1,15 +1,19 @@
 // Hero
 
 .hero{
+    height: 170px;
     padding: 30px;
     background-color:$colour-secondary-lightgrey;
     border-radius: 5px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    & > .hero-button, .hero-image{
+    & > .hero-button{
         width: 30%;
-    }
+        height: 70%;
+        }
     & > .hero-image{
+        width: 30%;
         display: flex;
         justify-content: flex-end;
     }

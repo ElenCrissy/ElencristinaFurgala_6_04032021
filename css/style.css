@@ -42,6 +42,22 @@ a {
   white-space: nowrap !important;
 }
 
+.bottom-box {
+  width: 200px;
+  height: 40px;
+  background-color: #DB8876;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: fixed;
+  bottom: 0;
+  right: 100px;
+}
+
 .card {
   text-align: center;
   height: 350px;
@@ -101,16 +117,20 @@ a {
 }
 
 .hero {
+  height: 170px;
   padding: 30px;
   background-color: #FAFAFA;
   border-radius: 5px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
-.hero > .hero-button, .hero .hero-image {
+.hero > .hero-button {
   width: 30%;
+  height: 70%;
 }
 .hero > .hero-image {
+  width: 30%;
   display: flex;
   justify-content: flex-end;
 }
@@ -153,10 +173,38 @@ a {
   color: white;
   font-weight: bold;
   padding: 15px 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   font-size: small;
   letter-spacing: 1px;
+}
+
+.photo {
+  width: 28%;
+  height: 350px;
+}
+.photo img {
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+}
+
+.photo-info {
+  width: 100%;
+  display: flex;
+  font-size: 18px;
+  color: #901C1C;
+}
+.photo-info__text {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+.photo-info__heart {
+  width: 20%;
+  text-align: right;
 }
 
 .header-index {
@@ -308,6 +356,32 @@ section .card {
   section .card {
     width: 100%;
   }
+}
+
+.photo-filter {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 30px 0;
+}
+.photo-filter label {
+  margin-right: 20px;
+}
+.photo-filter > #filter {
+  width: 170px;
+  height: 50px;
+  color: white;
+  background-color: #901C1C;
+  border-radius: 5px;
+}
+
+.filter-value {
+  font-family: "DM Sans", sans-serif;
+}
+
+.photo-gallery {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 /*# sourceMappingURL=style.css.map */

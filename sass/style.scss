@@ -4,9 +4,12 @@
 @import "partials/base/base"; //base : fondation du site//
 
 @import "partials/components/tag"; //components : blocs BEM indépendants//
+@import "partials/components/box";
 @import "partials/components/card";
 @import "partials/components/hero";
 @import "partials/components/button";
+@import "partials/components/photo";
 
 @import "partials/layout/header"; //layouts : blocs BEM//
 @import "partials/layout/index-main";
+@import "partials/layout/photo-gallery";

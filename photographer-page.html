@@ -6,7 +6,7 @@
         <title>FishEye - Profil photographe</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="fontawesome/css/all.min.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -39,6 +39,66 @@
             </div>
 
             <div class="gallery"></div>
+                <div class="photo-filter">
+                    <label for="filter">Trier par</label>
+                    <select name="filter" id="filter">
+                        <option value="popularity" selected class="filter-value">Popularité</option>
+                        <option value="date" class="filter-value">Date</option>
+                        <option value="title" class="filter-value">Titre</option>
+                    </select>
+                </div>
+
+                <div class="photo-gallery">
+                    <div class="photo">
+                        <img src="images/Sample_Photos/Mimi/Animals_Rainbow.jpg" alt="">
+                        <div class="photo-info">
+                            <div class="photo-info__text">
+                                <div class="title">
+                                    Animals Rainbow
+                                </div>
+                                <div class="photo-price">
+                                    70€
+                                </div>
+                            </div>
+                            <div class="photo-info__heart">8 <i class="fas fa-heart"></i></div>
+                        </div>                  
+                    </div>
+
+                    <div class="photo">
+                        <img src="images/Sample_Photos/Mimi/Event_BenevidesWedding.jpg" alt="">
+                        <div class="photo-info">
+                            <div class="photo-info__text">
+                                <div class="title">
+                                    Mariage Benevides
+                                </div>
+                                <div class="photo-price">
+                                    70€
+                                </div>
+                            </div>
+                            <div class="photo-info__heart">12 <i class="fas fa-heart"></i></div>
+                        </div>                  
+                    </div>
+
+                    <div class="photo">
+                        <img src="images/Sample_Photos/Mimi/Event_PintoWedding.jpg" alt="">
+                        <div class="photo-info">
+                            <div class="photo-info__text">
+                                <div class="title">
+                                    Mariage Pinto
+                                </div>
+                                <div class="photo-price">
+                                    70€
+                                </div>
+                            </div>
+                            <div class="photo-info__heart">45 <i class="fas fa-heart"></i></div>
+                        </div>                  
+                    </div>
+                </div>
+
+            <div class="bottom-box">
+                <div class="rating">297 081 <i class="fas fa-heart"></i></div>
+                <div class="price-per-day"> 300€/jour</div>
+            </div>
         </main>
         
         <script src="script.js"></script>
