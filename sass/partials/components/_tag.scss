@@ -9,10 +9,11 @@
     margin: 2px;
     padding: 3px 4px;
     color: $colour-primary-red;
-    &:hover {
-        background-color: $colour-primary-red;
-        color: white;
-    }
+}
+
+.active, button:hover{
+    background-color: $colour-primary-red;
+    color: white;
 }
 
 .sr-only{
