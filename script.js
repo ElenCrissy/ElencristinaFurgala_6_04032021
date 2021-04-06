@@ -611,6 +611,8 @@ const jsonData = `{"photographers": [
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
 
+const navTags = document.querySelectorAll('.tag');
+
 function getRelevantPhotographers(filterTag) {
   if (filterTag === undefined) {
     return photographers;
@@ -630,10 +632,69 @@ function getRelevantPhotographers(filterTag) {
   return filteredPhotographers;
 }
 
-const navTags = document.querySelectorAll('.tag');
-
 // Pour chaque clic sur un navTag, je lui ajoute une classe "active" et que je retire la classe
 // "active" des autres navTag
+
+function displayRelevantCards(selectedTag) {
+  const section = document.querySelector('#section-homepage');
+  const relevantPhotographers = getRelevantPhotographers(selectedTag);
+  while (section.firstChild) {
+    section.removeChild(section.firstChild);
+  }
+  relevantPhotographers.forEach((relevantPhotographer) => {
+    const card = createCard(relevantPhotographer);
+    section.appendChild(card);
+  });
+}
+
+function createCard(photographer) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const cardLink = document.createElement('a'); // aria-label
+  cardLink.classList.add('card-link');
+  cardLink.setAttribute('href', 'photographer-page.html');
+
+  const portrait = document.createElement('img');
+  portrait.classList.add('portrait');
+
+  const cardH2 = document.createElement('h2');
+  cardH2.classList.add('name');
+
+  const cardInfo = document.createElement('div');
+  cardInfo.classList.add('info');
+
+  const location1 = document.createElement('div');
+  location1.classList.add('location');
+
+  const slogan = document.createElement('div');
+  slogan.classList.add('slogan');
+
+  const price = document.createElement('div');
+  price.classList.add('price');
+
+  const tagBox = document.createElement('div');
+  tagBox.classList.add('tagbox');
+
+  const nameData = document.createTextNode(photographer.name);
+  const locationData = document.createTextNode(`${photographer.city}, ${photographer.country}`);
+  const taglineData = document.createTextNode(photographer.tagline);
+  const priceData = document.createTextNode(`${photographer.price}€/jour`);
+  const tag1 = document.createTextNode(`${photographer.tags}`);
+
+  portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
+  cardH2.appendChild(nameData);
+  location1.appendChild(locationData);
+  slogan.appendChild(taglineData);
+  price.appendChild(priceData);
+
+  card.appendChild(cardLink);
+  cardLink.append(portrait, cardH2);
+  card.appendChild(cardInfo);
+  cardInfo.append(location1, slogan, price, tagBox);
+  tagBox.appendChild(tag1);
+  return card;
+}
 
 navTags.forEach((navTag) => {
   navTag.addEventListener('click', () => {
@@ -644,68 +705,17 @@ navTags.forEach((navTag) => {
     // Je veux le contenu à partir de l'index 1
     const navTagWord = navTagText.slice(1);
     console.log('show me navtagtext', navTagWord);
-    navTag.addEventListener('click', getRelevantPhotographers(navTagWord));
-    createCard();
+    displayRelevantCards(navTagWord);
   });
 });
 
-function createCard(photographersArray) {
-  for (let i = 0; i < photographersArray.length; i += 1) {
-    const section = document.querySelector('section');
-    const card = document.createElement('div');
-    card.classList.add('card');
-
-    const cardLink = document.createElement('a'); // aria-label
-    cardLink.classList.add('card-link');
-    cardLink.setAttribute('href', 'photographer-page.html');
-
-    const portrait = document.createElement('img');
-    portrait.classList.add('portrait');
-
-    const cardH2 = document.createElement('h2');
-    cardH2.classList.add('name');
-
-    const cardInfo = document.createElement('div');
-    cardInfo.classList.add('info');
-
-    const location1 = document.createElement('div');
-    location1.classList.add('location');
-
-    const slogan = document.createElement('div');
-    slogan.classList.add('slogan');
-
-    const price = document.createElement('div');
-    price.classList.add('price');
-
-    const tagBox = document.createElement('div');
-    tagBox.classList.add('tagbox');
-
-    const nameData = document.createTextNode(photographersArray[i].name);
-    const locationData = document.createTextNode(`${photographersArray[i].city}, ${photographersArray[i].country}`);
-    const taglineData = document.createTextNode(photographersArray[i].tagline);
-    const priceData = document.createTextNode(`${photographersArray[i].price}€/jour`);
-    const tag1 = document.createTextNode(`${photographersArray[i].tags}`);
-
-    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographersArray[i].portrait}`;
-    cardH2.appendChild(nameData);
-    location1.appendChild(locationData);
-    slogan.appendChild(taglineData);
-    price.appendChild(priceData);
-
-    card.appendChild(cardLink);
-    cardLink.append(portrait, cardH2);
-    card.appendChild(cardInfo);
-    cardInfo.append(location1, slogan, price, tagBox);
-    tagBox.appendChild(tag1);
-    section.appendChild(card);
-  }
-}
-
-createCard();
+window.onload = () => {
+  displayRelevantCards();
+};
 
 // Event - clic sur vignette => page profil
 
-/* function navigateToPageProfile() {
+function navigateToPageProfile() {
   window.location = 'photographer-page.html';
   displayPhotographer();
 }
@@ -714,7 +724,7 @@ function displayPhotographer(photographerLink) {
   photographerLink.cardLink
 }
 
-cardLink.addEventListener('click', navigateToPageProfile); */
+cardLink.addEventListener('click', navigateToPageProfile);
 
 // PAGE PROFIL
 /* function navigateToIndex() {
