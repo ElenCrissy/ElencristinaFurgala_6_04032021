@@ -611,37 +611,46 @@ const jsonData = `{"photographers": [
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
 
-function getRelevantData(navTag) {
-  if (navTag === undefined) {
+function getRelevantPhotographers(filterTag) {
+  if (filterTag === undefined) {
     return photographers;
   }
-  photographers.filter();
-  const relevantData = [];
-  for (let i = 0; i < photographers.length; i += 1) {
-    const photographer = photographers[i];
-    if (photographer.tags.includes(navTag)) {
-      relevantData.push(photographer);
-    }
-  }
-  console.log(relevantData);
-  return relevantData;
+  // const relevantPhotographers = [];
+  // for (let i = 0; i < photographers.length; i += 1) {
+  //   const photographer = photographers[i];
+  //   console.log('show me photographer', photographer);
+  //   if (photographer.tags.includes(filterTag)) {
+  //     relevantPhotographers.push(photographer);
+  //   }
+  //   return relevantPhotographers;
+  // }
+  // eslint-disable-next-line max-len
+  const filteredPhotographers = photographers.filter((photographer) => photographer.tags.includes(filterTag));
+  console.log('show me filteredPhotographers', filteredPhotographers);
+  return filteredPhotographers;
 }
 
 const navTags = document.querySelectorAll('.tag');
 
+// Pour chaque clic sur un navTag, je lui ajoute une classe "active" et que je retire la classe
+// "active" des autres navTag
+
 navTags.forEach((navTag) => {
   navTag.addEventListener('click', () => {
-    navTags.forEach((nvTag) => nvTag.classList.remove('active'));
+    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
     navTag.classList.add('active');
+    // Je veux récupérer le contenu du navTag ayant la classe "active"
+    const navTagText = navTag.innerText;
+    // Je veux le contenu à partir de l'index 1
+    const navTagWord = navTagText.slice(1);
+    console.log('show me navtagtext', navTagWord);
+    navTag.addEventListener('click', getRelevantPhotographers(navTagWord));
+    createCard();
   });
 });
 
-for (let j = 0; j < navTags.length; j += 1) {
-  navTags[j].addEventListener('click', getRelevantData);
-}
-
-function createCard() {
-  for (let i = 0; i < photographers.length; i += 1) {
+function createCard(photographersArray) {
+  for (let i = 0; i < photographersArray.length; i += 1) {
     const section = document.querySelector('section');
     const card = document.createElement('div');
     card.classList.add('card');
@@ -671,13 +680,13 @@ function createCard() {
     const tagBox = document.createElement('div');
     tagBox.classList.add('tagbox');
 
-    const nameData = document.createTextNode(photographers[i].name);
-    const locationData = document.createTextNode(`${photographers[i].city}, ${photographers[i].country}`);
-    const taglineData = document.createTextNode(photographers[i].tagline);
-    const priceData = document.createTextNode(`${photographers[i].price}€/jour`);
-    const tag1 = document.createTextNode(`${photographers[i].tags}`);
+    const nameData = document.createTextNode(photographersArray[i].name);
+    const locationData = document.createTextNode(`${photographersArray[i].city}, ${photographersArray[i].country}`);
+    const taglineData = document.createTextNode(photographersArray[i].tagline);
+    const priceData = document.createTextNode(`${photographersArray[i].price}€/jour`);
+    const tag1 = document.createTextNode(`${photographersArray[i].tags}`);
 
-    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographers[i].portrait}`;
+    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographersArray[i].portrait}`;
     cardH2.appendChild(nameData);
     location1.appendChild(locationData);
     slogan.appendChild(taglineData);
