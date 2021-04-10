@@ -1,12 +1,6 @@
-// INDEX
+// ------------------- INDEX -------------------
 
-// Récupérer données
-// Parser les données
-// Récupérer données pertinentes
-// Créer éléments DOM
-// Insérer les données
-// Attacher noeuds DOM au document principal
-
+// Je récupère les données
 const jsonData = `{"photographers": [
     {
       "name": "Mimi Keel",
@@ -608,52 +602,43 @@ const jsonData = `{"photographers": [
     }
   ]
   }`;
+// Je parse les données
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
 
-const navTags = document.querySelectorAll('.tag');
-
+// Je récupère les données des photographes pertinents
 function getRelevantPhotographers(filterTag) {
+  // Si je n'ai pas défini de tag, je renvoie tous les photographes
   if (filterTag === undefined) {
     return photographers;
   }
-  // const relevantPhotographers = [];
-  // for (let i = 0; i < photographers.length; i += 1) {
-  //   const photographer = photographers[i];
-  //   console.log('show me photographer', photographer);
-  //   if (photographer.tags.includes(filterTag)) {
-  //     relevantPhotographers.push(photographer);
-  //   }
-  //   return relevantPhotographers;
-  // }
+  /* const relevantPhotographers = [];
+  for (let i = 0; i < photographers.length; i += 1) {
+    const photographer = photographers[i];
+    console.log('show me photographer', photographer);
+    if (photographer.tags.includes(filterTag)) {
+      relevantPhotographers.push(photographer);
+    }
+    return relevantPhotographers;
+  } */
+
+  // Je filtre le tableau photographes pour savoir,
+  // si chacun des photographes a ou non le tag que l'on cherche
   // eslint-disable-next-line max-len
   const filteredPhotographers = photographers.filter((photographer) => photographer.tags.includes(filterTag));
-  console.log('show me filteredPhotographers', filteredPhotographers);
   return filteredPhotographers;
 }
 
-// Pour chaque clic sur un navTag, je lui ajoute une classe "active" et que je retire la classe
-// "active" des autres navTag
-
-function displayRelevantCards(selectedTag) {
-  const section = document.querySelector('#section-homepage');
-  const relevantPhotographers = getRelevantPhotographers(selectedTag);
-  while (section.firstChild) {
-    section.removeChild(section.firstChild);
-  }
-  relevantPhotographers.forEach((relevantPhotographer) => {
-    const card = createCard(relevantPhotographer);
-    section.appendChild(card);
-  });
-}
-
+// Je crée une carte de photographes
 function createCard(photographer) {
+  // Je crée les conteneurs
   const card = document.createElement('div');
   card.classList.add('card');
 
   const cardLink = document.createElement('a'); // aria-label
   cardLink.classList.add('card-link');
-  cardLink.setAttribute('href', 'photographer-page.html');
+  const { id } = photographer;
+  cardLink.setAttribute('href', `./photographer-page.html?${id}`);
 
   const portrait = document.createElement('img');
   portrait.classList.add('portrait');
@@ -676,55 +661,109 @@ function createCard(photographer) {
   const tagBox = document.createElement('div');
   tagBox.classList.add('tagbox');
 
-  const nameData = document.createTextNode(photographer.name);
-  const locationData = document.createTextNode(`${photographer.city}, ${photographer.country}`);
-  const taglineData = document.createTextNode(photographer.tagline);
-  const priceData = document.createTextNode(`${photographer.price}€/jour`);
-  const tag1 = document.createTextNode(`${photographer.tags}`);
-
+  // J'insère les données
   portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
-  cardH2.appendChild(nameData);
-  location1.appendChild(locationData);
-  slogan.appendChild(taglineData);
-  price.appendChild(priceData);
+  cardH2.appendChild(document.createTextNode(photographer.name));
+  location1.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
+  slogan.appendChild(document.createTextNode(photographer.tagline));
+  price.appendChild(document.createTextNode(`${photographer.price}€/jour`));
 
+  // J'attache aux noeuds DOM du document principal
   card.appendChild(cardLink);
   cardLink.append(portrait, cardH2);
   card.appendChild(cardInfo);
+
+  // Je crée les tags
+  const photographerTags = photographer.tags;
+  photographerTags.forEach((photographerTag) => {
+    const tag = document.createElement('div');
+    tag.classList.add('tag');
+    const tagContent = document.createTextNode(`#${photographerTag}`);
+    tag.appendChild(tagContent);
+    tagBox.appendChild(tag);
+
+    // J'indique le contenu du tag pour les lecteurs d'écran
+    const span = document.createElement('span');
+    const spanContent = document.createTextNode(`${photographerTag}`);
+    span.classList.add('sr-only');
+    span.appendChild(spanContent);
+    tag.appendChild(span);
+  });
+
   cardInfo.append(location1, slogan, price, tagBox);
-  tagBox.appendChild(tag1);
   return card;
 }
 
-navTags.forEach((navTag) => {
-  navTag.addEventListener('click', () => {
-    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
-    navTag.classList.add('active');
-    // Je veux récupérer le contenu du navTag ayant la classe "active"
-    const navTagText = navTag.innerText;
-    // Je veux le contenu à partir de l'index 1
-    const navTagWord = navTagText.slice(1);
-    console.log('show me navtagtext', navTagWord);
-    displayRelevantCards(navTagWord);
+// J'affiche les cartes des photographes pertinents
+function displayRelevantCards(selectedTag) {
+  const sectionHomePage = document.querySelector('#section-homepage');
+  const relevantPhotographers = getRelevantPhotographers(selectedTag);
+  // Je supprime les cartes présentes
+  while (sectionHomePage.firstChild) {
+    sectionHomePage.removeChild(sectionHomePage.firstChild);
+  }
+  // Pour chaque photographe pertinent, je crée une carte et je l'ajoute au conteneur
+  relevantPhotographers.forEach((relevantPhotographer) => {
+    const card = createCard(relevantPhotographer);
+    sectionHomePage.appendChild(card);
   });
-});
+}
 
+// Au chargement de la page, j'affiche les cartes pertinentes
 window.onload = () => {
   displayRelevantCards();
 };
 
-// Event - clic sur vignette => page profil
+const navTags = document.querySelectorAll('.tag');
 
-function navigateToPageProfile() {
-  window.location = 'photographer-page.html';
-  displayPhotographer();
-}
+navTags.forEach((navTag) => {
+  // Je veux récupérer le contenu du navTag
+  const navTagText = navTag.innerText;
+  // Je veux récupérer le contenu à partir de l'index 1
+  const navTagWord = navTagText.slice(1);
+  // J'indique le contenu du tag pour les lecteurs d'écran
+  const span = document.createElement('span');
+  const spanContent = document.createTextNode(`${navTagWord}`);
+  span.classList.add('sr-only');
+  span.appendChild(spanContent);
+  navTag.appendChild(span);
+  // Au clic sur un navTag, je lui ajoute une classe "active" et que je retire la classe
+  // "active" des autres navTag
+  navTag.addEventListener('click', () => {
+    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
+    navTag.classList.add('active');
+    // J'affiche les cartes pertinentes
+    displayRelevantCards(navTagWord);
+  });
+});
 
-function displayPhotographer(photographerLink) {
-  photographerLink.cardLink
-}
+// const tags = document.querySelectorAll('.tag');
+// console.log(tags);
+// tags.forEach((tag) => {
+//   // Je veux récupérer le contenu du navTag ayant la classe "active"
+//   const tagText = tag.innerText;
+//   // Je veux récupérer le contenu à partir de l'index 1
+//   const tagWord = tagText.slice(1);
+//   const span = document.createElement('span');
+//   const spanContent = document.createTextNode(`${tagWord}`);
+//   span.classList.add('sr-only');
+//   span.appendChild(spanContent);
+//   tag.appendChild(span);
+// });
 
-cardLink.addEventListener('click', navigateToPageProfile);
+// Je veux créer hero
+// Je récupère les données (fonction)
+// Je crée les éléments DOM
+// J'insère
+// J'attache
+
+// Je veux créer galerie
+// Je récupère les médias (fonction)
+// Je crée éléments DOM
+// J'insère
+// J'attache
+
+// ___________________________________
 
 // PAGE PROFIL
 /* function navigateToIndex() {

@@ -209,7 +209,7 @@ a {
 }
 
 .header-index {
-  height: 10%;
+  height: 90px;
   width: 70%;
   position: absolute;
 }
@@ -339,22 +339,21 @@ nav a {
   }
 }
 
-section {
+#section-homepage {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
-section .card {
+#section-homepage .card {
   width: 33%;
 }
 @media screen and (max-width: 1015px) {
-  section .card {
+  #section-homepage .card {
     width: 50%;
   }
 }
 @media screen and (max-width: 670px) {
-  section .card {
+  #section-homepage .card {
     width: 100%;
   }
 }
