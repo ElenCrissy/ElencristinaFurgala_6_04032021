@@ -617,18 +617,15 @@ const querystringId = window.location.search;
 
 // J'extraits l'id
 const slicedId = querystringId.slice(1);
-console.log(slicedId);
+// console.log(typeof slicedId);
 
 // J'affiche le photographe sélectionné par l'id
-const relevantPhotographer = photographers.find((photographer) => photographer.id === slicedId);
-console.log(relevantPhotographer);
+console.log(photographers);
+console.log('slicedId', slicedId);
+// eslint-disable-next-line arrow-parens
+const relevantPhotographer = photographers.find(photographer => {
+  const photographerIdString = photographer.id.toString();
+  return photographerIdString === slicedId;
+});
 
-// const result = photographers.find(findSlicedId).id;
-
-// function findSlicedId(photographer) {
-//   if (photographers.id === slicedId) {
-//     console.log(photographer);
-//   };
-//   return photographer;
-// }
-// console.log('result', result);
+console.log('relevantPhotographer', relevantPhotographer);

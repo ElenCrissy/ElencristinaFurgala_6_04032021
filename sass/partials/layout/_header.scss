@@ -10,7 +10,7 @@
     }
 }
 
-#contenu{
+.go_to_main{
     width: 160px;
     padding: 1px;
     background: $colour-secondary-coral;
@@ -18,7 +18,15 @@
     font-weight: bold;
     line-height: 23px;
     text-align: center;
-    display: none;
+    position: fixed;
+    top : 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    transition: all 1s ease-in;
+    & a {
+        text-decoration: none;
+    }
 }
 
 .header-elements{
@@ -28,7 +36,7 @@
     align-items: center;
     margin-top: 10px;
     @include medium{
-        margin-top: 0;
+        margin-top: 3px;
     }
     @include small{
         flex-direction: column;
@@ -44,10 +52,9 @@
     img{
         width: 150px;
         @include medium{
-            width: 70%;
+            width: 128px;
         }
         @include small{
-            width: 110px;
             margin: 25PX 0 30PX 10PX;
         }
         @include xsmall{

@@ -629,6 +629,20 @@ function getRelevantPhotographers(filterTag) {
   return filteredPhotographers;
 }
 
+// J'affiche les photographes pertinents
+function displayRelevantCardsFromCardTag(tagSelected) {
+  const sectionHomePage = document.querySelector('#section-homepage');
+  const relevantPhotographers = getRelevantPhotographers(tagSelected);
+  while (sectionHomePage.firstChild) {
+    sectionHomePage.removeChild(sectionHomePage.firstChild);
+  }
+  relevantPhotographers.forEach((relevantPhotographer) => {
+    // eslint-disable-next-line no-use-before-define
+    const card = createCard(relevantPhotographer);
+    sectionHomePage.appendChild(card);
+  });
+}
+
 // Je crée une carte de photographes
 function createCard(photographer) {
   // Je crée les conteneurs
@@ -691,6 +705,18 @@ function createCard(photographer) {
   });
 
   cardInfo.append(location1, slogan, price, tagBox);
+
+  const cardTags = card.querySelectorAll('.tag');
+  cardTags.forEach((cardTag) => {
+    cardTag.addEventListener('click', () => {
+      cardTags.forEach((otherCardTags) => otherCardTags.classList.remove('active'));
+      cardTag.classList.add('active');
+      const spandiv = cardTag.querySelector('span');
+      const spanText = spandiv.innerText;
+      displayRelevantCardsFromCardTag(spanText);
+    });
+  });
+
   return card;
 }
 
@@ -737,19 +763,26 @@ navTags.forEach((navTag) => {
   });
 });
 
-// const tags = document.querySelectorAll('.tag');
-// console.log(tags);
-// tags.forEach((tag) => {
-//   // Je veux récupérer le contenu du navTag ayant la classe "active"
-//   const tagText = tag.innerText;
-//   // Je veux récupérer le contenu à partir de l'index 1
-//   const tagWord = tagText.slice(1);
-//   const span = document.createElement('span');
-//   const spanContent = document.createTextNode(`${tagWord}`);
-//   span.classList.add('sr-only');
-//   span.appendChild(spanContent);
-//   tag.appendChild(span);
-// });
+function createGoToMain() {
+  const body = document.querySelector('body');
+  const goToMain = document.createElement('a');
+  goToMain.classList.add('go_to_main');
+  goToMain.setAttribute('href', '#index_main');
+  const goToMainContent = document.createTextNode('Passer au contenu');
+  goToMain.appendChild(goToMainContent);
+  body.appendChild(goToMain);
+  return goToMain;
+}
+
+window.addEventListener('scroll', () => {
+  createGoToMain();
+  const goToMain = document.getElementsByClassName('go_to_main');
+  goToMain.style.display = 'none';
+  if (window.scrollY > 100) {
+    goToMain.style.display = 'block';
+    console.log(goToMain);
+  }
+});
 
 // Je veux créer hero
 // Je récupère les données (fonction)

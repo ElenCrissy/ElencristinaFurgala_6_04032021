@@ -1,3 +1,7 @@
+#index_main{
+    margin-top: 25px;
+}
+
 .nos-photographes{
     font-weight: normal;
     font-size: 28px;
@@ -10,12 +14,12 @@
     justify-content: flex-end;
     margin: 0 10px 0 0;
     @include medium{
-        height: 130px;
         font-size: 22px;
     }
     @include small{
         height: 100px;
         margin-bottom: 60px;
+        font-size: 18px;
     }
     @include xsmall{
         height: 90px;
