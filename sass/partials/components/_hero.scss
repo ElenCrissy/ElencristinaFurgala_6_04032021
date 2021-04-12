@@ -41,12 +41,17 @@
 
 .hero .info{
     & > .name{
-        text-align: left;
+        font-weight: normal;
+        font-size: 28px;
+        line-height: 47px;
+        text-align: center;
+        color: $colour-primary-darkcoral;
+        margin: 0;
     }
     & > .location{
         margin-bottom : $margin-bottom-info;
     }
-    & > .slogan{
+    & > .tagline{
         margin-bottom : $margin-bottom-info;
     }
     & > .tagbox{

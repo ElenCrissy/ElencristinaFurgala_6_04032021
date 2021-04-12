@@ -1,0 +1,113 @@
+// Modal form
+.background {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color:white;
+}
+
+/* flexbox added on content */
+.content {
+    font-family: 'DM Sans', serif;
+    margin: 5% auto;
+    width: 100%;
+    max-width: 650px;
+    height: 900px;
+    animation-name: modalopen;
+    animation-duration: var(--modal-duration);
+    background: $colour-secondary-coral;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    box-shadow: 0px 8px 12px rgb(0 0 0 / 20%);
+    display: flex;
+    flex-direction: column;
+}
+
+.close {
+    font-size: 60px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 45px;
+    height: 45px;
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(0.7);
+    &::before, &::after{
+        position: absolute;
+        left: 15px;
+        content: " ";
+        height: 55px;
+        width: 6px;
+        background-color: #fff;
+    }
+    &::before{
+        transform: rotate(45deg);
+    }
+    &::after{
+        transform: rotate(-45deg);
+    }
+}
+
+.modal-body {
+    margin: 40px;
+        & > .modal-title{
+            font-size: 50px;
+            color: black;
+        }
+}
+
+#contact{
+    margin-top: 20px;
+    & label {
+        font-size: 28px;
+        color : black;
+        font-weight: normal;
+        display: inline-block;
+        margin-bottom: 11px;
+    }
+    & input {
+        padding: 8px;
+        border: none;
+    }
+    & .text-control {
+        width: 95%;
+        border-radius: 8px;
+        font-size: 20px;
+        height: 48px;
+    }
+}
+
+.btn-submit{
+    width: 170px;
+    height: 69px;
+    font-size: 1rem;
+    background:$colour-primary-red;
+    margin: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+}
+
+#confirmationMsg{
+    display: none;
+    // display: flex;
+    align-items: center;
+    height: 80%;
+    margin: 0 50px;
+}
+
+#closeBtnRed{
+    display: none;
+}

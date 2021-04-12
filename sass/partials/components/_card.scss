@@ -28,9 +28,9 @@
     }
 }
 
-.name{
+.card .name{
     font-weight: normal;
-    font-size: 36px;
+    font-size: 28px;
     line-height: 47px;
     text-align: center;
     color: $colour-primary-darkcoral;
@@ -42,7 +42,7 @@
         color: $colour-primary-red;
         font-size: 13px;
     }
-    & > .slogan{
+    & > .tagline{
         font-size: 10px;
         margin-top: $margin-top-hero;
     }

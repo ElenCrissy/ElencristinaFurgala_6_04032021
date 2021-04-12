@@ -610,22 +610,109 @@ const jsonData = `{"photographers": [
   }`;
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
-// const { media } = parsedData;
+const { media } = parsedData;
 
 // Je récupère la querystring de l'url
 const querystringId = window.location.search;
 
-// J'extraits l'id
+// J'extrais l'id
 const slicedId = querystringId.slice(1);
-// console.log(typeof slicedId);
 
-// J'affiche le photographe sélectionné par l'id
-console.log(photographers);
-console.log('slicedId', slicedId);
+// Je récupère le photographe pertinent
 // eslint-disable-next-line arrow-parens
 const relevantPhotographer = photographers.find(photographer => {
   const photographerIdString = photographer.id.toString();
   return photographerIdString === slicedId;
 });
 
-console.log('relevantPhotographer', relevantPhotographer);
+// Je crée le bouton de contact
+function createContactButton() {
+  const contactButton = document.createElement('input');
+  contactButton.type = 'button';
+  contactButton.value = 'Contactez-moi';
+  contactButton.classList.add('btn-contact');
+  return contactButton;
+}
+
+// Je crée le hero
+function createHero(photographer) {
+  // Je crée les éléments DOM
+  const photographerPageMain = document.querySelector('.photographer-page_main');
+
+  const hero = document.createElement('div');
+  hero.classList.add('hero');
+
+  const heroInfo = document.createElement('div');
+  heroInfo.classList.add('info');
+
+  const heroButton = document.createElement('div');
+  heroButton.classList.add('hero-button');
+
+  const heroImage = document.createElement('div');
+  heroImage.classList.add('hero-image');
+  const portrait = document.createElement('img');
+  portrait.classList.add('portrait');
+
+  const name = document.createElement('h1');
+  name.classList.add('name');
+
+  const location = document.createElement('div');
+  location.classList.add('location');
+
+  const tagline = document.createElement('div');
+  tagline.classList.add('tagline');
+
+  const tagbox = document.createElement('div');
+  tagbox.classList.add('tagbox');
+
+  const button = createContactButton();
+
+  // J'insère les données
+  portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
+  name.appendChild(document.createTextNode(photographer.name));
+  location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
+  tagline.appendChild(document.createTextNode(photographer.tagline));
+
+  // Je crée les tags
+  const photographerTags = photographer.tags;
+  photographerTags.forEach((photographerTag) => {
+    const tag = document.createElement('div');
+    tag.classList.add('tag');
+    const tagContent = document.createTextNode(`#${photographerTag}`);
+    tag.appendChild(tagContent);
+    tagbox.appendChild(tag);
+
+    // J'indique le contenu du tag pour les lecteurs d'écran
+    const span = document.createElement('span');
+    const spanContent = document.createTextNode(`${photographerTag}`);
+    span.classList.add('sr-only');
+    span.appendChild(spanContent);
+    tag.appendChild(span);
+  });
+
+  // J'attache aux noeuds DOM
+  heroInfo.append(name, location, tagline, tagbox);
+  heroButton.appendChild(button);
+  heroImage.appendChild(portrait);
+  hero.append(heroInfo, heroButton, heroImage);
+  photographerPageMain.appendChild(hero);
+  return button;
+}
+
+createHero(relevantPhotographer);
+
+// Je récupère les données des médias pertinents
+// eslint-disable-next-line arrow-parens
+const relevantMedias = media.find(element => {
+  const mediaIdString = element.photographerId.toString();
+  return mediaIdString === slicedId;
+});
+console.log(relevantMedias);
+// utiliser filter à la place !!
+
+// Tableau
+// const sortedBySmthg = tableau.sort(function a, b) {
+//   return a.smthg - b.smthg;
+// }
+// si négatif, a est premier
+// si positif, b est premier

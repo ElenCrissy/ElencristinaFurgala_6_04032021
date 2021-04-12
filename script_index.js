@@ -645,7 +645,7 @@ function displayRelevantCardsFromCardTag(tagSelected) {
 
 // Je crée une carte de photographes
 function createCard(photographer) {
-  // Je crée les conteneurs
+  // Je crée les éléments DOM
   const card = document.createElement('div');
   card.classList.add('card');
 
@@ -663,23 +663,23 @@ function createCard(photographer) {
   const cardInfo = document.createElement('div');
   cardInfo.classList.add('info');
 
-  const location1 = document.createElement('div');
-  location1.classList.add('location');
+  const location = document.createElement('div');
+  location.classList.add('location');
 
-  const slogan = document.createElement('div');
-  slogan.classList.add('slogan');
+  const tagline = document.createElement('div');
+  tagline.classList.add('tagline');
 
   const price = document.createElement('div');
   price.classList.add('price');
 
-  const tagBox = document.createElement('div');
-  tagBox.classList.add('tagbox');
+  const tagbox = document.createElement('div');
+  tagbox.classList.add('tagbox');
 
   // J'insère les données
   portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
   cardH2.appendChild(document.createTextNode(photographer.name));
-  location1.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
-  slogan.appendChild(document.createTextNode(photographer.tagline));
+  location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
+  tagline.appendChild(document.createTextNode(photographer.tagline));
   price.appendChild(document.createTextNode(`${photographer.price}€/jour`));
 
   // J'attache aux noeuds DOM du document principal
@@ -694,7 +694,7 @@ function createCard(photographer) {
     tag.classList.add('tag');
     const tagContent = document.createTextNode(`#${photographerTag}`);
     tag.appendChild(tagContent);
-    tagBox.appendChild(tag);
+    tagbox.appendChild(tag);
 
     // J'indique le contenu du tag pour les lecteurs d'écran
     const span = document.createElement('span');
@@ -704,7 +704,7 @@ function createCard(photographer) {
     tag.appendChild(span);
   });
 
-  cardInfo.append(location1, slogan, price, tagBox);
+  cardInfo.append(location, tagline, price, tagbox);
 
   const cardTags = card.querySelectorAll('.tag');
   cardTags.forEach((cardTag) => {
@@ -783,12 +783,6 @@ window.addEventListener('scroll', () => {
     console.log(goToMain);
   }
 });
-
-// Je veux créer hero
-// Je récupère les données (fonction)
-// Je crée les éléments DOM
-// J'insère
-// J'attache
 
 // Je veux créer galerie
 // Je récupère les médias (fonction)

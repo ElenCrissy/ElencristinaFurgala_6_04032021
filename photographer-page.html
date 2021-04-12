@@ -17,8 +17,8 @@
             <a href="index.html" class="logo"><img src="images/Logo/logo.png" alt="FishEye Home Page"/></a>
         </header>
 
-        <main class="content">
-            <div class="hero">
+        <main class="photographer-page_main">
+            <!-- <div class="hero">
                 <div class="hero-info info">
                     <h1 class="name">Mimi Keel</h1>
                     <div class="location">London, UK</div>
@@ -98,7 +98,90 @@
             <div class="bottom-box">
                 <div class="rating">297 081 <i class="fas fa-heart"></i></div>
                 <div class="price-per-day"> 300€/jour</div>
+            </div> -->
+
+            <div class="background">
+                <div class="content">
+                  <span class="close"></span>
+                  <div class="modal-body">
+                    <div class="modal-title">Contactez-moi
+                        <div class="recipient-name">Mimi Keel</div>
+                    </div>
+                    <form
+                      id= "contact"
+                      name="contact"
+                      action=""
+                      method="get"
+                      onsubmit="return validate();"
+                      novalidate
+                    >
+                      <div
+                        class="formData">
+                        <label for="first">Prénom</label><br>
+                        <input
+                          class="text-control"
+                          type="text"
+                          id="first"
+                          name="first"
+                          minlength="2"
+                        /><br>
+                      </div>
+                      <div id="firstError" class="error"></div>
+                      <div
+                        class="formData">
+                        <label for="last">Nom</label><br>
+                        <input
+                          class="text-control"
+                          type="text"
+                          id="last"
+                          name="last"
+                          minlength="2"
+                        /><br>
+                        <div id="lastError" class="error"></div>
+                      </div>
+                      <div
+                        class="formData">
+                        <label for="email">E-mail</label><br>
+                        <input
+                          class="text-control"
+                          type="email"
+                          id="email"
+                          name="email"
+                        /><br>
+                        <div id="emailError" class="error"></div>
+                      </div>
+                      <div
+                        class="formData">
+                        <label for="message">Votre message</label><br>
+                        <input
+                          class="text-control"
+                          type="text"
+                          id="message"
+                          name="message"
+                        /><br>
+                        <div id="messageError" class="error"></div>
+                      </div>
+        
+                      <input
+                        id = "submit"
+                        class="button btn-submit"
+                        type="submit"
+                        value="Envoyer"
+                      />
+                    </form>
+                  </div>
+                  <div id="confirmationMsg">Merci ! 
+                    <br>Votre message a été envoyé.
+                  </div>
+                  <input
+                    id = "closeBtnRed"
+                    class="button btn-submit"
+                    type="button"
+                    value="Fermer"
+                  />
+                </div>
             </div>
+
         </main>
         
         <script src="script_page.js"></script>
