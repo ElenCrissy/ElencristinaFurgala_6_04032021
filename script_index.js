@@ -612,16 +612,6 @@ function getRelevantPhotographers(filterTag) {
   if (filterTag === undefined) {
     return photographers;
   }
-  /* const relevantPhotographers = [];
-  for (let i = 0; i < photographers.length; i += 1) {
-    const photographer = photographers[i];
-    console.log('show me photographer', photographer);
-    if (photographer.tags.includes(filterTag)) {
-      relevantPhotographers.push(photographer);
-    }
-    return relevantPhotographers;
-  } */
-
   // Je filtre le tableau photographes pour savoir,
   // si chacun des photographes a ou non le tag que l'on cherche
   // eslint-disable-next-line max-len
@@ -643,7 +633,7 @@ function displayRelevantCardsFromCardTag(tagSelected) {
   });
 }
 
-// Je crée une carte de photographes
+// Je crée une carte de photographe
 function createCard(photographer) {
   // Je crée les éléments DOM
   const card = document.createElement('div');

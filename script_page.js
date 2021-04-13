@@ -610,7 +610,7 @@ const jsonData = `{"photographers": [
   }`;
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
-const { media } = parsedData;
+const { mediaArr } = parsedData;
 
 // Je récupère la querystring de l'url
 const querystringId = window.location.search;
@@ -631,6 +631,15 @@ function createContactButton() {
   contactButton.type = 'button';
   contactButton.value = 'Contactez-moi';
   contactButton.classList.add('btn-contact');
+  contactButton.addEventListener('click', () => {
+    const modal = document.querySelector('.background');
+    modal.style.display = 'block';
+
+    const closeCross = document.querySelector('.close');
+    closeCross.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  });
   return contactButton;
 }
 
@@ -702,13 +711,26 @@ function createHero(photographer) {
 createHero(relevantPhotographer);
 
 // Je récupère les données des médias pertinents
-// eslint-disable-next-line arrow-parens
-const relevantMedias = media.find(element => {
-  const mediaIdString = element.photographerId.toString();
-  return mediaIdString === slicedId;
-});
-console.log(relevantMedias);
-// utiliser filter à la place !!
+function getRelevantMedias(urlId) {
+  const relevantMedias = mediaArr.filter((medias) => {
+    const mediasPhotographerId = medias.photographerId.toString();
+    return mediasPhotographerId.includes(urlId);
+  });
+  return relevantMedias;
+}
+
+// Je crée une carte photo/vidéo
+function createCard(mediaId) {
+  const gallery = document.createElement('div');
+  gallery.classList.add('gallery');
+
+  const mediaGallery = document.createElement('div');
+  mediaGallery.classList.add('media-gallery');
+
+  const media = document.createElement('div');
+  media.classList.add('media');
+
+}
 
 // Tableau
 // const sortedBySmthg = tableau.sort(function a, b) {
