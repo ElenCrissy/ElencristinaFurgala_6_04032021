@@ -619,7 +619,7 @@ function getRelevantPhotographers(filterTag) {
   return filteredPhotographers;
 }
 
-// J'affiche les photographes pertinents
+// J'affiche les cartes des photographes pertinents en fonction du tag sélectionné
 function displayRelevantCardsFromCardTag(tagSelected) {
   const sectionHomePage = document.querySelector('#section-homepage');
   const relevantPhotographers = getRelevantPhotographers(tagSelected);
@@ -642,7 +642,7 @@ function createCard(photographer) {
   const cardLink = document.createElement('a'); // aria-label
   cardLink.classList.add('card-link');
   const { id } = photographer;
-  cardLink.setAttribute('href', `./photographer-page.html?${id}`);
+  cardLink.setAttribute('href', `./photographer-page.html?id=${id}`);
 
   const portrait = document.createElement('img');
   portrait.classList.add('portrait');
@@ -730,8 +730,8 @@ window.onload = () => {
   displayRelevantCards();
 };
 
+// Interaction tag navigation
 const navTags = document.querySelectorAll('.tag');
-
 navTags.forEach((navTag) => {
   // Je veux récupérer le contenu du navTag
   const navTagText = navTag.innerText;
@@ -753,6 +753,7 @@ navTags.forEach((navTag) => {
   });
 });
 
+// Bouton de redirection vers main
 function createGoToMain() {
   const body = document.querySelector('body');
   const goToMain = document.createElement('a');
@@ -763,7 +764,6 @@ function createGoToMain() {
   body.appendChild(goToMain);
   return goToMain;
 }
-
 window.addEventListener('scroll', () => {
   createGoToMain();
   const goToMain = document.getElementsByClassName('go_to_main');
@@ -774,19 +774,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Je veux créer galerie
-// Je récupère les médias (fonction)
-// Je crée éléments DOM
-// J'insère
-// J'attache
-
 // ___________________________________
-
-// PAGE PROFIL
-/* function navigateToIndex() {
-  window.location = 'index.html';
-}
-??.addEventListener('click', navigateToIndex); */
 
 // Média
 
@@ -801,7 +789,5 @@ window.addEventListener('scroll', () => {
 // Event - Fermeture lightbox
 
 // Navigation lightbox via flèches et clavier
-
-// Form - Ouverture modale
 
 // Form - Bouton envoi form => résultat dans console

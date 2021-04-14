@@ -610,19 +610,17 @@ const jsonData = `{"photographers": [
   }`;
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
-const { mediaArr } = parsedData;
+const mediaArr = parsedData.media;
 
 // Je récupère la querystring de l'url
-const querystringId = window.location.search;
+const urlParams = new URLSearchParams(window.location.search);
+const paramId = urlParams.get('id');
 
-// J'extrais l'id
-const slicedId = querystringId.slice(1);
-
-// Je récupère le photographe pertinent
+// Je récupère les données du photographe pertinent
 // eslint-disable-next-line arrow-parens
 const relevantPhotographer = photographers.find(photographer => {
   const photographerIdString = photographer.id.toString();
-  return photographerIdString === slicedId;
+  return photographerIdString === paramId;
 });
 
 // Je crée le bouton de contact
@@ -642,6 +640,11 @@ function createContactButton() {
   });
   return contactButton;
 }
+
+// Je crée la modale
+// function createModal() {
+
+// }
 
 // Je crée le hero
 function createHero(photographer) {
@@ -708,29 +711,88 @@ function createHero(photographer) {
   return button;
 }
 
-createHero(relevantPhotographer);
-
 // Je récupère les données des médias pertinents
 function getRelevantMedias(urlId) {
-  const relevantMedias = mediaArr.filter((medias) => {
-    const mediasPhotographerId = medias.photographerId.toString();
+  const relevantMedias = mediaArr.filter((media) => {
+    const mediasPhotographerId = media.photographerId.toString();
     return mediasPhotographerId.includes(urlId);
   });
+  console.log(relevantMedias);
   return relevantMedias;
 }
 
-// Je crée une carte photo/vidéo
-function createCard(mediaId) {
+// Je crée une carte media
+function createMediaCard(mediaData) {
   const gallery = document.createElement('div');
   gallery.classList.add('gallery');
 
   const mediaGallery = document.createElement('div');
   mediaGallery.classList.add('media-gallery');
 
-  const media = document.createElement('div');
-  media.classList.add('media');
+  const mediaCard = document.createElement('div');
+  mediaCard.classList.add('media-card');
 
+  const mediaCardInfo = document.createElement('div');
+  mediaCardInfo.classList.add('media-card_info');
+
+  const mediaCardInfoText = document.createElement('div');
+  mediaCardInfoText.classList.add('media-card_info__text');
+
+  const mediaCardInfoHeart = document.createElement('div');
+  mediaCardInfoHeart.classList.add('media-card_info__heart');
+
+  // console.log(mediaCard);
+  return mediaCard;
 }
+
+// class MediaFactory{
+//   constructor() {
+//     this.createMedia = function (type) {
+//       let media;
+//       if(type === 'image') media = new Image();
+//       else if (type === 'video') media = new Video();
+
+//       return media;
+//     }
+//   }
+// }
+
+// class Image{
+//   constructor() {
+//     this._type = 'image';
+//     this.display = function() {
+//       const mediaImage = document.createElement('img');
+//       mediaImage.src = `images/Sample_Photos/${relevantPhotographer.image}`;
+//       media.appendChild(mediaImage);
+//       return mediaImage;
+//     }
+//   }
+// }
+
+// class Video{
+//   constructor() {
+//     this._type = 'video';
+//     this.display = function() {
+//       const mediaVideo = document.createElement('iframe');
+//       mediaVideo.src = `images/Sample_Photos/${relevantPhotographer.video}`;
+//       media.appendChild(mediaVideo);
+//       return mediaVideo;
+//   }
+// }
+
+// J'affiche les cartes des medias pertinents
+function displayRelevantMediaCards(id) {
+  const relevantMedias = getRelevantMedias(id);
+  const mediaCards = relevantMedias.map(createMediaCard);
+  const photographerPageMain = document.querySelector('photographer-page_main');
+  // eslint-disable-next-line arrow-parens
+  mediaCards.forEach(mediaCard => photographerPageMain.appendChild(mediaCard));
+}
+
+window.onload = () => {
+  createHero(relevantPhotographer);
+  displayRelevantMediaCards();
+};
 
 // Tableau
 // const sortedBySmthg = tableau.sort(function a, b) {

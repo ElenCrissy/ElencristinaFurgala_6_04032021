@@ -1,4 +1,4 @@
-.media{
+.media-card{
     width: 28%;
     height: 350px;
     & img{
@@ -10,7 +10,7 @@
     }
 }
 
-.media-info{
+.media-card_info{
     width: 100%;
     display: flex;
     font-size: 18px;
