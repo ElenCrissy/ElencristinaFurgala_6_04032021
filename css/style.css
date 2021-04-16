@@ -188,6 +188,7 @@ a {
 .media-card {
   width: 28%;
   height: 350px;
+  margin: 0;
 }
 .media-card img {
   width: 100%;
@@ -272,7 +273,7 @@ a {
 }
 
 .modal-body {
-  margin: 40px;
+  margin: 30px;
 }
 .modal-body > .modal-title {
   font-size: 50px;
@@ -280,7 +281,7 @@ a {
 }
 
 #contact {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 #contact label {
   font-size: 28px;
@@ -298,6 +299,11 @@ a {
   border-radius: 8px;
   font-size: 20px;
   height: 48px;
+  outline: none;
+}
+#contact .text-control__message {
+  height: 150px;
+  outline: none;
 }
 
 .btn-submit {
@@ -305,24 +311,34 @@ a {
   height: 69px;
   font-size: 1rem;
   background: #901C1C;
-  margin: 10px;
+  margin: 10px auto;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   color: #fff;
   cursor: pointer;
   border: 0;
+  outline: none;
 }
 
 #confirmationMsg {
   display: none;
+  justify-content: center;
   align-items: center;
   height: 80%;
   margin: 0 50px;
+  font-size: 30px;
+  text-align: center;
 }
 
 #closeBtnRed {
   display: none;
+}
+
+.error {
+  color: white;
+  font-size: 16px;
+  visibility: hidden;
 }
 
 .header-index {

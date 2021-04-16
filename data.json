@@ -1,6 +1,5 @@
-/* eslint-disable max-classes-per-file */
-window.onload = () => {
-  const jsonData = `{"photographers": [
+{
+    "photographers": [
       {
         "name": "Mimi Keel",
         "id": 243,
@@ -32,14 +31,14 @@ window.onload = () => {
         "portrait": "TracyGalindo.jpg"
       },
       {
-        "name": "Nabeel Brandford",
+        "name": "Nabeel Bradford",
         "id": 527,
         "city": "Mexico City",
         "country": "Mexico",
         "tags": ["travel", "portrait"],
         "tagline": "Toujours aller de l'avant",
         "price": 350,
-        "portrait": "NabeelBrandford.jpg"
+        "portrait": "NabeelBradford.jpg"
       },
       {
         "name": "Rhode Dubois",
@@ -153,7 +152,7 @@ window.onload = () => {
         "date": "2019-11-25",
         "price": 55
       },
-    
+  
       {
         "id": 73852953,
         "photographerId": 925,
@@ -235,7 +234,7 @@ window.onload = () => {
         "date": "2016-06-12",
         "price": 70
       },
-    
+  
       {
         "id": 394583434,
         "photographerId": 527,
@@ -317,7 +316,7 @@ window.onload = () => {
         "date": "2019-01-02",
         "price": 45
       },
-    
+  
       {
         "id": 623534343,
         "photographerId": 243,
@@ -408,7 +407,7 @@ window.onload = () => {
         "date": "2019-07-02",
         "price": 60
       },
-    
+  
       {
         "id": 52343416,
         "photographerId": 195,
@@ -499,7 +498,7 @@ window.onload = () => {
         "date": "2020-05-05",
         "price": 60
       },
-    
+  
       {
         "id": 952343423,
         "photographerId": 930,
@@ -600,268 +599,4 @@ window.onload = () => {
         "price": 80
       }
     ]
-    }`;
-  const parsedData = JSON.parse(jsonData);
-  const { photographers } = parsedData;
-  const mediaArr = parsedData.media;
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramId = urlParams.get('id');
-
-  // eslint-disable-next-line arrow-parens
-  const relevantPhotographer = photographers.find(photographer => {
-    const photographerIdString = photographer.id.toString();
-    return photographerIdString === paramId;
-  });
-  console.log(relevantPhotographer);
-
-  const form = document.getElementById('contact');
-  let formOk = false;
-  const modal = document.querySelector('.background');
-  const confirmationMsg = document.querySelector('#confirmationMsg');
-  const first = document.getElementById('first');
-  const firstError = document.getElementById('firstError');
-  firstError.appendChild(document.createTextNode('Veuillez entrer votre prénom - 2 caractères minimum'));
-
-  const last = document.getElementById('last');
-  const lastError = document.getElementById('lastError');
-  lastError.appendChild(document.createTextNode('Veuillez entrer votre nom - 2 caractères minimum'));
-
-  const email = document.getElementById('email');
-  const emailError = document.getElementById('emailError');
-  emailError.appendChild(document.createTextNode('Veuillez renseigner votre adresse mail'));
-
-  const message = document.getElementById('message');
-  const messageError = document.getElementById('messageError');
-  messageError.appendChild(document.createTextNode('Entrez votre message'));
-
-  function checkInputs() {
-    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
-    if (verifName.exec(first.value) === null || first.length < 2) {
-      firstError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    if (verifName.exec(last.value) === null || last.length < 2) {
-      lastError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    if (verifEmail.exec(email.value) === null) {
-      emailError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    if (message.value === '') {
-      messageError.style.visibility = 'visible';
-      return formOk === false;
-    }
-    formOk = true;
-    const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
-    return console.log(contactContent);
   }
-
-  function validate(event) {
-    event.preventDefault();
-    checkInputs();
-    const submitBtn = document.getElementById('submit');
-    const closeBtnRed = document.getElementById('closeBtnRed');
-    if (formOk === true) {
-      form.style.display = 'none';
-      submitBtn.style.display = 'none';
-      confirmationMsg.style.display = 'flex';
-      closeBtnRed.style.display = 'block';
-      closeBtnRed.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-    }
-  }
-
-  form.addEventListener('submit', validate);
-
-  function createContactButton() {
-    const contactButton = document.createElement('input');
-    contactButton.type = 'button';
-    contactButton.value = 'Contactez-moi';
-    contactButton.classList.add('btn-contact');
-    contactButton.addEventListener('click', () => {
-      modal.style.display = 'block';
-
-      const closeCross = document.querySelector('.close');
-      closeCross.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-    });
-    return contactButton;
-  }
-
-  function createHero(photographer) {
-    // Je crée les éléments DOM
-    const photographerPageMain = document.querySelector('.photographer-page_main');
-
-    const hero = document.createElement('div');
-    hero.classList.add('hero');
-
-    const heroInfo = document.createElement('div');
-    heroInfo.classList.add('info');
-
-    const heroButton = document.createElement('div');
-    heroButton.classList.add('hero-button');
-
-    const heroImage = document.createElement('div');
-    heroImage.classList.add('hero-image');
-    const portrait = document.createElement('img');
-    portrait.classList.add('portrait');
-
-    const name = document.createElement('h1');
-    name.classList.add('name');
-
-    const location = document.createElement('div');
-    location.classList.add('location');
-
-    const tagline = document.createElement('div');
-    tagline.classList.add('tagline');
-
-    const tagbox = document.createElement('div');
-    tagbox.classList.add('tagbox');
-
-    const button = createContactButton();
-
-    // J'insère les données
-    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
-    name.appendChild(document.createTextNode(photographer.name));
-    location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
-    tagline.appendChild(document.createTextNode(photographer.tagline));
-
-    // Je crée les tags
-    const photographerTags = photographer.tags;
-    photographerTags.forEach((photographerTag) => {
-      const tag = document.createElement('div');
-      tag.classList.add('tag');
-      const tagContent = document.createTextNode(`#${photographerTag}`);
-      tag.appendChild(tagContent);
-      tagbox.appendChild(tag);
-
-      // J'indique le contenu du tag pour les lecteurs d'écran
-      const span = document.createElement('span');
-      const spanContent = document.createTextNode(`${photographerTag}`);
-      span.classList.add('sr-only');
-      span.appendChild(spanContent);
-      tag.appendChild(span);
-    });
-
-    // J'attache aux noeuds DOM
-    heroInfo.append(name, location, tagline, tagbox);
-    heroButton.appendChild(button);
-    heroImage.appendChild(portrait);
-    hero.append(heroInfo, heroButton, heroImage);
-    photographerPageMain.appendChild(hero);
-    return button;
-  }
-
-  function getRelevantMedias(urlId) {
-    const relevantMedias = mediaArr.filter((media) => {
-      const mediasPhotographerId = media.photographerId.toString();
-      return mediasPhotographerId.includes(urlId);
-    });
-    console.log(relevantMedias);
-    return relevantMedias;
-  }
-
-  function createMediaCard(mediaData) {
-    const mediaCard = document.createElement('div');
-    mediaCard.classList.add('media-card');
-
-    const mediaCardInfo = document.createElement('div');
-    mediaCardInfo.classList.add('media-card_info');
-
-    const mediaCardInfoText = document.createElement('div');
-    mediaCardInfoText.classList.add('media-card_info__text');
-
-    const title = document.createElement('div');
-    title.classList.add('title');
-
-    const price = document.createElement('div');
-    price.classList.add('price');
-
-    const mediaCardInfoHeart = document.createElement('div');
-    mediaCardInfoHeart.classList.add('media-card_info__heart');
-
-    title.appendChild(document.createTextNode(mediaData.image));
-    price.appendChild(document.createTextNode(`${mediaData.price}€`));
-    mediaCardInfoHeart.innerHTML = '<i class="fas fa-heart"></i>';
-
-    // mediaCard.appendChild(media);
-    mediaCard.appendChild(mediaCardInfo);
-    mediaCardInfo.appendChild(mediaCardInfoText);
-    mediaCardInfoText.append(title, price);
-    mediaCardInfo.appendChild(mediaCardInfoHeart);
-
-    return mediaCard;
-  }
-
-  class Video {
-    constructor(type, src, title, price) {
-      this.type = type;
-      this.src = src;
-      this.title = title;
-      this.price = price;
-      this.getVideo = () => {
-        const mediaVideo = document.createElement('iframe');
-        mediaVideo.src = `images/Sample_Photos/${mediaData.video}`;
-        media.appendChild(mediaVideo);
-        return mediaVideo;
-      };
-    }
-  }
-
-  class Image {
-    constructor(type, src, title, price) {
-      this.type = type;
-      this.src = src;
-      this.title = title;
-      this.price = price;
-      this.getImage = () => {
-        const mediaImage = document.createElement('img');
-        mediaImage.src = `images/Sample_Photos/${mediaData.image}`;
-        media.appendChild(mediaImage);
-        return mediaImage;
-      };
-    }
-  }
-
-  class MediaFactory {
-    constructor() {
-      this.createMedia = function (type) {
-        let media;
-        if (type === 'image') media = new Image();
-        else if (type === 'video') media = new Video();
-        return media;
-      };
-    }
-  }
-
-  function displayRelevantMediaCards(id) {
-    const relevantMedias = getRelevantMedias(id);
-    const mediaCards = relevantMedias.map(createMediaCard);
-    const photographerPageMain = document.querySelector('.photographer-page_main');
-    const gallery = document.createElement('div');
-    gallery.classList.add('gallery');
-    const mediaGallery = document.createElement('div');
-    mediaGallery.classList.add('media-gallery');
-    photographerPageMain.appendChild(gallery);
-    gallery.appendChild(mediaGallery);
-    // eslint-disable-next-line arrow-parens
-    mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
-  }
-
-  createHero(relevantPhotographer);
-  displayRelevantMediaCards(paramId);
-};
-
-// Tableau
-// const sortedBySmthg = tableau.sort(function a, b) {
-//   return a.smthg - b.smthg;
-// }
-// si négatif, a est premier
-// si positif, b est premier
