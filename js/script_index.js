@@ -1,6 +1,8 @@
+
+
 window.onload = () => {
   // const fetchData = () => {
-  //   const source = 'data.json';
+  //   const source = '../data.json';
   //   fetch(source)
   //     .then((response) => response.json())
   //     .then((data) => {
@@ -9,6 +11,26 @@ window.onload = () => {
   // };
 
   // fetchData();
+
+  const myInit = { method: 'GET',
+    mode: 'cors',
+    cache: 'default' };
+
+  fetch('../data.json', myInit)
+  .then((response) => response.json())
+  .catch((err) => console.log(`Fetch problem: ${err.message}`));
+
+  // fetch('https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json')
+  //   .then((response) => response.json())
+  //   .catch((err) => console.log(`Fetch problem: ${err.message}`));
+
+  // const getData = async function () {
+  //   const response = await fetch('../data.json');
+  //   const data = await response.json();
+  //   // .then(response => response.json());
+  //   console.log(data);
+  // }
+  // getData();
 
   const jsonData = `{"photographers": [
       {
@@ -615,6 +637,19 @@ window.onload = () => {
   const { photographers } = parsedData;
   const navTags = document.querySelectorAll('.tag');
 
+  // Bouton de redirection vers main
+  // function createGoToMain() {
+  //   const body = document.querySelector('body');
+  //   const goToMain = document.createElement('a');
+  //   const goToMainContent = document.createTextNode('Passer au contenu');
+  //   goToMain.classList.add('go_to_main');
+  //   goToMain.setAttribute('href', '#index_main');
+
+  //   goToMain.appendChild(goToMainContent);
+  //   body.appendChild(goToMain);
+  //   return goToMain;
+  // }
+
   function getRelevantPhotographers(filterTag) {
     if (filterTag === undefined) {
       return photographers;
@@ -638,34 +673,29 @@ window.onload = () => {
   }
 
   function createCard(photographer) {
-    const card = document.createElement('div');
-    card.classList.add('card');
-
-    const cardLink = document.createElement('a'); // aria-label
-    cardLink.classList.add('card-link');
     const { id } = photographer;
-    cardLink.setAttribute('href', `./photographer-page.html?id=${id}`);
-
+    const card = document.createElement('div');
+    const cardLink = document.createElement('a');
     const portrait = document.createElement('img');
-    portrait.classList.add('portrait');
-
     const cardH2 = document.createElement('h2');
-    cardH2.classList.add('name');
-
     const cardInfo = document.createElement('div');
-    cardInfo.classList.add('info');
-
     const location = document.createElement('div');
-    location.classList.add('location');
-
     const tagline = document.createElement('div');
-    tagline.classList.add('tagline');
-
     const price = document.createElement('div');
-    price.classList.add('price');
-
     const tagbox = document.createElement('div');
+
+    card.classList.add('card');
+    cardLink.classList.add('card-link');
+    portrait.classList.add('portrait');
+    cardH2.classList.add('name');
+    cardInfo.classList.add('info');
+    location.classList.add('location');
+    tagline.classList.add('tagline');
+    price.classList.add('price');
     tagbox.classList.add('tagbox');
+
+    cardLink.setAttribute('href', `./photographer-page.html?id=${id}`);
+    cardLink.setAttribute('aria-label', `${photographer.name}`);
 
     portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
     cardH2.appendChild(document.createTextNode(photographer.name));
@@ -687,11 +717,11 @@ window.onload = () => {
       tagbox.appendChild(tag);
 
       // J'indique le contenu du tag pour les lecteurs d'écran
-      const span = document.createElement('span');
-      const spanContent = document.createTextNode(`${photographerTag}`);
-      span.classList.add('sr-only');
-      span.appendChild(spanContent);
-      tag.appendChild(span);
+      const spanCard = document.createElement('span');
+      const spanCardContent = document.createTextNode(`${photographerTag}`);
+      spanCard.classList.add('sr-only');
+      spanCard.appendChild(spanCardContent);
+      tag.appendChild(spanCard);
     });
 
     cardInfo.append(location, tagline, price, tagbox);
@@ -745,27 +775,6 @@ window.onload = () => {
     });
   });
 
-  // Bouton de redirection vers main
-  function createGoToMain() {
-    const body = document.querySelector('body');
-    const goToMain = document.createElement('a');
-    goToMain.classList.add('go_to_main');
-    goToMain.setAttribute('href', '#index_main');
-    const goToMainContent = document.createTextNode('Passer au contenu');
-    goToMain.appendChild(goToMainContent);
-    body.appendChild(goToMain);
-    return goToMain;
-  }
-
-  window.addEventListener('scroll', () => {
-    createGoToMain();
-    const goToMain = document.getElementsByClassName('go_to_main');
-    goToMain.style.display = 'none';
-    if (window.scrollY > 100) {
-      goToMain.style.display = 'block';
-      console.log(goToMain);
-    }
-  });
-
+  // createGoToMain();
   displayRelevantCards();
 };

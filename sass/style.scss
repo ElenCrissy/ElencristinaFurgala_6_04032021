@@ -3,7 +3,8 @@
 
 @import "partials/base/base"; //base : fondation du site//
 
-@import "partials/components/tag"; //components : blocs BEM indépendants//
+@import "partials/components/gotomain";  //components : blocs BEM indépendants//
+@import "partials/components/tag";
 @import "partials/components/box";
 @import "partials/components/card";
 @import "partials/components/hero";

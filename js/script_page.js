@@ -612,86 +612,16 @@ window.onload = () => {
     const photographerIdString = photographer.id.toString();
     return photographerIdString === paramId;
   });
-  console.log(relevantPhotographer);
-
-  const form = document.getElementById('contact');
-  let formOk = false;
-  const modal = document.querySelector('.background');
-  const confirmationMsg = document.querySelector('#confirmationMsg');
-  const first = document.getElementById('first');
-  const firstError = document.getElementById('firstError');
-  firstError.appendChild(document.createTextNode('Veuillez entrer votre prénom - 2 caractères minimum'));
-
-  const last = document.getElementById('last');
-  const lastError = document.getElementById('lastError');
-  lastError.appendChild(document.createTextNode('Veuillez entrer votre nom - 2 caractères minimum'));
-
-  const email = document.getElementById('email');
-  const emailError = document.getElementById('emailError');
-  emailError.appendChild(document.createTextNode('Veuillez renseigner votre adresse mail'));
-
-  const message = document.getElementById('message');
-  const messageError = document.getElementById('messageError');
-  messageError.appendChild(document.createTextNode('Entrez votre message'));
-
-  function checkInputs() {
-    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
-    if (verifName.exec(first.value) === null || first.length < 2) {
-      firstError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    if (verifName.exec(last.value) === null || last.length < 2) {
-      lastError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    if (verifEmail.exec(email.value) === null) {
-      emailError.style.visibility = 'visible';
-      return formOk === false;
-    }
-
-    if (message.value === '') {
-      messageError.style.visibility = 'visible';
-      return formOk === false;
-    }
-    formOk = true;
-    const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
-    return console.log(contactContent);
-  }
-
-  function validate(event) {
-    event.preventDefault();
-    checkInputs();
-    const submitBtn = document.getElementById('submit');
-    const closeBtnRed = document.getElementById('closeBtnRed');
-    if (formOk === true) {
-      form.style.display = 'none';
-      submitBtn.style.display = 'none';
-      confirmationMsg.style.display = 'flex';
-      closeBtnRed.style.display = 'block';
-      closeBtnRed.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-    }
-  }
-
-  form.addEventListener('submit', validate);
 
   function createContactButton() {
     const contactButton = document.createElement('input');
     contactButton.type = 'button';
     contactButton.value = 'Contactez-moi';
     contactButton.classList.add('btn-contact');
-    contactButton.addEventListener('click', () => {
-      modal.style.display = 'block';
-
-      const closeCross = document.querySelector('.close');
-      closeCross.addEventListener('click', () => {
-        modal.style.display = 'none';
-      });
-    });
+    // contactButton.addEventListener('click', displayForm);
+      // const modal = document.querySelector('.background');
+      // modal.style.display = 'block';
+    // });
     return contactButton;
   }
 
@@ -700,32 +630,25 @@ window.onload = () => {
     const photographerPageMain = document.querySelector('.photographer-page_main');
 
     const hero = document.createElement('div');
-    hero.classList.add('hero');
-
     const heroInfo = document.createElement('div');
-    heroInfo.classList.add('info');
-
     const heroButton = document.createElement('div');
-    heroButton.classList.add('hero-button');
-
     const heroImage = document.createElement('div');
-    heroImage.classList.add('hero-image');
     const portrait = document.createElement('img');
-    portrait.classList.add('portrait');
-
     const name = document.createElement('h1');
-    name.classList.add('name');
-
     const location = document.createElement('div');
-    location.classList.add('location');
-
     const tagline = document.createElement('div');
-    tagline.classList.add('tagline');
-
     const tagbox = document.createElement('div');
-    tagbox.classList.add('tagbox');
-
     const button = createContactButton();
+
+    hero.classList.add('hero');
+    heroInfo.classList.add('info');
+    heroButton.classList.add('hero-button');
+    heroImage.classList.add('hero-image');
+    portrait.classList.add('portrait');
+    name.classList.add('name');
+    location.classList.add('location');
+    tagline.classList.add('tagline');
+    tagbox.classList.add('tagbox');
 
     // J'insère les données
     portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
@@ -764,27 +687,62 @@ window.onload = () => {
       const mediasPhotographerId = media.photographerId.toString();
       return mediasPhotographerId.includes(urlId);
     });
-    console.log(relevantMedias);
     return relevantMedias;
+  }
+
+  class MediaFactory {
+    constructor(media) {
+      this.media = media;
+
+      this.createMedia = (type) => {
+        if (type === 'image') media = new Image();
+        else if (type === 'video') media = new Video();
+
+        if (media.hasOwnProperty('image')) media = new Image();
+        else if (media.hasOwnProperty('video')) media = new Video();
+        return media;
+      };
+    }
+  }
+
+  class Video {
+    constructor() {
+      this.getVideo = (media) => {
+        const mediaVideo = document.createElement('video');
+        const mediaVideoSrc = document.createElement('source');
+        mediaVideoSrc.src = `images/Sample_Photos/${media.video}`;
+        mediaVideo.appendChild(mediaVideoSrc);
+        return mediaVideo;
+      };
+    }
+  }
+
+  class Image {
+    constructor() {
+      this.getImage = (media) => {
+        const mediaImage = document.createElement('img');
+        mediaImage.src = `images/Sample_Photos/${media.image}`;
+        return mediaImage;
+      };
+    }
   }
 
   function createMediaCard(mediaData) {
     const mediaCard = document.createElement('div');
-    mediaCard.classList.add('media-card');
-
     const mediaCardInfo = document.createElement('div');
-    mediaCardInfo.classList.add('media-card_info');
-
     const mediaCardInfoText = document.createElement('div');
-    mediaCardInfoText.classList.add('media-card_info__text');
-
     const title = document.createElement('div');
-    title.classList.add('title');
-
     const price = document.createElement('div');
-    price.classList.add('price');
-
     const mediaCardInfoHeart = document.createElement('div');
+    const mediaFactory = new MediaFactory();
+    const media = mediaFactory.createMedia(`${mediaData.image}`);
+    console.log(media);
+
+    mediaCard.classList.add('media-card');
+    mediaCardInfo.classList.add('media-card_info');
+    mediaCardInfoText.classList.add('media-card_info__text');
+    title.classList.add('title');
+    price.classList.add('price');
     mediaCardInfoHeart.classList.add('media-card_info__heart');
 
     title.appendChild(document.createTextNode(mediaData.image));
@@ -800,54 +758,13 @@ window.onload = () => {
     return mediaCard;
   }
 
-  class Video {
-    constructor(type, src, title, price) {
-      this.type = type;
-      this.src = src;
-      this.title = title;
-      this.price = price;
-      this.getVideo = () => {
-        const mediaVideo = document.createElement('iframe');
-        mediaVideo.src = `images/Sample_Photos/${mediaData.video}`;
-        media.appendChild(mediaVideo);
-        return mediaVideo;
-      };
-    }
-  }
-
-  class Image {
-    constructor(type, src, title, price) {
-      this.type = type;
-      this.src = src;
-      this.title = title;
-      this.price = price;
-      this.getImage = () => {
-        const mediaImage = document.createElement('img');
-        mediaImage.src = `images/Sample_Photos/${mediaData.image}`;
-        media.appendChild(mediaImage);
-        return mediaImage;
-      };
-    }
-  }
-
-  class MediaFactory {
-    constructor() {
-      this.createMedia = function (type) {
-        let media;
-        if (type === 'image') media = new Image();
-        else if (type === 'video') media = new Video();
-        return media;
-      };
-    }
-  }
-
   function displayRelevantMediaCards(id) {
     const relevantMedias = getRelevantMedias(id);
     const mediaCards = relevantMedias.map(createMediaCard);
     const photographerPageMain = document.querySelector('.photographer-page_main');
     const gallery = document.createElement('div');
-    gallery.classList.add('gallery');
     const mediaGallery = document.createElement('div');
+    gallery.classList.add('gallery');
     mediaGallery.classList.add('media-gallery');
     photographerPageMain.appendChild(gallery);
     gallery.appendChild(mediaGallery);

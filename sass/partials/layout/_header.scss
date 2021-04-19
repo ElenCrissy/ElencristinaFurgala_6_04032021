@@ -10,25 +10,6 @@
     }
 }
 
-.go_to_main{
-    width: 160px;
-    padding: 1px;
-    background: $colour-secondary-coral;
-    border-radius: 5px;
-    font-weight: bold;
-    line-height: 23px;
-    text-align: center;
-    position: fixed;
-    top : 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: black;
-    transition: all 1s ease-in;
-    & a {
-        text-decoration: none;
-    }
-}
-
 .header-elements{
     display: flex;
     height: 100%;
