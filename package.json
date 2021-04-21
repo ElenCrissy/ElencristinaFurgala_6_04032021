@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "sass --watch ./sass/style.scss:./css/style.css",
-    "lint": "eslint ./"
+    "start": "npm run start"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,5 @@
   "homepage": "https://github.com/ElenCrissy/ElencristinaFurgala_6_04032021#readme",
   "dependencies": {},
   "devDependencies": {
-    "eslint": "^7.21.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "grunt": "^1.3.0"
   }
 }

@@ -683,47 +683,38 @@ window.onload = () => {
   }
 
   function getRelevantMedias(urlId) {
-    const relevantMedias = mediaArr.filter((media) => {
-      const mediasPhotographerId = media.photographerId.toString();
-      return mediasPhotographerId.includes(urlId);
-    });
-    return relevantMedias;
+    return mediaArr.filter(media => media.photographerId.toString() === urlId);
   }
 
+  
   class MediaFactory {
-    constructor(media) {
-      this.media = media;
-
-      this.createMedia = (type) => {
-        if (type === 'image') media = new Image();
-        else if (type === 'video') media = new Video();
-
-        if (media.hasOwnProperty('image')) media = new Image();
-        else if (media.hasOwnProperty('video')) media = new Video();
-        return media;
-      };
-    }
+    static createMedia(mediaData) {
+      if (mediaData.hasOwnProperty('image')) return new Image(mediaData.image);
+      else if (mediaData.hasOwnProperty('video')) return new Video(mediaData.video);
+    };
   }
 
   class Video {
-    constructor() {
-      this.getVideo = (media) => {
-        const mediaVideo = document.createElement('video');
-        const mediaVideoSrc = document.createElement('source');
-        mediaVideoSrc.src = `images/Sample_Photos/${media.video}`;
-        mediaVideo.appendChild(mediaVideoSrc);
-        return mediaVideo;
-      };
+    constructor(fileName) {
+      this.fileName = fileName;
     }
+    createDom() {
+      const mediaVideo = document.createElement('video');
+      const mediaVideoSrc = document.createElement('source');
+      mediaVideoSrc.src = `images/Sample_Photos/Ellie Rose/${this.fileName}`;
+      mediaVideo.appendChild(mediaVideoSrc);
+      return mediaVideo;
+    };
   }
 
   class Image {
-    constructor() {
-      this.getImage = (media) => {
-        const mediaImage = document.createElement('img');
-        mediaImage.src = `images/Sample_Photos/${media.image}`;
-        return mediaImage;
-      };
+    constructor(fileName) {
+      this.fileName = fileName;
+    }
+    createDom() {
+      const mediaImage = document.createElement('img');
+      mediaImage.src = `images/Sample_Photos/Ellie Rose/${this.fileName}`;
+      return mediaImage;
     }
   }
 
@@ -734,11 +725,13 @@ window.onload = () => {
     const title = document.createElement('div');
     const price = document.createElement('div');
     const mediaCardInfoHeart = document.createElement('div');
-    const mediaFactory = new MediaFactory();
-    const media = mediaFactory.createMedia(`${mediaData.image}`);
+
+    const media = MediaFactory.createMedia(mediaData).createDom();
+    mediaCard.appendChild(media);
     console.log(media);
 
     mediaCard.classList.add('media-card');
+    media.classList.add('media');
     mediaCardInfo.classList.add('media-card_info');
     mediaCardInfoText.classList.add('media-card_info__text');
     title.classList.add('title');
@@ -768,7 +761,6 @@ window.onload = () => {
     mediaGallery.classList.add('media-gallery');
     photographerPageMain.appendChild(gallery);
     gallery.appendChild(mediaGallery);
-    // eslint-disable-next-line arrow-parens
     mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
   }
 

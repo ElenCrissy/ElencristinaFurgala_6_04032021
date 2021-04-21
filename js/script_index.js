@@ -1,6 +1,10 @@
-
-
 window.onload = () => {
+
+  // function fetchData() {
+  //   fetch('https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json')
+  // }
+
+  // fetchData();
   // const fetchData = () => {
   //   const source = '../data.json';
   //   fetch(source)
@@ -12,13 +16,13 @@ window.onload = () => {
 
   // fetchData();
 
-  const myInit = { method: 'GET',
-    mode: 'cors',
-    cache: 'default' };
+  // const myInit = { method: 'GET',
+  //   mode: 'cors',
+  //   cache: 'default' };
 
-  fetch('../data.json', myInit)
-  .then((response) => response.json())
-  .catch((err) => console.log(`Fetch problem: ${err.message}`));
+  // fetch('../data.json', myInit)
+  // .then((response) => response.json())
+  // .catch((err) => console.log(`Fetch problem: ${err.message}`));
 
   // fetch('https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json')
   //   .then((response) => response.json())
