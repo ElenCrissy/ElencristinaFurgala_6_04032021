@@ -1,21 +1,37 @@
-.media-filter{
+.media-selection{
+    display: flex;
+    font-family: 'DM Sans', sans-serif;
     font-size: 16px;
     font-weight: bold;
     margin: 30px 0;
-    & label{
-        margin-right: 20px;
+    & > .filter-label {
+        padding-top: 10px;
+        margin-right: 35px;
     }
-    & > #filter{
-        width: 170px;
-        height: 50px;
-        color: white;
+    & > #menu-selection {
+        display: flex;
+        flex-direction: column;
         background-color: $colour-primary-red;
         border-radius: 5px;
     }
-}
-
-.filter-value{
-    font-family: 'DM Sans', sans-serif;
+    & button {
+        width: 170px;
+        color: white;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 18px;
+        background-color: $colour-primary-red;
+        border-radius: 5px;
+        border: none;
+        letter-spacing: 1px;
+        text-align: left;
+        padding: 15px;
+    }
+    & > .button-date {
+        display: none;
+    }
+    & > .button-title {
+        display: none;
+    }
 }
 
 

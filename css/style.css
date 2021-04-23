@@ -183,17 +183,17 @@ a {
 
 .hero .info > .name {
   font-weight: normal;
-  font-size: 48px;
-  line-height: 47px;
+  font-size: 36px;
+  line-height: 36px;
   color: #D3573C;
   margin: 0;
 }
 .hero .info > .location {
   margin: 15px 0;
-  font-size: 18px;
+  font-size: 16px;
 }
 .hero .info > .tagline {
-  font-size: 14px;
+  font-size: 12px;
 }
 .hero .info > .tagbox {
   justify-content: flex-start;
@@ -211,13 +211,11 @@ a {
 }
 
 .media-card {
-  width: 28%;
-  height: 350px;
-  margin: 0;
+  margin: 10px;
 }
-.media-card img, .media-card .media {
-  width: 100%;
-  height: 90%;
+.media-card img, .media-card .media-video {
+  width: 350px;
+  height: 300px;
   object-fit: cover;
   object-position: center;
   border-radius: 5px;
@@ -226,7 +224,8 @@ a {
 .media-card_info {
   width: 100%;
   display: flex;
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 14px;
   color: #901C1C;
 }
 .media-card_info__text {
@@ -508,24 +507,40 @@ nav a {
   }
 }
 
-.media-filter {
+.media-selection {
+  display: flex;
+  font-family: "DM Sans", sans-serif;
   font-size: 16px;
   font-weight: bold;
   margin: 30px 0;
 }
-.media-filter label {
-  margin-right: 20px;
+.media-selection > .filter-label {
+  padding-top: 10px;
+  margin-right: 35px;
 }
-.media-filter > #filter {
-  width: 170px;
-  height: 50px;
-  color: white;
+.media-selection > #menu-selection {
+  display: flex;
+  flex-direction: column;
   background-color: #901C1C;
   border-radius: 5px;
 }
-
-.filter-value {
+.media-selection button {
+  width: 170px;
+  color: white;
   font-family: "DM Sans", sans-serif;
+  font-size: 18px;
+  background-color: #901C1C;
+  border-radius: 5px;
+  border: none;
+  letter-spacing: 1px;
+  text-align: left;
+  padding: 15px;
+}
+.media-selection > .button-date {
+  display: none;
+}
+.media-selection > .button-title {
+  display: none;
 }
 
 .media-gallery {
