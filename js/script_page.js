@@ -773,41 +773,89 @@ class Image {
 function createMediaCard(mediaData) {
   const media = MediaFactory.createMedia(mediaData).createDom();
   media.classList.add('media-card');
-  console.log(media)
-
   return media;
 }
 
-function createDropdownMenu() {
-  const body = document.querySelector('body');
-  const mediaSelection = document.createElement('div');
-  const labelFilter = document.createElement('label');
-  const menuSelection = document.createElement('div');
-  const btnPopularity = document.createElement('button');
-  const btnDate = document.createElement('button');
-  const btnTitle = document.createElement('button');
+function displayGallery() {
+  const photographerPageMain = document.querySelector('.photographer-page_main');  
+  const gallery = document.createElement('div');
+  gallery.classList.add('gallery');
+  photographerPageMain.appendChild(gallery);
 
-  mediaSelection.classList.add('media-selection');
-  labelFilter.classList.add('filter-label');
-  menuSelection.classList.add('menu-selection');
-  btnPopularity.classList.add('button', 'button-popularity');
-  btnDate.classList.add('button', 'button-date');
-  btnTitle.classList.add('button', 'button-title');
+  const displayDropDownMenu = () => {
+    const mediaSelection = document.createElement('div');
+    const labelMenuDropDown = document.createElement('label');
+    const menuDropDown = document.createElement('div');
+    const arrow = document.createElement('div');
+    const options = document.createElement('div');
+    const btnPopularity = document.createElement('button');
+    const btnDate = document.createElement('button');
+    const btnTitle = document.createElement('button');
 
-  labelFilter.appendChild(document.createTextNode('Trier par'));
-  btnPopularity.appendChild(document.createTextNode('Popularité'));
-  btnDate.appendChild(document.createTextNode('Date'));
-  btnTitle.appendChild(document.createTextNode('Titre'));
+    mediaSelection.classList.add('media-selection');
+    labelMenuDropDown.classList.add('label-menu-drop-down');
+    menuDropDown.classList.add('menu-drop-down');
+    arrow.classList.add('arrow');
+    options.classList.add('options');
+    btnPopularity.classList.add('selected', 'option', 'popularity');
+    btnPopularity.setAttribute('type', 'button');
+    btnDate.classList.add('option', 'date');
+    btnDate.setAttribute('type', 'button');
+    btnTitle.classList.add('option', 'title');
+    btnTitle.setAttribute('type', 'button');
+    
+    labelMenuDropDown.appendChild(document.createTextNode('Trier par'));
+    btnPopularity.appendChild(document.createTextNode('Popularité'));
+    btnDate.appendChild(document.createTextNode('Date'));
+    btnTitle.appendChild(document.createTextNode('Titre'));
 
-  menuSelection.append(btnPopularity, btnDate, btnTitle);
-  mediaSelection.append(labelFilter, menuSelection);
-  body.appendChild(mediaSelection);
+    options.append(btnPopularity, btnDate, btnTitle);
+    menuDropDown.append(arrow, options);
+    mediaSelection.append(labelMenuDropDown, menuDropDown);
+    gallery.appendChild(mediaSelection);
 
+    // function openMenu() {
+    //   options.forEach(option =>  {
+    //     if (option.style.display === 'none') {
+    //       option.style.display = 'block';
+    //     }
+    //     console.log(options);
+    //     arrow.classList.toggle('arrow-active');
+    //   })
+    // };
+
+    // arrow.addEventListener('click', openMenu());
+  };
+  
+  displayDropDownMenu();
+
+  const displayRelevantMediaCards = (id) => {
+    const relevantMedias = getRelevantMedias(id);
+    const mediaCards = relevantMedias.map(createMediaCard);
+    const mediaGallery = document.createElement('div');
+    mediaGallery.classList.add('media-gallery');
+    gallery.appendChild(mediaGallery);
+    mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
+  };
+  displayRelevantMediaCards(paramId);
 }
 
-function sortRelevantMedias(array) {
-  const sortedRelevantMedias = [];
-  createDropDownMenu();
+function sortRelevantMedias(mediaFilterSelected) {
+  const relevantMedias =getRelevantMedias(urlId);
+  if (mediaFilterSelected === undefined) {
+    return relevantMedias;
+  } else if (mediaFilterSelected === popularity) {
+    return relevantMedias.sort(function (a, b) {
+      return a.likes - b.likes;
+    });
+  } else if (mediaFilterSelected === date) {
+    return relevantMedias.sort(function (a, b) {
+      return new Date(b.date) - new Date(a.date);
+    });
+  } else if (mediaFilterSelected === title) {
+    return relevantMedias.sort()
+  }
+
 
   // Tableau
   // const sortedBySmthg = tableau.sort(function a, b) {
@@ -817,21 +865,20 @@ function sortRelevantMedias(array) {
   // si positif, b est premier
 }
 
-function displayRelevantMediaCards(id) {
-  const relevantMedias = getRelevantMedias(id);
-  const mediaCards = relevantMedias.map(createMediaCard);
-  const photographerPageMain = document.querySelector('.photographer-page_main');
-  const gallery = document.createElement('div');
-  const mediaGallery = document.createElement('div');
-  gallery.classList.add('gallery');
-  mediaGallery.classList.add('media-gallery');
-  photographerPageMain.appendChild(gallery);
-  gallery.appendChild(mediaGallery);
-  mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
-}
+// function displayRelevantMediaCards(id) {
+//   const relevantMedias = getRelevantMedias(id);
+//   const mediaCards = relevantMedias.map(createMediaCard);
+//   // const photographerPageMain = document.querySelector('.photographer-page_main');
+//   // const gallery = document.createElement('div');
+//   const mediaGallery = document.createElement('div');
+//   // gallery.classList.add('gallery');
+//   mediaGallery.classList.add('media-gallery');
+//   // photographerPageMain.appendChild(gallery);
+//   gallery.appendChild(mediaGallery);
+//   mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
+// }
 
 window.onload = () => {
-  createDropdownMenu();
   createHero(relevantPhotographer);
-  displayRelevantMediaCards(paramId);
+  displayGallery();  
 };

@@ -514,17 +514,22 @@ nav a {
   font-weight: bold;
   margin: 30px 0;
 }
-.media-selection > .filter-label {
+.media-selection > .label-menu-drop-down {
   padding-top: 10px;
   margin-right: 35px;
 }
-.media-selection > #menu-selection {
+.media-selection > .menu-drop-down {
   display: flex;
   flex-direction: column;
   background-color: #901C1C;
   border-radius: 5px;
+  position: relative;
 }
-.media-selection button {
+.media-selection .options {
+  display: flex;
+  flex-direction: column;
+}
+.media-selection .option {
   width: 170px;
   color: white;
   font-family: "DM Sans", sans-serif;
@@ -536,11 +541,19 @@ nav a {
   text-align: left;
   padding: 15px;
 }
-.media-selection > .button-date {
-  display: none;
+
+.arrow {
+  width: 6px;
+  height: 6px;
+  border: 2px solid;
+  border-color: transparent transparent white white;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 17px;
+  right: 17px;
 }
-.media-selection > .button-title {
-  display: none;
+.arrow .arrow-active {
+  transform: translateY(50%) rotate(-225deg);
 }
 
 .media-gallery {

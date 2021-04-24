@@ -4,17 +4,22 @@
     font-size: 16px;
     font-weight: bold;
     margin: 30px 0;
-    & > .filter-label {
+    & > .label-menu-drop-down {
         padding-top: 10px;
         margin-right: 35px;
     }
-    & > #menu-selection {
+    & > .menu-drop-down {
         display: flex;
         flex-direction: column;
         background-color: $colour-primary-red;
         border-radius: 5px;
+        position: relative;
     }
-    & button {
+    & .options {
+        display: flex;
+        flex-direction: column;
+    }
+    & .option {
         width: 170px;
         color: white;
         font-family: 'DM Sans', sans-serif;
@@ -26,14 +31,22 @@
         text-align: left;
         padding: 15px;
     }
-    & > .button-date {
-        display: none;
-    }
-    & > .button-title {
-        display: none;
-    }
 }
 
+
+.arrow {
+    width: 6px;
+    height: 6px;
+    border: 2px solid;
+    border-color: transparent transparent white white;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    & .arrow-active {
+        transform: translateY(50%) rotate(-225deg);
+    }
+}
 
 .media-gallery{
     display: flex;
