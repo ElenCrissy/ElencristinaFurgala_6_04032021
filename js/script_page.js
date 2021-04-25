@@ -782,49 +782,42 @@ function displayGallery() {
   gallery.classList.add('gallery');
   photographerPageMain.appendChild(gallery);
 
-  const displayDropDownMenu = () => {
+  const createDropdownMenu = () => {
     const mediaSelection = document.createElement('div');
-    const labelMenuDropDown = document.createElement('label');
-    const menuDropDown = document.createElement('div');
+    const orderBy = document.createElement('label');
+    const dropdown = document.createElement('div');
+    const dropdownToggle = document.createElement('button');
     const arrow = document.createElement('div');
-    const options = document.createElement('div');
-    const btnPopularity = document.createElement('button');
-    const btnDate = document.createElement('button');
-    const btnTitle = document.createElement('button');
+    const dropdownMenu = document.createElement('ul');
+    const optionDate = document.createElement('li');
+    const optionTitle = document.createElement('li');
+  }
 
-    mediaSelection.classList.add('media-selection');
-    labelMenuDropDown.classList.add('label-menu-drop-down');
-    menuDropDown.classList.add('menu-drop-down');
-    arrow.classList.add('arrow');
-    options.classList.add('options');
-    btnPopularity.classList.add('selected', 'option', 'popularity');
-    btnPopularity.setAttribute('type', 'button');
-    btnDate.classList.add('option', 'date');
-    btnDate.setAttribute('type', 'button');
-    btnTitle.classList.add('option', 'title');
-    btnTitle.setAttribute('type', 'button');
+  const displayDropDownMenu = () => {
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const arrow = document.querySelector('.arrow');
+    dropdownToggle.textContent = "Popularité";
     
-    labelMenuDropDown.appendChild(document.createTextNode('Trier par'));
-    btnPopularity.appendChild(document.createTextNode('Popularité'));
-    btnDate.appendChild(document.createTextNode('Date'));
-    btnTitle.appendChild(document.createTextNode('Titre'));
+    console.log(dropdownToggle.textContent);
+    function openDropdownMenu() {
+      arrow.classList.toggle('active');
+      const menuDropDown = document.querySelector('.dropdown-menu');
+      if (menuDropDown.style.display === "none") {
+        menuDropDown.style.display = "block";
+      } else {
+        menuDropDown.style.display = "none";
+      }
+      const options = document.querySelectorAll('.option');
+      options.forEach(option => {
+        if (dropdownToggle.textContent === option.textContent) {
+          option.style.display = "none";
+        }
+      });
+    }
+    arrow.addEventListener('click', openDropdownMenu);
+    function orderGallery() {
 
-    options.append(btnPopularity, btnDate, btnTitle);
-    menuDropDown.append(arrow, options);
-    mediaSelection.append(labelMenuDropDown, menuDropDown);
-    gallery.appendChild(mediaSelection);
-
-    // function openMenu() {
-    //   options.forEach(option =>  {
-    //     if (option.style.display === 'none') {
-    //       option.style.display = 'block';
-    //     }
-    //     console.log(options);
-    //     arrow.classList.toggle('arrow-active');
-    //   })
-    // };
-
-    // arrow.addEventListener('click', openMenu());
+    }
   };
   
   displayDropDownMenu();
@@ -841,7 +834,7 @@ function displayGallery() {
 }
 
 function sortRelevantMedias(mediaFilterSelected) {
-  const relevantMedias =getRelevantMedias(urlId);
+  const relevantMedias = getRelevantMedias(urlId);
   if (mediaFilterSelected === undefined) {
     return relevantMedias;
   } else if (mediaFilterSelected === popularity) {

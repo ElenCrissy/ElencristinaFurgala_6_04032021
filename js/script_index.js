@@ -658,7 +658,6 @@ window.onload = () => {
     if (filterTag === undefined) {
       return photographers;
     }
-    // eslint-disable-next-line max-len
     const filteredPhotographers = photographers.filter((photographer) => photographer.tags.includes(filterTag));
     return filteredPhotographers;
   }
@@ -670,7 +669,6 @@ window.onload = () => {
       sectionHomePage.removeChild(sectionHomePage.firstChild);
     }
     relevantPhotographers.forEach((relevantPhotographer) => {
-      // eslint-disable-next-line no-use-before-define
       const card = createCard(relevantPhotographer);
       sectionHomePage.appendChild(card);
     });
