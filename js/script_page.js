@@ -792,14 +792,16 @@ function displayGallery() {
     const optionDate = document.createElement('li');
     const optionTitle = document.createElement('li');
   }
+  // createDropdownMenu();
 
   const displayDropDownMenu = () => {
+    const dropdownTrigger = document.querySelector('.dropdown-trigger');
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const arrow = document.querySelector('.arrow');
+    const options = document.querySelectorAll('.option');
     dropdownToggle.textContent = "Popularité";
     
-    console.log(dropdownToggle.textContent);
-    function openDropdownMenu() {
+    const openDropdownMenu = () => {
       arrow.classList.toggle('active');
       const menuDropDown = document.querySelector('.dropdown-menu');
       if (menuDropDown.style.display === "none") {
@@ -807,17 +809,23 @@ function displayGallery() {
       } else {
         menuDropDown.style.display = "none";
       }
-      const options = document.querySelectorAll('.option');
       options.forEach(option => {
         if (dropdownToggle.textContent === option.textContent) {
           option.style.display = "none";
         }
       });
     }
-    arrow.addEventListener('click', openDropdownMenu);
-    function orderGallery() {
+    dropdownTrigger.addEventListener('mouseover', openDropdownMenu);
 
-    }
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        dropdownToggle.textContent = option.textContent;
+        options.forEach(otherOptions => otherOptions.style.display = 'block');
+        option.style.display = 'none';
+        let toggleContent = dropdownToggle.textContent;
+        sortRelevantMedias(toggleContent);
+      })
+    });
   };
   
   displayDropDownMenu();
@@ -837,18 +845,17 @@ function sortRelevantMedias(mediaFilterSelected) {
   const relevantMedias = getRelevantMedias(urlId);
   if (mediaFilterSelected === undefined) {
     return relevantMedias;
-  } else if (mediaFilterSelected === popularity) {
+  } else if (mediaFilterSelected === 'Popularité') {
     return relevantMedias.sort(function (a, b) {
       return a.likes - b.likes;
     });
-  } else if (mediaFilterSelected === date) {
+  } else if (mediaFilterSelected === 'Date') {
     return relevantMedias.sort(function (a, b) {
       return new Date(b.date) - new Date(a.date);
     });
-  } else if (mediaFilterSelected === title) {
+  } else if (mediaFilterSelected === 'Title') {
     return relevantMedias.sort()
   }
-
 
   // Tableau
   // const sortedBySmthg = tableau.sort(function a, b) {

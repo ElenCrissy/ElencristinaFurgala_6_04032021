@@ -224,7 +224,6 @@ a {
 .media-card_info {
   width: 100%;
   display: flex;
-  margin-top: 5px;
   font-size: 14px;
   color: #901C1C;
 }
