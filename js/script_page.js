@@ -728,8 +728,8 @@ function displayDropDownMenu() {
   const options = document.querySelectorAll('.option');
   
   const openDropdownMenu = () => {
-    arrow.classList.toggle('active');
     const menuDropDown = document.querySelector('.dropdown-menu');
+    arrow.classList.toggle('active');
     if (menuDropDown.style.display === "none") {
       menuDropDown.style.display = "block";
     } else {
@@ -756,6 +756,7 @@ function displayDropDownMenu() {
   });
 };
 
+
 function sortRelevantMedias(mediaFilterSelected) {
   const relevantMedias = getRelevantMedias(paramId);
   if (mediaFilterSelected === undefined) {
@@ -774,22 +775,6 @@ function sortRelevantMedias(mediaFilterSelected) {
       return (a.image || a.video) - (b.image || b.video); 
     })
   }
-}
-
-function displayGallery() {
-  const gallery = document.createElement('div');
-  gallery.classList.add('gallery');
-  photographerPageMain.appendChild(gallery);
-
-  const displayRelevantMediaCards = (id) => {
-    const relevantMedias = getRelevantMedias(id);
-    const mediaCards = relevantMedias.map(createMediaCard);
-    const mediaGallery = document.createElement('div');
-    mediaGallery.classList.add('media-gallery');
-    gallery.appendChild(mediaGallery);
-    mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
-  };
-  displayRelevantMediaCards(paramId);
 }
 
 class MediaFactory {
@@ -884,9 +869,22 @@ function createMediaCard(mediaData) {
   return media;
 }
 
+function displayRelevantMediaCards(id) {
+  const relevantMedias = getRelevantMedias(id);
+  const mediaCards = relevantMedias.map(createMediaCard);
+  const gallery = document.createElement('div');
+  gallery.classList.add('gallery');
+  photographerPageMain.appendChild(gallery);
+  mediaCards.forEach(mediaCard => gallery.appendChild(mediaCard));
+  const mediaCard = document.querySelectorAll('.media-card');
+  return mediaCard;
+};
+//HELP
+console.log(document.querySelectorAll('.media-card'))
+
 
 window.onload = () => {
   createHero(relevantPhotographer);
   createDropdownMenu();
-  displayGallery();  
+  displayRelevantMediaCards(paramId);  
 };

@@ -249,7 +249,6 @@ a {
   background-color: white;
 }
 
-/* flexbox added on content */
 .content {
   font-family: "DM Sans", serif;
   margin: 5% auto;
@@ -598,7 +597,7 @@ nav a {
   transform: translateY(50%) rotate(-225deg);
 }
 
-.media-gallery {
+.gallery {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
