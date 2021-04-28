@@ -90,22 +90,7 @@
     transform: translateY(50%) rotate(-225deg);
 }
 
-
-// .arrow {
-//     width: 6px;
-//     height: 6px;
-//     border: 2px solid;
-//     border-color: transparent transparent white white;
-//     transform: rotate(-45deg);
-//     position: absolute;
-//     top: 17px;
-//     right: 17px;
-//     & .arrow-active {
-//         transform: translateY(50%) rotate(-225deg);
-//     }
-// }
-
-.gallery{
+.media-gallery{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

@@ -679,7 +679,8 @@ function createHero(photographer) {
 }
 
 function getRelevantMedias(urlId) {
-  return mediaArr.filter(media => media.photographerId.toString() === urlId);
+  const relevantMedias = mediaArr.filter(media => media.photographerId.toString() === urlId);
+  return relevantMedias;
 }
 
 const createDropdownMenu = () => {
@@ -749,44 +750,64 @@ function displayDropDownMenu() {
       options.forEach(otherOptions => otherOptions.style.display = 'block');
       option.style.display = 'none';
       let toggleContent = dropdownToggle.textContent;
-      sortRelevantMedias(toggleContent);
-      console.log(sortRelevantMedias(toggleContent));
-      
+      const relevantMedias = getRelevantMedias(paramId);
+      sortRelevantMedias(toggleContent, relevantMedias);
+      displayRelevantMediaCardsAfterSort(relevantMedias);
     })
   });
 };
 
 
-function sortRelevantMedias(mediaFilterSelected) {
-  const relevantMedias = getRelevantMedias(paramId);
-  if (mediaFilterSelected === undefined) {
-    return relevantMedias;
-  } else if (mediaFilterSelected === 'Popularité') {
-    return relevantMedias.sort(function (a, b) {
+function sortRelevantMedias(dropdownContent, relevantMediasArray) {
+    if (dropdownContent === undefined) {
+    return relevantMediasArray;
+  } else if (dropdownContent === 'Popularité') {
+    return relevantMediasArray.sort(function (a, b) {
       return b.likes - a.likes;
     });
-  } else if (mediaFilterSelected === 'Date') {
-    return relevantMedias.sort(function (a, b) {
+  } else if (dropdownContent === 'Date') {
+    return relevantMediasArray.sort(function (a, b) {
       return new Date(b.date) - new Date(a.date);
     });
-  } else if (mediaFilterSelected === 'Titre') {
-    // HELP
-    return relevantMedias.sort(function (a, b) {
-      return (a.image || a.video) - (b.image || b.video); 
+  } else if (dropdownContent === 'Titre') {
+    return relevantMediasArray.sort(function (a, b) {
+      const titreA = a.image || a.video;
+      const titreB = b.image || b.video;
+      if(titreA < titreB) {
+        return -1;
+      }
+      if(titreA > titreB) {
+        return 1;
+      }
+      return 0; 
     })
   }
 }
 
+function displayRelevantMediaCardsAfterSort(sortedMedias){
+  const gallery = document.querySelector('.gallery');
+  const mediaGalleryAfterSort = document.createElement('div');
+  mediaGalleryAfterSort.classList.add('media-gallery');
+  const mediaCards = sortedMedias.map(createMediaCard);
+  while (gallery.firstChild) {
+    gallery.removeChild(gallery.firstChild);
+  }
+  mediaCards.forEach(mediaCard => mediaGalleryAfterSort.appendChild(mediaCard));
+  gallery.appendChild(mediaGalleryAfterSort);
+  console.log(gallery.firstChild);
+}
+
 class MediaFactory {
   static createMedia(mediaData) {
-    if (mediaData.hasOwnProperty('image')) return new Image(mediaData.image, mediaData.price, mediaData.likes);
-    else if (mediaData.hasOwnProperty('video')) return new Video(mediaData.video, mediaData.price, mediaData.likes);
+    if (mediaData.hasOwnProperty('image')) return new Image(mediaData.image, mediaData.photographerId, mediaData.price, mediaData.likes);
+    else if (mediaData.hasOwnProperty('video')) return new Video(mediaData.video, mediaData.photographerId, mediaData.price, mediaData.likes);
   };
 }
 
 class Video {
-  constructor(fileName, price, likes) {
+  constructor(fileName, photographerId, price, likes) {
     this.fileName = fileName;
+    this.photographerId = photographerId;
     this.price = price;
     this.likes = likes;
     this.titleContent = this.fileName.slice(0, this.fileName.length-4).replaceAll('_', ' ');
@@ -811,8 +832,12 @@ class Video {
 
     title.appendChild(document.createTextNode(`${this.titleContent}`));
     price.appendChild(document.createTextNode(`${this.price}€`));
-    mediaVideoSrc.src = `images/Sample_Photos/Ellie Rose/${this.fileName}`;
+    //HELP
+    mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
     mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart"></i>`;
+    mediaCardInfoHeart.addEventListener('click', () => {
+      mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+    })
 
     mediaVideo.appendChild(mediaVideoSrc);
     mediaCardInfo.appendChild(mediaCardInfoText);
@@ -826,8 +851,9 @@ class Video {
 }
 
 class Image {
-  constructor(fileName, price, likes) {
+  constructor(fileName, photographerId, price, likes) {
     this.fileName = fileName;
+    this.photographerId = photographerId;
     this.price = price;
     this.likes = likes;
     this.titleContent = this.fileName.slice(0, this.fileName.length-4).replaceAll('_', ' ');
@@ -850,8 +876,11 @@ class Image {
 
     title.appendChild(document.createTextNode(`${this.titleContent}`));
     price.appendChild(document.createTextNode(`${this.price}€`));
-    mediaImage.src = `images/Sample_Photos/Ellie Rose/${this.fileName}`;
+    mediaImage.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
     mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart"></i>`;
+    mediaCardInfoHeart.addEventListener('click', () => {
+      mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+    })
 
     mediaCardInfo.appendChild(mediaCardInfoText);
     mediaCardInfoText.append(title, price);
@@ -869,22 +898,35 @@ function createMediaCard(mediaData) {
   return media;
 }
 
-function displayRelevantMediaCards(id) {
-  const relevantMedias = getRelevantMedias(id);
-  const mediaCards = relevantMedias.map(createMediaCard);
+function createGallery() {
   const gallery = document.createElement('div');
   gallery.classList.add('gallery');
   photographerPageMain.appendChild(gallery);
-  mediaCards.forEach(mediaCard => gallery.appendChild(mediaCard));
+  displayMediaGallery();
+}
+
+function displayMediaGallery(sortedMediasArray) {
+  const mediaGallery = document.createElement('div');
+  const gallery = document.querySelector('.gallery');
+  mediaGallery.classList.add('media-gallery');
+  gallery.appendChild(mediaGallery);
+  if (sortedMediasArray === undefined) {
+    const relevantMedias = getRelevantMedias(paramId);
+    const mediaCards = relevantMedias.map(createMediaCard);
+    mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
+  } else {
+    while (gallery.firstChild) {
+      gallery.removeChild(gallery.firstChild);
+    }
+    const mediaCards = sortedMediasArray.map(createMediaCard);
+    mediaCards.forEach(mediaCard => mediaGallery.appendChild(mediaCard));
+  }
   const mediaCard = document.querySelectorAll('.media-card');
   return mediaCard;
-};
-//HELP
-console.log(document.querySelectorAll('.media-card'))
-
+}
 
 window.onload = () => {
   createHero(relevantPhotographer);
   createDropdownMenu();
-  displayRelevantMediaCards(paramId);  
+  createGallery();
 };

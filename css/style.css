@@ -597,7 +597,7 @@ nav a {
   transform: translateY(50%) rotate(-225deg);
 }
 
-.gallery {
+.media-gallery {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
