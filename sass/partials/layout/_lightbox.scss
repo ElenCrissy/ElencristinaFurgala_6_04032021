@@ -25,13 +25,17 @@
         align-items: center;
         margin: 30px;
     }
-    img{
+    & .media-caption{
+        font-size: 24px;
+    }
+}
+
+.lightbox-media{
+    display: none;
+    & .media-content{
         width: 800px;
         height: 650px;
         border-radius: 10px;
-    }
-    & .caption{
-        font-size: 24px;
     }
 }
 
@@ -59,4 +63,8 @@
     &::after{
         transform: rotate(-45deg);
     }
+}
+
+.active{
+    opacity : 1
 }
