@@ -848,8 +848,12 @@ class Video {
     mediaCaption.classList.add('media-caption');
 
     mediaSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
+    mediaContent.addEventListener('click', () => {
+      mediaContent.play();
+    }, false);
     mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
-    lightboxMedia.append(mediaContent, mediaSrc, mediaCaption);
+    mediaContent.appendChild(mediaSrc);
+    lightboxMedia.append(mediaContent, mediaCaption);
 
     lightboxMedia.dataset['mediaId'] = this.id;
 
@@ -965,6 +969,7 @@ function createLightbox(relevantMediasArray) {
   const lightboxContent = document.createElement('div');
   const lightboxCloseBtn = document.createElement('span');
   const navLeft = document.createElement('i');
+  const lightboxMedias = relevantMediasArray.map(createLightboxMedia);
   const navRight = document.createElement('i');
 
   lightboxModal.classList.add('lightbox-modal');
@@ -975,49 +980,61 @@ function createLightbox(relevantMediasArray) {
 
   photographerPageMain.appendChild(lightboxModal);
   lightboxModal.appendChild(lightboxContent);
-  lightboxContent.append(lightboxCloseBtn, navLeft, navRight);
+  lightboxContent.append(lightboxCloseBtn, navLeft);
+  lightboxMedias.forEach(lightboxMedia => lightboxContent.appendChild(lightboxMedia));
+  lightboxContent.append(navRight);
 
   lightboxCloseBtn.addEventListener('click', closeLightbox);
-  // to be checked
-  console.log(relevantMediasArray);
-  const lightboxMedias = relevantMediasArray.map(createLightboxMedia);
-  console.log(lightboxMedias);
-  lightboxMedias.forEach(lightboxMedia => lightboxContent.appendChild(lightboxMedia));
+
+  // pas compris bind mais ça marche !  
+  navRight.addEventListener('click', next.bind(null, lightboxMedias));
+  navLeft.addEventListener('click', previous.bind(null, lightboxMedias));
 }
 
 function openLightbox(mediaId){
   document.querySelector('.lightbox-modal').style.display = 'block';
   const lightboxMedias = document.querySelectorAll('.lightbox-media');
+
   lightboxMedias.forEach(lightboxMedia => {
     if(mediaId.toString() === lightboxMedia.dataset['mediaId']){
       lightboxMedia.classList.add('active');
     }
-  })
+  });
 }
 
 function closeLightbox() {
 document.querySelector('.lightbox-modal').style.display = "none";
+const lightboxMedias = document.querySelectorAll('.lightbox-media');
+  lightboxMedias.forEach(lightboxMedia => {
+    if(lightboxMedia.classList.contains('active')){
+      lightboxMedia.classList.remove('active');
+    }
+  })
 }
 
-//   next() {
-//     for(let i = 0; i < this.listMedia.length; i++) {
-//         if(this.listMedia[i] == this.currentMedia) {
-//             this.currentMedia = this.listMedia[++i];
-//             break;
-//         }
-//     }
-//   }
+function next(mediaArray){
+  for(let i = 0; i < mediaArray.length; i++) {
+    if(mediaArray[i].classList.contains('active')) {
+      mediaArray[i].classList.remove('active');
+      const nextMedia = (i+=1);
+      mediaArray[nextMedia].classList.add('active');
+      break;
+    }
+  }
 
-//   previous() {
-//       for(let i = 0; i < this.listMedia.length; i++) {
-//           if(this.listMedia[i] === this.currentMedia) {
-//               this.currentMedia = this.listMedia[--i];
-//               break;
-//           }
-//       }
-//   }
+}
 
-// }
+function previous(mediaArray){
+  for(let i = 0; i < (mediaArray.length-1); i++) {
+    if(mediaArray[i].classList.contains('active')) {
+      mediaArray[i].classList.remove('active');
+      const previousMedia = (i-=1);
+      mediaArray[previousMedia].classList.add('active');
+      break;
+    }
+  }
+
+}
 
 function createBottomBox() {
   const relevantMedias = getRelevantMedias(paramId);

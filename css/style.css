@@ -49,8 +49,7 @@ a {
   padding: 3px 4px;
   color: #901C1C;
 }
-
-.active, button:hover {
+.tag.active, .tag button:hover {
   background-color: #901C1C;
   color: white;
 }
@@ -641,6 +640,7 @@ nav a {
   width: 800px;
   height: 650px;
   border-radius: 10px;
+  object-fit: contain;
 }
 
 .lightbox-close-btn {
