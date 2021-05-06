@@ -32,6 +32,9 @@
 
 .lightbox-media{
     display: none;
+    &.active{
+        display: block;
+    }
     & .media-content{
         width: 800px;
         height: 650px;
@@ -63,8 +66,4 @@
     &::after{
         transform: rotate(-45deg);
     }
-}
-
-.active{
-    opacity : 1
 }

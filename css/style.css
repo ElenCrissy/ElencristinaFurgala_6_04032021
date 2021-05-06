@@ -397,10 +397,6 @@ nav a {
   background-color: #901C1C;
   border-radius: 5px;
 }
-.media-selection .dropdown-trigger {
-  display: flex;
-  position: relative;
-}
 .media-selection .dropdown-toggle {
   width: 170px;
   color: white;
@@ -631,13 +627,20 @@ nav a {
   align-items: center;
   margin: 30px;
 }
-.lightbox-content img {
+.lightbox-content .media-caption {
+  font-size: 24px;
+}
+
+.lightbox-media {
+  display: none;
+}
+.lightbox-media.active {
+  display: block;
+}
+.lightbox-media .media-content {
   width: 800px;
   height: 650px;
   border-radius: 10px;
-}
-.lightbox-content .caption {
-  font-size: 24px;
 }
 
 .lightbox-close-btn {

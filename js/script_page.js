@@ -851,6 +851,8 @@ class Video {
     mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
     lightboxMedia.append(mediaContent, mediaSrc, mediaCaption);
 
+    lightboxMedia.dataset['mediaId'] = this.id;
+
     return lightboxMedia;
   }
 }
@@ -896,7 +898,6 @@ class Image {
     cardImage.append(mediaImage, mediaCardInfo);
 
     mediaImage.addEventListener('click', () => {
-      console.log(this.id);
       openLightbox(this.id);
     });
 
@@ -916,6 +917,8 @@ class Image {
     mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
     lightboxMedia.append(mediaContent, mediaCaption);
 
+    lightboxMedia.dataset['mediaId'] = this.id;
+
     return lightboxMedia;
   }
 }
@@ -930,11 +933,11 @@ function createGallery() {
   const gallery = document.createElement('div');
   gallery.classList.add('gallery');
   photographerPageMain.appendChild(gallery);
-  const relevantMedias = getRelevantMedias(paramId);
-  relevantMedias.sort(function (a, b) {
+  const relevantMediasDefault = getRelevantMedias(paramId);
+  relevantMediasDefault.sort(function (a, b) {
     return b.likes - a.likes;
   })
-  displayGallery(relevantMedias);
+  displayGallery(relevantMediasDefault);
 }
 
 function displayGallery(mediasArray) {
@@ -953,7 +956,6 @@ function displayGallery(mediasArray) {
 function createLightboxMedia(mediaData) {
   const lightboxMedia = MediaFactory.createMedia(mediaData).createLightboxDom();
   lightboxMedia.classList.add('lightbox-media');
-  lightboxMedia.style.display = 'none';
   return lightboxMedia;
   
 }
@@ -976,18 +978,18 @@ function createLightbox(relevantMediasArray) {
   lightboxContent.append(lightboxCloseBtn, navLeft, navRight);
 
   lightboxCloseBtn.addEventListener('click', closeLightbox);
-
+  // to be checked
+  console.log(relevantMediasArray);
   const lightboxMedias = relevantMediasArray.map(createLightboxMedia);
+  console.log(lightboxMedias);
   lightboxMedias.forEach(lightboxMedia => lightboxContent.appendChild(lightboxMedia));
 }
 
 function openLightbox(mediaId){
   document.querySelector('.lightbox-modal').style.display = 'block';
   const lightboxMedias = document.querySelectorAll('.lightbox-media');
-  console.log('this is lightboxMedias', lightboxMedias);
-  console.log('this is lightboxMedias ID', lightboxMedias.id);
   lightboxMedias.forEach(lightboxMedia => {
-    if(mediaId === lightboxMedia.id){
+    if(mediaId.toString() === lightboxMedia.dataset['mediaId']){
       lightboxMedia.classList.add('active');
     }
   })
@@ -996,31 +998,6 @@ function openLightbox(mediaId){
 function closeLightbox() {
 document.querySelector('.lightbox-modal').style.display = "none";
 }
-
-
-
-// function openLightbox(currentSrc, currentTitle) {
-//    const lightboxModal = document.querySelector('.lightbox-modal');
-//    lightboxModal.style.display = 'block';
-//    const mediaDisplayed = document.querySelector('.media-displayed');
-//    const mediaDisplayedCaption = document.querySelector('.media-displayed-caption');
-//    mediaDisplayed.setAttribute('src', `${currentSrc}`);
-//    mediaDisplayedCaption.appendChild(document.createTextNode(`${currentTitle}`));
-// }
-
-// class Diapo{
-//   constructor(listMedia){
-//     this.listMedia = listMedia;
-//   }
-
-//   play(currentSrc, currentTitle){
-//     const lightboxModal = document.querySelector('.lightbox-modal');
-//     lightboxModal.style.display = 'block';
-//     const mediaDisplayed = document.querySelector('.media-displayed');
-//     const mediaDisplayedCaption = document.querySelector('.media-displayed-caption');
-//     mediaDisplayed.setAttribute('src', `${currentSrc}`);
-//     mediaDisplayedCaption.appendChild(document.createTextNode(`${currentTitle}`));
-//   }
 
 //   next() {
 //     for(let i = 0; i < this.listMedia.length; i++) {
