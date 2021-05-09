@@ -396,6 +396,10 @@ nav a {
   background-color: #901C1C;
   border-radius: 5px;
 }
+.media-selection .dropdown-trigger {
+  display: flex;
+  position: relative;
+}
 .media-selection .dropdown-toggle {
   width: 170px;
   color: white;
@@ -472,7 +476,7 @@ nav a {
   justify-content: space-between;
 }
 
-.background {
+.form-background {
   display: none;
   position: fixed;
   z-index: 999;
@@ -484,19 +488,16 @@ nav a {
   background-color: white;
 }
 
-.content {
+.form-content {
   font-family: "DM Sans", serif;
   margin: 5% auto;
   width: 100%;
   max-width: 650px;
   height: 900px;
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration);
   background: #DB8876;
   border-radius: 5px;
   overflow: hidden;
   position: relative;
-  color: #fff;
   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
@@ -529,16 +530,21 @@ nav a {
   transform: rotate(-45deg);
 }
 
-.modal-body {
+.form-body {
   margin: 30px;
 }
-.modal-body > .modal-title {
-  font-size: 50px;
+.form-body .form-title {
+  font-size: 48px;
   color: black;
+  font-weight: bold;
 }
 
 #contact {
   margin-top: 10px;
+}
+#contact .formData {
+  display: flex;
+  flex-direction: column;
 }
 #contact label {
   font-size: 28px;
@@ -559,8 +565,9 @@ nav a {
   outline: none;
 }
 #contact .text-control__message {
-  height: 150px;
+  height: 100px;
   outline: none;
+  border-radius: 8px;
 }
 
 .btn-submit {
@@ -568,14 +575,12 @@ nav a {
   height: 69px;
   font-size: 1rem;
   background: #901C1C;
-  margin: 10px auto;
   border-radius: 5px;
-  display: flex;
-  justify-content: center;
   color: #fff;
   cursor: pointer;
   border: 0;
   outline: none;
+  margin-top: 10px;
 }
 
 #confirmationMsg {

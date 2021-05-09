@@ -17,97 +17,11 @@
             <a href="index.html" class="logo"><img src="images/Logo/logo.png" alt="FishEye Home Page"/></a>
         </header>
 
-        <main class="photographer-page_main">
-
-            <div class="background">
-                <div class="content">
-                  <span class="close"></span>
-                  <div class="modal-body">
-                    <div class="modal-title">Contactez-moi
-                        <div class="recipient-name"></div>
-                    </div>
-                    <form
-                      id= "contact"
-                      name="contact"
-                      action=""
-                      method="get"
-                      onsubmit="return validate();"
-                      novalidate
-                    >
-                      <div
-                        class="formData">
-                        <label for="first">Prénom</label><br>
-                        <input
-                          class="text-control"
-                          type="text"
-                          id="first"
-                          name="first"
-                          minlength="2"
-                        /><br>
-                      </div>
-                      <div id="firstError" class="error"></div>
-                      <div
-                        class="formData">
-                        <label for="last">Nom</label><br>
-                        <input
-                          class="text-control"
-                          type="text"
-                          id="last"
-                          name="last"
-                          minlength="2"
-                        /><br>
-                        <div id="lastError" class="error"></div>
-                      </div>
-                      <div
-                        class="formData">
-                        <label for="email">E-mail</label><br>
-                        <input
-                          class="text-control"
-                          type="email"
-                          id="email"
-                          name="email"
-                        /><br>
-                        <div id="emailError" class="error"></div>
-                      </div>
-                      <div
-                        class="formData">
-                        <label for="message">Votre message</label><br>
-                        <textarea
-                          class="text-control text-control__message"
-                          type="text"
-                          id="message"
-                          name="message"
-                          rows="5"
-                          cols="100"
-                        >
-                        </textarea><br>
-                        <div id="messageError" class="error"></div>
-                      </div>
+        <main class="photographer-page_main"></main>
         
-                      <input
-                        id = "submit"
-                        class="button btn-submit"
-                        type="submit"
-                        value="Envoyer"
-                      />
-                    </form>
-                  </div>
-                  <div id="confirmationMsg">Merci ! 
-                    <br>Votre message a été envoyé.
-                  </div>
-                  <input
-                    id = "closeBtnRed"
-                    class="button btn-submit"
-                    type="button"
-                    value="Fermer"
-                  />
-                </div>
-            </div>
-          </main>
-        
-        <script src="js/script_page.js"></script>
-        <script src="js/script_modal.js"></script>
-        <script src="js/script_diapo.js"></script>
+        <script src="js/hero.js"></script>
+        <script src="js/form.js"></script>
+        <script type="module" src="js/page.js"></script>
     </body>
 
 </html>

@@ -15,10 +15,10 @@
         background-color: $colour-primary-red;
         border-radius: 5px;
     }
-    // & .dropdown-trigger{
-    //     display: flex;
-    //     position: relative;
-    // }
+    & .dropdown-trigger{
+        display: flex;
+        position: relative;
+    }
     & .dropdown-toggle {
         width: 170px;
         color: white;
