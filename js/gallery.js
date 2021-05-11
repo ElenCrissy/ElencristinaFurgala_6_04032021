@@ -69,21 +69,22 @@ class Gallery{
         // Je sais pas où mettre cette fonction
         this.createGallery();
 
+        // help
+        const toggleContent = dropdownToggle.textContent;
+        let sortedRelevantMedias = this.sortRelevantMedias(toggleContent, this.listMedia);
+        console.log(sortedRelevantMedias)
+        this.displayMediaGallery(sortedRelevantMedias);
+
         options.forEach(option => {
             option.addEventListener('click', () => {
             dropdownToggle.textContent = option.textContent;
             options.forEach(otherOptions => otherOptions.style.display = 'block');
             option.style.display = 'none';
-            // let toggleContent = dropdownToggle.textContent;
-            // const sortedRelevantMedias = this.sortRelevantMedias(toggleContent, this.listMedia);
-            // this.displayMediaGallery(sortedRelevantMedias); 
+            const toggleContentAfterSelection = dropdownToggle.textContent;
+            let sortedRelevantMedias = this.sortRelevantMedias(toggleContentAfterSelection, this.listMedia);
+            return this.displayMediaGallery(sortedRelevantMedias); 
             })
-        });
-
-        const toggleContent = dropdownToggle.textContent;
-        const sortedRelevantMedias = this.sortRelevantMedias(toggleContent, this.listMedia);
-        
-        this.displayMediaGallery(sortedRelevantMedias); 
+        }); 
     }
 
     sortRelevantMedias(dropdownContent, relevantMediasArray) {

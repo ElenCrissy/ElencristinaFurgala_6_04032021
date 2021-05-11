@@ -692,6 +692,7 @@ function createCard(photographer) {
   cardLink.setAttribute('href', `./photographer-page.html?id=${id}`);
   cardLink.setAttribute('aria-label', `${photographer.name}`);
 
+  portrait.setAttribute('alt', `${photographer.name}`);
   portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
   cardH2.appendChild(document.createTextNode(photographer.name));
   location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
@@ -772,5 +773,7 @@ navTags.forEach((navTag) => {
 });
 
 window.onload = () => {
+  // const header = new Header;
+  // header.createDomHeader();
   displayRelevantCards();
 };
