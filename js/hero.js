@@ -1,10 +1,10 @@
 class Hero{
-    constructor(photographer){
+    constructor(photographer, selector){
         this.photographer = photographer;
+        this.selector = selector;
     }
 
     createDomHero() {
-        const photographerPageMain = document.querySelector('.photographer-page_main');
         const hero = document.createElement('div');
         const heroInfo = document.createElement('div');
         const heroButton = document.createElement('div');
@@ -57,10 +57,10 @@ class Hero{
         heroButton.appendChild(contactButton);
         heroImage.appendChild(portrait);
         hero.append(heroInfo, heroButton, heroImage);
-        photographerPageMain.appendChild(hero);
+        this.selector.appendChild(hero);
 
         // Au clic sur bouton, ouvre formulaire
-        const form = new Form(`${this.photographer.name}`)
+        const form = new Form(`${this.photographer.name}`, this.selector);
         form.createForm();
         contactButton.addEventListener('click', form.launchForm);
         

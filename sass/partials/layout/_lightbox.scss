@@ -1,4 +1,4 @@
-.lightbox-modal{
+.lightbox{
     display: none;
     position: fixed;
     z-index: 999;
@@ -10,7 +10,7 @@
     background-color:white;
 }
 
-.lightbox-content {
+.lightbox-modal {
     color: $colour-primary-red;
     margin: 5% auto;
     width: 90%;

@@ -1,33 +1,47 @@
 class Lightbox {
-    constructor(listMedia) {
-        this.listMedia = listMedia;
+    constructor(selector) {
+        this.selector = selector;
     }
 
     createLightbox() {
-        const photographerPageMain = document.querySelector('.photographer-page_main');
+        const lightbox = document.createElement('div');
         const lightboxModal = document.createElement('div');
-        const lightboxContent = document.createElement('div');
         const lightboxCloseBtn = document.createElement('span');
         const navLeft = document.createElement('i');
-        const lightboxMedias = this.listMedia.map(this.createLightboxMedia);
+        const lightboxContent = document.createElement('div');
         const navRight = document.createElement('i');
+        const lightboxMedias = document.querySelectorAll('.lightbox-media');
 
+        lightbox.classList.add('lightbox');
         lightboxModal.classList.add('lightbox-modal');
-        lightboxContent.classList.add('lightbox-content');
         lightboxCloseBtn.classList.add('lightbox-close-btn');
         navLeft.classList.add('nav-left', 'fas', 'fa-chevron-left');
+        lightboxContent.classList.add('lightbox-content');
         navRight.classList.add('nav-right', 'fas', 'fa-chevron-right');
 
-        lightboxModal.appendChild(lightboxContent);
-        lightboxContent.append(lightboxCloseBtn, navLeft);
-        lightboxMedias.forEach(lightboxMedia => lightboxContent.appendChild(lightboxMedia));
-        lightboxContent.append(navRight);
-        photographerPageMain.appendChild(lightboxModal);
+        lightbox.appendChild(lightboxModal);
+        lightboxModal.append(lightboxCloseBtn, navLeft, lightboxContent, navRight);
+        this.selector.appendChild(lightbox);
 
         lightboxCloseBtn.addEventListener('click', this.closeLightbox);
         // pas compris bind mais ça marche !  
         navRight.addEventListener('click', this.next.bind(null, lightboxMedias));
         navLeft.addEventListener('click', this.previous.bind(null, lightboxMedias));
+    }
+
+    generateLightboxMedias(sortedArray) {
+        const lightboxContent = document.querySelector('.lightbox-content');
+        const lightboxContentMedia = document.createElement('div');
+        lightboxContentMedia.classList.add('lightbox-content-media');
+
+        while (lightboxContent.firstChild) {
+            lightboxContent.removeChild(lightboxContent.firstChild);
+        }
+
+        const lightboxMedias = sortedArray.map(this.createLightboxMedia);
+
+        lightboxMedias.forEach(lightboxMedia => lightboxContentMedia.appendChild(lightboxMedia));
+        lightboxContent.insertBefore(lightboxContentMedia, lightboxContent.children[2]);
     }
 
     createLightboxMedia(mediaData) {

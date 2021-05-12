@@ -88,9 +88,10 @@
         outline: none;
     }
     & .text-control__message{
-        height: 100px;
+        height: 140px;
         outline: none;
         border-radius: 8px;
+        border: none;
 
     }
 }
@@ -116,10 +117,6 @@
     margin: 0 50px;
     font-size : 30px;
     text-align : center;
-}
-
-#closeBtnRed{
-    display: none;
 }
 
 .error{

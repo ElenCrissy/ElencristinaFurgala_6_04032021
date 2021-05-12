@@ -565,9 +565,10 @@ nav a {
   outline: none;
 }
 #contact .text-control__message {
-  height: 100px;
+  height: 140px;
   outline: none;
   border-radius: 8px;
+  border: none;
 }
 
 .btn-submit {
@@ -593,17 +594,13 @@ nav a {
   text-align: center;
 }
 
-#closeBtnRed {
-  display: none;
-}
-
 .error {
   color: white;
   font-size: 16px;
   visibility: hidden;
 }
 
-.lightbox-modal {
+.lightbox {
   display: none;
   position: fixed;
   z-index: 999;
@@ -615,7 +612,7 @@ nav a {
   background-color: white;
 }
 
-.lightbox-content {
+.lightbox-modal {
   color: #901C1C;
   margin: 5% auto;
   width: 90%;
@@ -625,13 +622,13 @@ nav a {
   justify-content: center;
   position: relative;
 }
-.lightbox-content .nav-left, .lightbox-content .nav-right {
+.lightbox-modal .nav-left, .lightbox-modal .nav-right {
   font-size: 50px;
   display: flex;
   align-items: center;
   margin: 30px;
 }
-.lightbox-content .media-caption {
+.lightbox-modal .media-caption {
   font-size: 24px;
 }
 
