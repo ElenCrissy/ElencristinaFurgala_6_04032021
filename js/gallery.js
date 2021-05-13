@@ -16,14 +16,6 @@ class Gallery{
         const media = MediaFactory.createMedia(mediaData).createGalleryDom();
         media.classList.add('media-card');
         media.dataset['mediaId'] = mediaData.id;
-        const truc = media.dataset['mediaId'];
-        
-// A REVOIR
-        // console.log(this.lightbox);
-        // media.addEventListener('click', () => {
-            
-        //     this.lightbox.openLightbox(truc);
-        // });
 
         return media;
     }
@@ -40,6 +32,15 @@ class Gallery{
         mediaCards.forEach(mediaCard => {
             mediaGallery.appendChild(mediaCard);
         }); 
+        mediaCards.forEach(mediaCard => {
+            const mediaCardId = mediaCard.getAttribute('data-media-id');
+            mediaCard.addEventListener('click', () => {
+                this.lightbox.openLightbox(mediaCardId);
+            });
+        });
+        
+        this.createBottomBox();
+
         return gallery;
     }
 

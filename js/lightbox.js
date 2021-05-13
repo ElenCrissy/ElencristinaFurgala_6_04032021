@@ -10,7 +10,6 @@ class Lightbox {
         const navLeft = document.createElement('i');
         const lightboxContent = document.createElement('div');
         const navRight = document.createElement('i');
-        const lightboxMedias = document.querySelectorAll('.lightbox-media');
 
         lightbox.classList.add('lightbox');
         lightboxModal.classList.add('lightbox-modal');
@@ -24,10 +23,7 @@ class Lightbox {
         this.selector.appendChild(lightbox);
 
         lightboxCloseBtn.addEventListener('click', this.closeLightbox);
-        // pas compris bind mais ça marche !  
-        navRight.addEventListener('click', this.next.bind(null, lightboxMedias));
-        navLeft.addEventListener('click', this.previous.bind(null, lightboxMedias));
-    }
+     }
 
     generateLightboxMedias(sortedArray) {
         const lightboxContent = document.querySelector('.lightbox-content');
@@ -42,6 +38,12 @@ class Lightbox {
 
         lightboxMedias.forEach(lightboxMedia => lightboxContentMedia.appendChild(lightboxMedia));
         lightboxContent.insertBefore(lightboxContentMedia, lightboxContent.children[2]);
+
+        const navRight = document.querySelector('.nav-right');
+        navRight.addEventListener('click', this.next.bind(null, lightboxMedias));
+        const navLeft = document.querySelector('.nav-left');
+        navLeft.addEventListener('click', this.previous.bind(null, lightboxMedias));
+
     }
 
     createLightboxMedia(mediaData) {
@@ -51,7 +53,7 @@ class Lightbox {
     }
 
     openLightbox(mediaId) {
-        document.querySelector('.lightbox-modal').style.display = 'block';
+        document.querySelector('.lightbox').style.display = 'block';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         lightboxMedias.forEach(lightboxMedia => {
             if(mediaId.toString() === lightboxMedia.dataset['mediaId']){
@@ -61,7 +63,7 @@ class Lightbox {
     }
 
     closeLightbox() {
-        document.querySelector('.lightbox-modal').style.display = "none";
+        document.querySelector('.lightbox').style.display = "none";
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         lightboxMedias.forEach(lightboxMedia => {
             if(lightboxMedia.classList.contains('active')){

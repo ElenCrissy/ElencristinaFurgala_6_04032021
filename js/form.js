@@ -42,8 +42,8 @@ class Form {
     formBody.classList.add('form-body');
     formTitle.classList.add('form-title');
     recipientName.classList.add('recipient-name');
-  
-    recipientName.appendChild(document.createTextNode(`${this.photographerName}`));
+
+    recipientName.appendChild(document.createTextNode(`${this.photographerName.name}`));
     formTitle.innerHTML = `Contactez-moi <br>`;
   
     form.setAttribute('id', 'contact');
@@ -107,7 +107,7 @@ class Form {
     submitBtn.addEventListener('click', this.validate);
   
     confirmationMsg.setAttribute('id', 'confirmationMsg');
-    confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName}.`
+    confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
 
     formBackground.appendChild(formContent);
     formContent.append(close, formBody, confirmationMsg);

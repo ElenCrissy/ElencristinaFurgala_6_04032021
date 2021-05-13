@@ -1,7 +1,8 @@
 class Hero{
-    constructor(photographer, selector){
+    constructor(photographer, selector, form){
         this.photographer = photographer;
         this.selector = selector;
+        this.form = form;
     }
 
     createDomHero() {
@@ -60,9 +61,12 @@ class Hero{
         this.selector.appendChild(hero);
 
         // Au clic sur bouton, ouvre formulaire
-        const form = new Form(`${this.photographer.name}`, this.selector);
-        form.createForm();
-        contactButton.addEventListener('click', form.launchForm);
+        contactButton.addEventListener('click', () => {
+            this.form.launchForm();
+            // const children = Array.from(this.selector.children);
+            // children.shift();
+            // children.forEach(child => child.style.display = 'none');
+        });
         
         return contactButton;
     }

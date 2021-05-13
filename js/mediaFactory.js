@@ -48,10 +48,10 @@ class MediaFactory {
   
       cardVideo.append(mediaVideo, mediaCardInfo);
   
-      mediaVideo.addEventListener('click', () => {
-        const lightbox = new Lightbox;
-        lightbox.openLightbox(this.id);
-      });
+      // mediaVideo.addEventListener('click', () => {
+      //   const lightbox = new Lightbox;
+      //   lightbox.openLightbox(this.id);
+      // });
   
       return cardVideo;
     };
@@ -92,7 +92,7 @@ class MediaFactory {
     }
   
     // Création élément DOM média de la galerie
-    createGalleryDom() {
+    createGalleryDom(lightbox) {
       const cardImage = document.createElement('div');
       const mediaImage = document.createElement('img');
       const mediaCardInfo = document.createElement('div');
@@ -122,10 +122,9 @@ class MediaFactory {
   
       cardImage.append(mediaImage, mediaCardInfo);
   
-      mediaImage.addEventListener('click', () => {
-        const lightbox = new Lightbox();
-        lightbox.openLightbox(this.id);
-      });
+      // mediaImage.addEventListener('click', () => {
+      //   lightbox.openLightbox(this.id);
+      // });
   
       return cardImage;
     }

@@ -42,14 +42,9 @@ class Dropdown {
         this.selector.appendChild(mediaSelection);
         
         dropdownToggle.textContent = "Popularité";
-        const toggleContent = dropdownToggle.textContent;
+        // const toggleContent = dropdownToggle.textContent;
         
         dropdownTrigger.addEventListener('mouseover', this.openDropdownMenu);  
-
-        const sortedRelevantMediasPopularity = this.sortRelevantMedias(toggleContent, this.listMedia);
-        this.gallery.displayMediaGallery(sortedRelevantMediasPopularity);
-        this.lightbox.generateLightboxMedias(sortedRelevantMediasPopularity);
-
 
         options.forEach(option => {
             option.addEventListener('click', () => {
@@ -60,6 +55,14 @@ class Dropdown {
                 return this.sortGallery(toggleContentAfterSelection);
             })
         }); 
+    }
+
+    initializeDropdownMenu() {
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const toggleContent = dropdownToggle.textContent;
+        const sortedRelevantMediasPopularity = this.sortRelevantMedias(toggleContent, this.listMedia);
+        this.gallery.displayMediaGallery(sortedRelevantMediasPopularity);
+        this.lightbox.generateLightboxMedias(sortedRelevantMediasPopularity);
     }
 
     openDropdownMenu() {
@@ -86,7 +89,6 @@ class Dropdown {
         });
     }
 
-    // à renommer
     sortGallery(sortCategory) {
         const sortedRelevantMedias = this.sortRelevantMedias(sortCategory, this.listMedia);
         this.gallery.displayMediaGallery(sortedRelevantMedias); 

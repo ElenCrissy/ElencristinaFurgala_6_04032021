@@ -607,7 +607,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const paramId = urlParams.get('id');
 
 // Elément DOM main
-const photographerPageMain = document.querySelector('.photographer-page_main');  
+const photographerPageMain = document.querySelector('.photographer-page_main');
+const modals = document.createElement('div');
+modals.classList.add('modals');
+
 
 // Récupère données du photographe pertinent
 const relevantPhotographer = photographers.find(photographer => {
@@ -624,14 +627,17 @@ function getRelevantMedias(urlId) {
 const relevantMediasDefault = getRelevantMedias(paramId);
 
 window.onload = () => {
-  const hero = new Hero(relevantPhotographer, photographerPageMain);
-  hero.createDomHero();
-
-  const lightbox = new Lightbox(photographerPageMain);
+  const form = new Form (relevantPhotographer, modals);
+  const hero = new Hero(relevantPhotographer, photographerPageMain, form);
+  const lightbox = new Lightbox(modals);
   const gallery = new Gallery(relevantPhotographer, relevantMediasDefault, photographerPageMain, lightbox);
   const dropdownMenu = new Dropdown(relevantMediasDefault, photographerPageMain, gallery, lightbox);
-  gallery.createGallery();
+
+  photographerPageMain.appendChild(modals);
+  hero.createDomHero();
+  form.createForm();
   lightbox.createLightbox();
   dropdownMenu.createDropdownMenu();
-  gallery.createBottomBox();
+  gallery.createGallery();
+  dropdownMenu.initializeDropdownMenu();
 };
