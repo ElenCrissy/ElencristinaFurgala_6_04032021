@@ -51,7 +51,7 @@ class Form {
     form.setAttribute('action', '');
     form.setAttribute('method', 'get');
     form.setAttribute('onsubmit', 'return validate()');
-    // form.setAttribute('novalidate', 'novalidate');
+    form.setAttribute('novalidate', 'novalidate');
   
     const formData = [firstName, lastName, email, message];
     formData.forEach(element => element.classList.add('formData'));
@@ -132,56 +132,57 @@ class Form {
     modal.style.display = 'block';
   }
 
-  checkInputs() {
-    const first = document.querySelector('input[name=first]');
-    const last = document.querySelector('input[name=last]');
-    const email = document.querySelector('input[name=email]');
-    const message = document.querySelector('input[name=message]');
-    const firstError = document.getElementById('firstNameError');
-    const lastError = document.getElementById('lastNameError');
-    const emailError = document.getElementById('emailError');
-    const messageError = document.getElementById('messageError');
-    let formOk = false;
-
-    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
-    if (verifName.exec(first.value) === null || first.length < 2) {
-      firstError.style.visibility = 'visible';
-      console.log('erreur sur checkinput first name')
-      return formOk === false;
-    }
-
-    if (verifName.exec(last.value) === null || last.length < 2) {
-      lastError.style.visibility = 'visible';
-      console.log('erreur sur checkinput last name')
-      return formOk === false;
-    }
-
-    const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    if (verifEmail.exec(email.value) === null) {
-      emailError.style.visibility = 'visible';
-      console.log('erreur sur checkinput email')
-      return formOk === false;
-    }
-
-    if (message.value === '') {
-      messageError.style.visibility = 'visible';
-      console.log('erreur sur checkinput message')
-      return formOk === false;
-    }
-    formOk = true;
-    const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
-    return console.log(contactContent);
-  }
-
   validate(event) {
-    
     const form = document.getElementById('contact');
     const confirmationMsg = document.querySelector('#confirmationMsg');
     const submitBtn = document.querySelector('.btn-submit');
     let formOk;
 
     event.preventDefault();
-    this.checkInputs();
+
+    //help
+    const checkInputs = () => {
+      const first = document.querySelector('input[name=first]');
+      const last = document.querySelector('input[name=last]');
+      const email = document.querySelector('input[name=email]');
+      const message = document.querySelector('textarea[name=message]');
+      const firstError = document.getElementById('firstNameError');
+      const lastError = document.getElementById('lastNameError');
+      const emailError = document.getElementById('emailError');
+      const messageError = document.getElementById('messageError');
+      let formOk = false;
+  
+      const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+      if (verifName.exec(first.value) === null || first.length < 2) {
+        firstError.style.visibility = 'visible';
+        console.log('erreur sur checkinput first name')
+        return formOk === false;
+      }
+  
+      if (verifName.exec(last.value) === null || last.length < 2) {
+        lastError.style.visibility = 'visible';
+        console.log('erreur sur checkinput last name')
+        return formOk === false;
+      }
+  
+      const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+      if (verifEmail.exec(email.value) === null) {
+        emailError.style.visibility = 'visible';
+        console.log('erreur sur checkinput email')
+        return formOk === false;
+      }
+  
+      if (message.value === '') {
+        messageError.style.visibility = 'visible';
+        console.log('erreur sur checkinput message')
+        return formOk === false;
+      }
+      const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
+      console.log(contactContent)
+      return formOk = true;
+    }
+    
+    checkInputs();
     
     if (formOk === true) {
       form.style.display = 'none';

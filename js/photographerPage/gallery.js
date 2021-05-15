@@ -20,10 +20,10 @@ class Gallery{
         return media;
     }
 
-    displayMediaGallery(array) {
+    displayMediaGallery(mediaArray) {
         const gallery = document.querySelector('.gallery');
         const mediaGallery = document.createElement('div');
-        const mediaCards = array.map(this.createMediaCard);
+        const mediaCards = mediaArray.map(this.createMediaCard);
         mediaGallery.classList.add('media-gallery');
         while (gallery.firstChild) {
             gallery.removeChild(gallery.firstChild);
@@ -32,9 +32,12 @@ class Gallery{
         mediaCards.forEach(mediaCard => {
             mediaGallery.appendChild(mediaCard);
         }); 
+    
+        // ouverture de la lightbox affichant le média sur lequel on a cliqué
         mediaCards.forEach(mediaCard => {
+            const mediaCardFirstChild = mediaCard.firstChild;
             const mediaCardId = mediaCard.getAttribute('data-media-id');
-            mediaCard.addEventListener('click', () => {
+            mediaCardFirstChild.addEventListener('click', () => {
                 this.lightbox.openLightbox(mediaCardId);
             });
         });

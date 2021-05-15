@@ -34,9 +34,11 @@ class Lightbox {
             lightboxContent.removeChild(lightboxContent.firstChild);
         }
 
+        // pour chaque média, création d'un élément média de la lightbox
         const lightboxMedias = sortedArray.map(this.createLightboxMedia);
 
         lightboxMedias.forEach(lightboxMedia => lightboxContentMedia.appendChild(lightboxMedia));
+        // médias positionnés entre les flèches de navigation
         lightboxContent.insertBefore(lightboxContentMedia, lightboxContent.children[2]);
 
         const navRight = document.querySelector('.nav-right');
@@ -55,6 +57,7 @@ class Lightbox {
     openLightbox(mediaId) {
         document.querySelector('.lightbox').style.display = 'block';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
+        // affichage du média lightbox qui correspond à la miniature sélectionnée dans la galerie
         lightboxMedias.forEach(lightboxMedia => {
             if(mediaId.toString() === lightboxMedia.dataset['mediaId']){
             lightboxMedia.classList.add('active');

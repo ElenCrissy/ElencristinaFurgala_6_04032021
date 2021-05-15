@@ -30,13 +30,11 @@ class Hero{
         contactButton.type = 'button';
         contactButton.value = 'Contactez-moi';
 
-        // J'insère les données
         portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${this.photographer.portrait}`;
         name.appendChild(document.createTextNode(this.photographer.name));
         location.appendChild(document.createTextNode(`${this.photographer.city}, ${this.photographer.country}`));
         tagline.appendChild(document.createTextNode(this.photographer.tagline));
 
-        // Je crée les tags
         const photographerTags = this.photographer.tags;
         photographerTags.forEach((photographerTag) => {
             const tag = document.createElement('div');
@@ -45,7 +43,7 @@ class Hero{
             tag.appendChild(tagContent);
             tagbox.appendChild(tag);
 
-            // J'indique le contenu du tag pour les lecteurs d'écran
+            // contenu pour les lecteurs d'écran
             const span = document.createElement('span');
             const spanContent = document.createTextNode(`${photographerTag}`);
             span.classList.add('sr-only');
@@ -53,19 +51,15 @@ class Hero{
             tag.appendChild(span);
         });
 
-        // J'attache aux noeuds DOM
         heroInfo.append(name, location, tagline, tagbox);
         heroButton.appendChild(contactButton);
         heroImage.appendChild(portrait);
         hero.append(heroInfo, heroButton, heroImage);
         this.selector.appendChild(hero);
 
-        // Au clic sur bouton, ouvre formulaire
+        // ouverture formulaire
         contactButton.addEventListener('click', () => {
             this.form.launchForm();
-            // const children = Array.from(this.selector.children);
-            // children.shift();
-            // children.forEach(child => child.style.display = 'none');
         });
         
         return contactButton;

@@ -1,31 +1,3 @@
-// function fetchData() {
-//   fetch('https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json')
-// }
-
-// fetchData();
-// const fetchData = () => {
-//   const source = '../data.json';
-//   fetch(source)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
-//     });
-// };
-
-// fetchData();
-
-// const myInit = { method: 'GET',
-//   mode: 'cors',
-//   cache: 'default' };
-
-// fetch('../data.json', myInit)
-// .then((response) => response.json())
-// .catch((err) => console.log(`Fetch problem: ${err.message}`));
-
-// fetch('https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEyeDataFR.json')
-//   .then((response) => response.json())
-//   .catch((err) => console.log(`Fetch problem: ${err.message}`));
-
 const jsonData = `{"photographers": [
     {
       "name": "Mimi Keel",
@@ -629,151 +601,15 @@ const jsonData = `{"photographers": [
   }`;
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
-const navTags = document.querySelectorAll('.tag');
 
-// Bouton de redirection vers main
-// function createGoToMain() {
-//   const body = document.querySelector('body');
-//   const goToMain = document.createElement('a');
-//   const goToMainContent = document.createTextNode('Passer au contenu');
-//   goToMain.classList.add('go_to_main');
-//   goToMain.setAttribute('href', '#index_main');
-
-//   goToMain.appendChild(goToMainContent);
-//   body.appendChild(goToMain);
-//   return goToMain;
-// }
-
-// Renvoie les photographes pertinents
-function getRelevantPhotographers(filterTag) {
-  if (filterTag === undefined) {
-    return photographers;
-  }
-  const filteredPhotographers = photographers.filter((photographer) => photographer.tags.includes(filterTag));
-  return filteredPhotographers;
-}
-
-// Affiche cartes pertinentes depuis tag contenu dans cartes
-function displayRelevantCardsFromCardTag(tagSelected) {
-  const sectionHomePage = document.querySelector('#section-homepage');
-  const relevantPhotographers = getRelevantPhotographers(tagSelected);
-  while (sectionHomePage.firstChild) {
-    sectionHomePage.removeChild(sectionHomePage.firstChild);
-  }
-  relevantPhotographers.forEach((relevantPhotographer) => {
-    const card = createCard(relevantPhotographer);
-    sectionHomePage.appendChild(card);
-  });
-}
-
-// Crée carte photographe
-function createCard(photographer) {
-  const { id } = photographer;
-  const card = document.createElement('div');
-  const cardLink = document.createElement('a');
-  const portrait = document.createElement('img');
-  const cardH2 = document.createElement('h2');
-  const cardInfo = document.createElement('div');
-  const location = document.createElement('div');
-  const tagline = document.createElement('div');
-  const price = document.createElement('div');
-  const tagbox = document.createElement('div');
-
-  card.classList.add('card');
-  cardLink.classList.add('card-link');
-  portrait.classList.add('portrait');
-  cardH2.classList.add('name');
-  cardInfo.classList.add('info');
-  location.classList.add('location');
-  tagline.classList.add('tagline');
-  price.classList.add('price');
-  tagbox.classList.add('tagbox');
-
-  cardLink.setAttribute('href', `./photographer-page.html?id=${id}`);
-  cardLink.setAttribute('aria-label', `${photographer.name}`);
-
-  portrait.setAttribute('alt', `${photographer.name}`);
-  portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
-  cardH2.appendChild(document.createTextNode(photographer.name));
-  location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
-  tagline.appendChild(document.createTextNode(photographer.tagline));
-  price.appendChild(document.createTextNode(`${photographer.price}€/jour`));
-
-  card.appendChild(cardLink);
-  cardLink.append(portrait, cardH2);
-  card.appendChild(cardInfo);
-
-  // Je crée les tags
-  const photographerTags = photographer.tags;
-  photographerTags.forEach((photographerTag) => {
-    const tag = document.createElement('div');
-    tag.classList.add('tag');
-    const tagContent = document.createTextNode(`#${photographerTag}`);
-    tag.appendChild(tagContent);
-    tagbox.appendChild(tag);
-
-    // J'indique le contenu du tag pour les lecteurs d'écran
-    const spanCard = document.createElement('span');
-    const spanCardContent = document.createTextNode(`${photographerTag}`);
-    spanCard.classList.add('sr-only');
-    spanCard.appendChild(spanCardContent);
-    tag.appendChild(spanCard);
-  });
-
-  cardInfo.append(location, tagline, price, tagbox);
-
-  const cardTags = card.querySelectorAll('.tag');
-  cardTags.forEach((cardTag) => {
-    cardTag.addEventListener('click', () => {
-      cardTags.forEach((otherCardTags) => otherCardTags.classList.remove('active'));
-      cardTag.classList.add('active');
-      const spandiv = cardTag.querySelector('span');
-      const spanText = spandiv.innerText;
-      displayRelevantCardsFromCardTag(spanText);
-    });
-  });
-
-  return card;
-}
-
-// Affiche cartes pertinentes
-function displayRelevantCards(selectedTag) {
-  const sectionHomePage = document.querySelector('#section-homepage');
-  const relevantPhotographers = getRelevantPhotographers(selectedTag);
-  // Suppression des cartes présentes
-  while (sectionHomePage.firstChild) {
-    sectionHomePage.removeChild(sectionHomePage.firstChild);
-  }
-  relevantPhotographers.forEach((relevantPhotographer) => {
-    const card = createCard(relevantPhotographer);
-    sectionHomePage.appendChild(card);
-  });
-}
-
-// Interaction barre de navigation
-navTags.forEach((navTag) => {
-  // Je veux récupérer le contenu du navTag
-  const navTagText = navTag.innerText;
-  // Je veux récupérer le contenu à partir de l'index 1
-  const navTagWord = navTagText.slice(1);
-  // J'indique le contenu du tag pour les lecteurs d'écran
-  const span = document.createElement('span');
-  const spanContent = document.createTextNode(`${navTagWord}`);
-  span.classList.add('sr-only');
-  span.appendChild(spanContent);
-  navTag.appendChild(span);
-  // Au clic sur un navTag, je lui ajoute une classe "active" et que je retire la classe
-  // "active" des autres navTag
-  navTag.addEventListener('click', () => {
-    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
-    navTag.classList.add('active');
-    // J'affiche les cartes pertinentes
-    displayRelevantCards(navTagWord);
-  });
-});
+const header = document.querySelector('.header-index');
+const sectionHomepage = document.querySelector('#section-homepage');
 
 window.onload = () => {
-  // const header = new Header;
-  // header.createDomHeader();
-  displayRelevantCards();
+  const photographerList = new PhotographerList(sectionHomepage, photographers);
+  const headerContent = new Header(header, photographerList);
+  headerContent.createHeader();
+  photographerList.displayRelevantCards();
+  headerContent.selectNavTag();
+
 };

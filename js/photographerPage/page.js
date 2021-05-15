@@ -606,12 +606,6 @@ const mediaArr = parsedData.media;
 const urlParams = new URLSearchParams(window.location.search);
 const paramId = urlParams.get('id');
 
-// Elément DOM main
-const photographerPageMain = document.querySelector('.photographer-page_main');
-const modals = document.createElement('div');
-modals.classList.add('modals');
-
-
 // Récupère données du photographe pertinent
 const relevantPhotographer = photographers.find(photographer => {
 const photographerIdString = photographer.id.toString();
@@ -623,8 +617,12 @@ function getRelevantMedias(urlId) {
   const relevantMedias = mediaArr.filter(media => media.photographerId.toString() === urlId);
   return relevantMedias;
 }
-
 const relevantMediasDefault = getRelevantMedias(paramId);
+
+// Elément DOM main
+const photographerPageMain = document.querySelector('.photographer-page_main');
+const modals = document.createElement('div');
+modals.classList.add('modals');
 
 window.onload = () => {
   const form = new Form (relevantPhotographer, modals);

@@ -42,11 +42,14 @@ class Dropdown {
         this.selector.appendChild(mediaSelection);
         
         dropdownToggle.textContent = "Popularité";
-        // const toggleContent = dropdownToggle.textContent;
         
+        // au survol, les options apparaissent
         dropdownTrigger.addEventListener('mouseover', this.openDropdownMenu);  
 
         options.forEach(option => {
+            // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
+            // les autres apparaissent
+            // la galerie est triée en fonction du contenu du trigger
             option.addEventListener('click', () => {
                 dropdownToggle.textContent = option.textContent;
                 const toggleContentAfterSelection = dropdownToggle.textContent;
@@ -60,6 +63,8 @@ class Dropdown {
     initializeDropdownMenu() {
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const toggleContent = dropdownToggle.textContent;
+        // galerie triée par défaut en fonction de la popularité
+        // lightbox aussi
         const sortedRelevantMediasPopularity = this.sortRelevantMedias(toggleContent, this.listMedia);
         this.gallery.displayMediaGallery(sortedRelevantMediasPopularity);
         this.lightbox.generateLightboxMedias(sortedRelevantMediasPopularity);
@@ -83,6 +88,7 @@ class Dropdown {
         }
 
         options.forEach(option => {
+            // l'option correspondant au trigger n'apparaît pas
             if (dropdownToggle.textContent === option.textContent) {
                 option.style.display = "none";
             }
@@ -95,6 +101,7 @@ class Dropdown {
         this.lightbox.generateLightboxMedias(sortedRelevantMedias);
     }
 
+    // fonction de tri des médias
     sortRelevantMedias(dropdownContent, relevantMediasArray) {
         if (dropdownContent === 'Popularité') {
           return relevantMediasArray.sort(function (a, b) {
