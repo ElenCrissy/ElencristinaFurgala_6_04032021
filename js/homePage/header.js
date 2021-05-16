@@ -31,11 +31,13 @@ class Header{
     createNavbar() {
         const navbar = document.createElement('nav');
         navbar.setAttribute('role', 'navigation');
+        navbar.setAttribute('aria-label', 'navigation_principale');
         const tagsName = ['portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];
         tagsName.forEach(tagName => {
             const tagNameDiv = document.createElement('div');
             tagNameDiv.classList.add('navigation-item', 'tag');
             tagNameDiv.appendChild(document.createTextNode(`#${tagName}`));
+            tagNameDiv.setAttribute('tabindex', '0');
 
             // contenu pour screenreader
             const span = document.createElement('span');

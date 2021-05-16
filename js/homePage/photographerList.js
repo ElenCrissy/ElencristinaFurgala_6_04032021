@@ -41,6 +41,7 @@ class PhotographerList{
         portrait.classList.add('portrait');
         cardH2.classList.add('name');
         cardInfo.classList.add('info');
+        cardInfo.setAttribute('aria-label', 'info photographe');
         location.classList.add('location');
         tagline.classList.add('tagline');
         price.classList.add('price');
@@ -63,11 +64,13 @@ class PhotographerList{
         // tags
         const photographerTags = photographer.tags;
         photographerTags.forEach((photographerTag) => {
-          const tag = document.createElement('div');
+          const tag = document.createElement('a');
           tag.classList.add('tag');
           const tagContent = document.createTextNode(`#${photographerTag}`);
           tag.appendChild(tagContent);
           tagbox.appendChild(tag);
+          tag.setAttribute('tabindex', '0');
+
       
           // contenu du tag pour les lecteurs d'écran
           const spanCard = document.createElement('span');

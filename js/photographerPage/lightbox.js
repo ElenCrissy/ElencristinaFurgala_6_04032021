@@ -1,6 +1,7 @@
 class Lightbox {
-    constructor(selector) {
+    constructor(selector, background) {
         this.selector = selector;
+        this.background = background;
     }
 
     createLightbox() {
@@ -12,18 +13,41 @@ class Lightbox {
         const navRight = document.createElement('i');
 
         lightbox.classList.add('lightbox');
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-label', 'diaporama');
+        lightbox.setAttribute('aria-hidden', 'true');
+        lightbox.setAttribute('aria-modal', 'true');
+        
         lightboxModal.classList.add('lightbox-modal');
+        lightboxModal.setAttribute('aria-label', 'Image agrandie');
+
         lightboxCloseBtn.classList.add('lightbox-close-btn');
+        lightboxCloseBtn.setAttribute('aria-label', 'Fermer lightbox');
+        lightboxCloseBtn.setAttribute('tabindex', '0');
+
         navLeft.classList.add('nav-left', 'fas', 'fa-chevron-left');
+        navLeft.setAttribute('aria-label', 'Image précédente');
+
         lightboxContent.classList.add('lightbox-content');
+        lightboxContent.setAttribute('tabindex', '0');
+        lightboxContent.setAttribute('aria-label', 'Naviguer avec flèches du clavier');
+
+
         navRight.classList.add('nav-right', 'fas', 'fa-chevron-right');
+        navRight.setAttribute('aria-label', 'Image suivante');
 
         lightbox.appendChild(lightboxModal);
         lightboxModal.append(lightboxCloseBtn, navLeft, lightboxContent, navRight);
         this.selector.appendChild(lightbox);
 
-        lightboxCloseBtn.addEventListener('click', this.closeLightbox);
-     }
+        lightboxCloseBtn.addEventListener('click', this.closeLightbox.bind(this));
+        // accessibilité - fermeture lightbox
+        lightboxCloseBtn.addEventListener('keypress', (event) => {
+            if (event.key === 'Escape') {
+              this.closeLightbox();
+            }
+        });
+    }
 
     generateLightboxMedias(sortedArray) {
         const lightboxContent = document.querySelector('.lightbox-content');
@@ -46,6 +70,14 @@ class Lightbox {
         const navLeft = document.querySelector('.nav-left');
         navLeft.addEventListener('click', this.previous.bind(null, lightboxMedias));
 
+        // accessibilité - navigation lightbox
+        lightboxContent.addEventListener('keypress', (event) => {
+            if (event.key === 'ArrowLeft') {
+                this.previous(lightboxMedias);
+            } else if (event.key === 'ArrowRight') {
+                this.next.bind(null, lightboxMedias);
+            }
+        });
     }
 
     createLightboxMedia(mediaData) {
@@ -55,7 +87,10 @@ class Lightbox {
     }
 
     openLightbox(mediaId) {
-        document.querySelector('.lightbox').style.display = 'block';
+        const lightbox = document.querySelector('.lightbox');
+        lightbox.style.display = 'block';
+        lightbox.setAttribute('aria-hidden', 'false');
+        this.background.style.display = 'none';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         // affichage du média lightbox qui correspond à la miniature sélectionnée dans la galerie
         lightboxMedias.forEach(lightboxMedia => {
@@ -66,7 +101,10 @@ class Lightbox {
     }
 
     closeLightbox() {
-        document.querySelector('.lightbox').style.display = "none";
+        const lightbox = document.querySelector('.lightbox');
+        lightbox.style.display = "none";
+        lightbox.setAttribute('aria-hidden', 'true');
+        this.background.style.display = 'block';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         lightboxMedias.forEach(lightboxMedia => {
             if(lightboxMedia.classList.contains('active')){

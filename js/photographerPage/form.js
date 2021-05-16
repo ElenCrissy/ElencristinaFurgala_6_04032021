@@ -1,7 +1,8 @@
 class Form {
-  constructor(photographerName, selector) {
+  constructor(photographerName, selector, background) {
     this.photographerName = photographerName;
     this.selector = selector;
+    this.background = background;
   }
 
   createForm() {
@@ -9,7 +10,7 @@ class Form {
     const formContent = document.createElement('div');
     const close = document.createElement('span');
     const formBody = document.createElement('div');
-    const formTitle = document.createElement('div');
+    const formTitle = document.createElement('h1');
     const recipientName = document.createElement('div');
     const form = document.createElement('form');
   
@@ -37,15 +38,27 @@ class Form {
     const confirmationMsg = document.createElement('div');
   
     formBackground.classList.add('form-background');
-    formContent.classList.add('form-content');
-    close.classList.add('close');
-    formBody.classList.add('form-body');
-    formTitle.classList.add('form-title');
-    recipientName.classList.add('recipient-name');
+    formBackground.setAttribute('role', 'dialog');
+    formBackground.setAttribute('aria-hidden', 'true');
+    formBackground.setAttribute('aria-modal', 'true');
+    formBackground.setAttribute('aria-labelledby', 'formulaire-contact');
 
-    recipientName.appendChild(document.createTextNode(`${this.photographerName.name}`));
+    formContent.classList.add('form-content');
+    formContent.setAttribute('tabindex', '0');
+
+    close.classList.add('close');
+    close.setAttribute('aria-label', 'Fermer modale')
+    close.setAttribute('tabindex', '0');
+
+    formBody.classList.add('form-body');
+
+    formTitle.classList.add('form-title');
+    formTitle.setAttribute('id', 'formulaire-contact');
     formTitle.innerHTML = `Contactez-moi <br>`;
-  
+
+    recipientName.classList.add('recipient-name');
+    recipientName.appendChild(document.createTextNode(`${this.photographerName.name}`));
+
     form.setAttribute('id', 'contact');
     form.setAttribute('name', 'contact');
     form.setAttribute('action', '');
@@ -76,18 +89,26 @@ class Form {
     firstNameInput.setAttribute('type', 'text');
     firstNameInput.setAttribute('name', 'first');
     firstNameInput.setAttribute('minlength', '2');
+    firstNameInput.setAttribute('aria-required', 'true');
+    firstNameInput.setAttribute('aria-label', 'Entrer votre prénom');
 
     lastNameInput.setAttribute('type', 'text');
     lastNameInput.setAttribute('name', 'last');
     lastNameInput.setAttribute('minlength', '2');
+    lastNameInput.setAttribute('aria-required', 'true');
+    lastNameInput.setAttribute('aria-label', 'Entrer votre nom');
 
     emailInput.setAttribute('type', 'email');
     emailInput.setAttribute('name', 'email');
+    emailInput.setAttribute('aria-required', 'true');
+    emailInput.setAttribute('aria-label', 'Entrer votre mail');
 
     messageInput.classList.add('text-control__message');
-    messageInput.setAttribute('type', 'text')
+    messageInput.setAttribute('type', 'text');
     messageInput.setAttribute('name', 'message');
-  
+    messageInput.setAttribute('aria-required', 'true');
+    messageInput.setAttribute('aria-label', 'Entrer votre message');
+
     firstNameError.setAttribute('id', 'firstNameError');
     lastNameError.setAttribute('id', 'lastNameError');
     emailError.setAttribute('id', 'emailError');
@@ -102,6 +123,7 @@ class Form {
     messageError.appendChild(document.createTextNode('Entrez votre message'));
   
     submitBtn.classList.add('btn-submit', 'button');
+    submitBtn.setAttribute('aria-label', 'Envoyer')
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('value', 'Envoyer');
     submitBtn.addEventListener('click', this.validate);
@@ -121,15 +143,28 @@ class Form {
   
     this.selector.appendChild(formBackground);
 
-    close.addEventListener('click', () => {
-      formBackground.style.display = 'none';
+    close.addEventListener('click', this.closeForm.bind(this));
+    close.addEventListener('keypress', (event) => {
+      if (event.key === 'Escape') {
+        this.closeForm();
+      }
     });
-
   }
 
   launchForm() {
     const modal = document.querySelector('.form-background'); 
     modal.style.display = 'block';
+    modal.setAttribute('aria-hidden', 'false');
+    this.background.style.display = 'none';
+    const first = document.querySelector('input[name=first]');
+    first.focus();
+  }
+
+  closeForm() {
+    const formBackground = document.querySelector('.form-background'); 
+    formBackground.style.display = 'none';
+    formBackground.setAttribute('aria-hidden', 'true');
+    this.background.style.display = 'block';
   }
 
   validate(event) {
@@ -140,7 +175,6 @@ class Form {
 
     event.preventDefault();
 
-    //help
     const checkInputs = () => {
       const first = document.querySelector('input[name=first]');
       const last = document.querySelector('input[name=last]');
@@ -155,28 +189,33 @@ class Form {
       const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
       if (verifName.exec(first.value) === null || first.length < 2) {
         firstError.style.visibility = 'visible';
-        console.log('erreur sur checkinput first name')
+        console.log('erreur sur checkinput first name');
+        first.setAttribute('aria-invalid', 'true');
         return formOk === false;
       }
   
       if (verifName.exec(last.value) === null || last.length < 2) {
         lastError.style.visibility = 'visible';
-        console.log('erreur sur checkinput last name')
+        console.log('erreur sur checkinput last name');
+        last.setAttribute('aria-invalid', 'true');
         return formOk === false;
       }
   
       const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
       if (verifEmail.exec(email.value) === null) {
         emailError.style.visibility = 'visible';
-        console.log('erreur sur checkinput email')
+        console.log('erreur sur checkinput email');
+        email.setAttribute('aria-invalid', 'true');
         return formOk === false;
       }
   
       if (message.value === '') {
         messageError.style.visibility = 'visible';
-        console.log('erreur sur checkinput message')
+        console.log('erreur sur checkinput message');
+        message.setAttribute('aria-invalid', 'true');
         return formOk === false;
       }
+
       const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
       console.log(contactContent)
       return formOk = true;
@@ -184,6 +223,7 @@ class Form {
     
     checkInputs();
     
+    //help
     if (formOk === true) {
       form.style.display = 'none';
       submitBtn.style.display = 'none';

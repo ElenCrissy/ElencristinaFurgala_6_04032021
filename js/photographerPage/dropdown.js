@@ -21,11 +21,19 @@ class Dropdown {
 
         mediaSelection.classList.add('media-selection');
         orderBy.classList.add('orderby');
+
         dropdown.classList.add('dropdown');
+        dropdown.setAttribute('role', 'menuBar');
+
         dropdownTrigger.classList.add('dropdown-trigger');
         dropdownToggle.classList.add('dropdown-toggle');
+        dropdownToggle.setAttribute('aria-haspopup', 'true');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+
         arrow.classList.add('arrow');
+
         dropdownMenu.classList.add('dropdown-menu');
+
         optionPopularity.classList.add('option', 'option-popularity');
         optionDate.classList.add('option', 'option-date');
         optionTitle.classList.add('option', 'option-title');
@@ -79,6 +87,7 @@ class Dropdown {
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const options = [optionPopularity, optionDate, optionTitle];
 
+        dropdownToggle.setAttribute('aria-expanded', 'true');
         arrow.classList.toggle('active');
 
         if (menuDropDown.style.display === "none") {

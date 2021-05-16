@@ -621,18 +621,17 @@ const relevantMediasDefault = getRelevantMedias(paramId);
 
 // Elément DOM main
 const photographerPageMain = document.querySelector('.photographer-page_main');
-const modals = document.createElement('div');
-modals.classList.add('modals');
+const modals = document.querySelector('.modals');
 
 window.onload = () => {
-  const form = new Form (relevantPhotographer, modals);
-  const hero = new Hero(relevantPhotographer, photographerPageMain, form);
-  const lightbox = new Lightbox(modals);
+  const form = new Form (relevantPhotographer, modals, photographerPageMain);
+  const lightbox = new Lightbox(modals, photographerPageMain);
   const gallery = new Gallery(relevantPhotographer, relevantMediasDefault, photographerPageMain, lightbox);
+  const hero = new Hero(relevantPhotographer, photographerPageMain, form, relevantMediasDefault, gallery);
   const dropdownMenu = new Dropdown(relevantMediasDefault, photographerPageMain, gallery, lightbox);
 
-  photographerPageMain.appendChild(modals);
   hero.createDomHero();
+  hero.selectHeroTag(gallery);
   form.createForm();
   lightbox.createLightbox();
   dropdownMenu.createDropdownMenu();

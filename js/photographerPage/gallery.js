@@ -37,6 +37,7 @@ class Gallery{
         mediaCards.forEach(mediaCard => {
             const mediaCardFirstChild = mediaCard.firstChild;
             const mediaCardId = mediaCard.getAttribute('data-media-id');
+
             mediaCardFirstChild.addEventListener('click', () => {
                 this.lightbox.openLightbox(mediaCardId);
             });

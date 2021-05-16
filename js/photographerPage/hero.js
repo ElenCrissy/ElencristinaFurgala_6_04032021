@@ -1,8 +1,10 @@
 class Hero{
-    constructor(photographer, selector, form){
+    constructor(photographer, selector, form, listMedia, gallery){
         this.photographer = photographer;
         this.selector = selector;
         this.form = form;
+        this.listMedia = listMedia;
+        this.gallery = gallery;
     }
 
     createDomHero() {
@@ -19,6 +21,7 @@ class Hero{
   
         hero.classList.add('hero');
         heroInfo.classList.add('info');
+        heroInfo.setAttribute('aria-label', 'info photographe');
         heroButton.classList.add('hero-button');
         heroImage.classList.add('hero-image');
         portrait.classList.add('portrait');
@@ -42,6 +45,8 @@ class Hero{
             const tagContent = document.createTextNode(`#${photographerTag}`);
             tag.appendChild(tagContent);
             tagbox.appendChild(tag);
+            tag.setAttribute('tabindex', '0');
+
 
             // contenu pour les lecteurs d'écran
             const span = document.createElement('span');
@@ -49,6 +54,8 @@ class Hero{
             span.classList.add('sr-only');
             span.appendChild(spanContent);
             tag.appendChild(span);
+
+            tag.dataset['tagName'] = span.innerText;
         });
 
         heroInfo.append(name, location, tagline, tagbox);
@@ -63,5 +70,30 @@ class Hero{
         });
         
         return contactButton;
+    }
+    
+    selectHeroTag() {
+        const heroTags = document.querySelectorAll('.tag');
+        heroTags.forEach((heroTag) => {
+            const heroTagContent = heroTag.dataset['tagName'];
+            // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
+            heroTag.addEventListener('click', () => {
+            heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
+            heroTag.classList.add('active');
+            const relevantMedias = this.getRelevantMedias(heroTagContent);
+            console.log(relevantMedias);
+            return this.gallery.displayMediaGallery(relevantMedias);
+            });
+        });
+    }
+
+    getRelevantMedias(filterTag) {
+        if (filterTag === undefined) {
+          return this.listMedia;
+        }
+        const filteredMedias = this.listMedia.filter((media) => {
+            return media.tags.includes(filterTag)
+        });
+        return filteredMedias;
     }
 }
