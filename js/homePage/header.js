@@ -10,6 +10,7 @@ class Header{
 
         const logoLink = document.createElement('a');
         logoLink.setAttribute('href', 'index.html');
+        logoLink.setAttribute('aria-current', 'page');
         logoLink.classList.add('logo');
         
         const logoImg = document.createElement('img');
@@ -58,9 +59,14 @@ class Header{
             const navTagContent = navTag.dataset['tagName'];
             // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
             navTag.addEventListener('click', () => {
-            navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
-            navTag.classList.add('active');
-            this.photographerList.displayRelevantCards(navTagContent);
+                if(!(navTag.classList.contains('active'))) {
+                    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
+                    navTag.classList.add('active');
+                    return this.photographerList.displayRelevantCards(navTagContent);
+                } else {
+                    navTag.classList.remove('active');
+                    return this.photographerList.displayRelevantCards(undefined);
+                }
             });
         });
     }

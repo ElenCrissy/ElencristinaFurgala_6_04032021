@@ -34,14 +34,14 @@ class Form {
     const messageInput = document.createElement('textarea');
     const messageError = document.createElement('div');
   
-    const submitBtn = document.createElement('input');
+    const submitBtn = document.createElement('button');
     const confirmationMsg = document.createElement('div');
   
     formBackground.classList.add('form-background');
     formBackground.setAttribute('role', 'dialog');
     formBackground.setAttribute('aria-hidden', 'true');
     formBackground.setAttribute('aria-modal', 'true');
-    formBackground.setAttribute('aria-labelledby', 'formulaire-contact');
+    formBackground.setAttribute('aria-labelledby', 'modal-heading');
 
     formContent.classList.add('form-content');
     formContent.setAttribute('tabindex', '0');
@@ -53,7 +53,7 @@ class Form {
     formBody.classList.add('form-body');
 
     formTitle.classList.add('form-title');
-    formTitle.setAttribute('id', 'formulaire-contact');
+    formTitle.setAttribute('id', 'modal-heading');
     formTitle.innerHTML = `Contactez-moi <br>`;
 
     recipientName.classList.add('recipient-name');
@@ -126,7 +126,8 @@ class Form {
     submitBtn.setAttribute('aria-label', 'Envoyer')
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('value', 'Envoyer');
-    submitBtn.addEventListener('click', this.validate);
+    submitBtn.appendChild(document.createTextNode('Envoyer'));
+    submitBtn.addEventListener('click', this.validate.bind(this));
   
     confirmationMsg.setAttribute('id', 'confirmationMsg');
     confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
@@ -143,24 +144,37 @@ class Form {
   
     this.selector.appendChild(formBackground);
 
+    // revoir
+    window.addEventListener('keypress', (event) => {
+      if (event.code === 'Escape') {
+        console.log('hello')
+        this.closeForm(trigger).bind(this);
+      }
+    });
+
     close.addEventListener('click', this.closeForm.bind(this));
     close.addEventListener('keypress', (event) => {
-      if (event.key === 'Escape') {
-        this.closeForm();
+      if (event.key === 'Enter') {
+        this.closeForm(trigger);
       }
     });
   }
 
-  launchForm() {
+  launchForm(trigger) {
     const modal = document.querySelector('.form-background'); 
     modal.style.display = 'block';
     modal.setAttribute('aria-hidden', 'false');
+
+    trigger = this.trigger;
+    console.log(trigger);
+
     this.background.style.display = 'none';
     const first = document.querySelector('input[name=first]');
     first.focus();
+    return trigger;
   }
 
-  closeForm() {
+  closeForm(trigger) {
     const formBackground = document.querySelector('.form-background'); 
     formBackground.style.display = 'none';
     formBackground.setAttribute('aria-hidden', 'true');

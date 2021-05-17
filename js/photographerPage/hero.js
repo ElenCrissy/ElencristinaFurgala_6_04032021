@@ -66,7 +66,7 @@ class Hero{
 
         // ouverture formulaire
         contactButton.addEventListener('click', () => {
-            this.form.launchForm();
+            this.form.launchForm(contactButton);
         });
         
         return contactButton;
@@ -77,12 +77,19 @@ class Hero{
         heroTags.forEach((heroTag) => {
             const heroTagContent = heroTag.dataset['tagName'];
             // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
+            // au deuxième clic, classe active retirée et toutes les cartes sont affichées
             heroTag.addEventListener('click', () => {
-            heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
-            heroTag.classList.add('active');
-            const relevantMedias = this.getRelevantMedias(heroTagContent);
-            console.log(relevantMedias);
-            return this.gallery.displayMediaGallery(relevantMedias);
+                if (!(heroTag.classList.contains('active'))) {
+                    heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
+                    heroTag.classList.add('active');
+                    const relevantMedias = this.getRelevantMedias(heroTagContent);
+                    return this.gallery.displayMediaGallery(relevantMedias);
+                } else {
+                    heroTag.classList.remove('active');
+                    const relevantMedias = this.getRelevantMedias();
+                    return this.gallery.displayMediaGallery(relevantMedias);
+                }
+                
             });
         });
     }

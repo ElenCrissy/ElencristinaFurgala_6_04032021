@@ -49,7 +49,11 @@ a {
   padding: 3px 4px;
   color: #901C1C;
 }
-.tag.active, .tag button:hover {
+.tag.active {
+  background-color: #901C1C;
+  color: white;
+}
+.tag:hover {
   background-color: #901C1C;
   color: white;
 }
@@ -428,7 +432,8 @@ nav a {
   top: 17px;
   right: 17px;
 }
-.media-selection .dropdown-menu {
+
+.dropdown-menu {
   margin: 0;
   padding: 0;
   display: flex;
@@ -437,8 +442,13 @@ nav a {
   border-radius: 5px;
   position: relative;
   display: none;
+  width: 100%;
 }
-.media-selection .option {
+.dropdown-menu li {
+  list-style-type: none;
+}
+.dropdown-menu .option {
+  width: 100%;
   font-family: "DM Sans", sans-serif;
   font-weight: normal;
   color: white;
@@ -452,11 +462,11 @@ nav a {
   transition: all 0.5s;
   position: relative;
 }
-.media-selection .option:hover {
+.dropdown-menu .option:hover {
   cursor: pointer;
   background-color: #DB8876;
 }
-.media-selection .option::before {
+.dropdown-menu .option::before {
   content: "";
   width: 90%;
   height: 1px;

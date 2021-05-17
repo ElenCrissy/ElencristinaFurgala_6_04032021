@@ -7,16 +7,18 @@ const url = 'https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Fr
 //   .catch((err) => console.log(`Fetch problem: ${err.message}`))
 // //   créer function init réponse
 
+const myInit = { method: 'GET',
+  mode: 'no-cors',
+  cache: 'default',
+  headers : {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+};
 
-// const myInit = { method: 'GET',
-//   mode: 'no-cors',
-//   cache: 'default',
-//   headers : {
-//     'Content-Type': 'application/json'
-//   },
-// };
 
-fetch('../data.json')
+
+fetch(url, myInit)
 .then(response => response.json())
 .then(data => {
   console.log(data)

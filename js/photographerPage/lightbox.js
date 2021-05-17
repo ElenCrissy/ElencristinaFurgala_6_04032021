@@ -19,30 +19,35 @@ class Lightbox {
         lightbox.setAttribute('aria-modal', 'true');
         
         lightboxModal.classList.add('lightbox-modal');
-        lightboxModal.setAttribute('aria-label', 'Image agrandie');
+        lightboxModal.setAttribute('aria-label', 'lightbox image agrandie');
 
         lightboxCloseBtn.classList.add('lightbox-close-btn');
-        lightboxCloseBtn.setAttribute('aria-label', 'Fermer lightbox');
+        lightboxCloseBtn.setAttribute('aria-label', 'fermer lightbox');
         lightboxCloseBtn.setAttribute('tabindex', '0');
 
         navLeft.classList.add('nav-left', 'fas', 'fa-chevron-left');
-        navLeft.setAttribute('aria-label', 'Image précédente');
+        navLeft.setAttribute('aria-label', 'image précédente');
 
         lightboxContent.classList.add('lightbox-content');
         lightboxContent.setAttribute('tabindex', '0');
-        lightboxContent.setAttribute('aria-label', 'Naviguer avec flèches du clavier');
+        lightboxContent.setAttribute('aria-label', 'naviguer avec flèches du clavier');
 
 
         navRight.classList.add('nav-right', 'fas', 'fa-chevron-right');
-        navRight.setAttribute('aria-label', 'Image suivante');
+        navRight.setAttribute('aria-label', 'image suivante');
 
         lightbox.appendChild(lightboxModal);
         lightboxModal.append(lightboxCloseBtn, navLeft, lightboxContent, navRight);
         this.selector.appendChild(lightbox);
 
         lightboxCloseBtn.addEventListener('click', this.closeLightbox.bind(this));
-        // accessibilité - fermeture lightbox
         lightboxCloseBtn.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                this.closeLightbox();
+            }
+        });
+        // accessibilité - fermeture lightbox
+        window.addEventListener('keypress', (event) => {
             if (event.key === 'Escape') {
               this.closeLightbox();
             }

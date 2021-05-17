@@ -47,17 +47,23 @@
         top: 17px;
         right: 17px;
     }
-    & .dropdown-menu {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        background-color: $colour-primary-red;
-        border-radius: 5px;
-        position: relative;
-        display: none;
+}
+
+.dropdown-menu{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: $colour-primary-red;
+    border-radius: 5px;
+    position: relative;
+    display: none;
+    width: 100%;
+    & li {
+        list-style-type: none;
     }
     & .option {
+        width: 100%;
         font-family: 'DM Sans', sans-serif;
         font-weight: normal;
         color: white;
