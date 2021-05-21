@@ -70,7 +70,7 @@ class PhotographerList{
         tag.appendChild(tagContent);
         tagbox.appendChild(tag);
         tag.setAttribute('tabindex', '0');
-
+        tag.dataset['tagName'] = `${photographerTag}`;
     
         // contenu du tag pour les lecteurs d'écran
         const spanCard = document.createElement('span');
@@ -82,20 +82,21 @@ class PhotographerList{
     
       cardInfo.append(location, tagline, price, tagbox);
     
-      // interaction tags
-      const cardTags = document.querySelectorAll('.class .tag');
-      console.log(cardTags)
+      this.selectCardTag(tagbox);
+    
+      return card;
+    }
 
-
+    selectCardTag(tagbox) {
+      const cardTags = tagbox.querySelectorAll('.card .tag');
       // à revoir
       cardTags.forEach((cardTag) => {
         cardTag.addEventListener('click', () => {
           if (!(cardTag.classList.contains('active'))) {
-            cardTags.forEach((otherCardTags) => otherCardTags.classList.remove('active'));
             cardTag.classList.add('active');
-            const spandiv = cardTag.querySelector('span');
-            const spanText = spandiv.innerText;
-            return this.displayRelevantCardsFromCardTag(spanText);
+            cardTags.forEach((otherCardTags) => otherCardTags.classList.remove('active'));
+            const selectedCardTag = cardTag.getAttribute('data-tag-name');
+            return this.displayRelevantCardsFromCardTag(selectedCardTag);
           } else {
             cardTag.classList.remove('active');
             console.log('hello')
@@ -103,8 +104,6 @@ class PhotographerList{
           }
         });
       });
-    
-      return card;
     }
 
     displayRelevantCardsFromCardTag(selectedCardTag) {

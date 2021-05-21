@@ -602,6 +602,35 @@ const jsonData = `{"photographers": [
 const parsedData = JSON.parse(jsonData);
 const { photographers } = parsedData;
 
+// fetch('../data.json')
+// .then(response => response.json())
+// // .then(data => {
+// //   console.log(data)
+// // })
+// .then(data => {
+//   addMediaDescription(data);
+
+// })
+// .catch((err) => {
+//   console.log(`Fetch problem: ${err.message}`)
+// })
+
+// async function fetchJson() {
+//   const response = await fetch('../data.json');
+//   const myData = await response.json();
+//   addMediaDescription(myData);
+//   return myData;
+// }
+
+// function addMediaDescription (data) {
+//   const medias = data.media;
+//   medias.forEach(media => {
+//     media.description = 'lorem ipsum dolor sit amet';
+//   })
+// }
+
+// fetchJson();
+
 const header = document.querySelector('.header-index');
 const sectionHomepage = document.querySelector('#section-homepage');
 
