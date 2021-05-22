@@ -1,8 +1,8 @@
 class Form {
-  constructor(photographerName, selector, background) {
+  constructor(photographerName, selector, app) {
     this.photographerName = photographerName;
     this.selector = selector;
-    this.background = background;
+    this.app = app;
   }
 
   createForm() {
@@ -40,15 +40,16 @@ class Form {
     formBackground.classList.add('form-background');
     formBackground.setAttribute('role', 'dialog');
     formBackground.setAttribute('aria-hidden', 'true');
-    formBackground.setAttribute('aria-modal', 'true');
+    formBackground.setAttribute('aria-modal', 'false');
     formBackground.setAttribute('aria-labelledby', 'modal-heading');
 
     formContent.classList.add('form-content');
     formContent.setAttribute('tabindex', '0');
 
     close.classList.add('close');
-    close.setAttribute('aria-label', 'Fermer modale')
+    close.setAttribute('aria-label', 'Fermer modale');
     close.setAttribute('tabindex', '0');
+    close.setAttribute('role', 'button');
 
     formBody.classList.add('form-body');
 
@@ -144,41 +145,40 @@ class Form {
   
     this.selector.appendChild(formBackground);
 
-    // revoir
-    window.addEventListener('keypress', (event) => {
-      if (event.code === 'Escape') {
-        console.log('hello')
-        this.closeForm(trigger).bind(this);
+    // événements fermeture modale
+    window.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') {
+        this.closeForm();
       }
     });
-
+  
     close.addEventListener('click', this.closeForm.bind(this));
     close.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
-        this.closeForm(trigger);
+        this.closeForm();
       }
     });
   }
 
-  launchForm(trigger) {
-    const modal = document.querySelector('.form-background'); 
-    modal.style.display = 'block';
-    modal.setAttribute('aria-hidden', 'false');
+  launchForm() {
+    const formBackground = document.querySelector('.form-background');
+    previousActiveElement = document.activeElement;
 
-    trigger = this.trigger;
-    console.log(trigger);
+    formBackground.style.display = 'block';
+    formBackground.removeAttribute('aria-hidden');
+    formBackground.setAttribute('aria-modal', 'true');
 
-    this.background.style.display = 'none';
+    this.app.setAttribute('aria-hidden', 'true');
+    console.log(this.app);
     const first = document.querySelector('input[name=first]');
     first.focus();
-    return trigger;
   }
 
-  closeForm(trigger) {
+  closeForm() {
     const formBackground = document.querySelector('.form-background'); 
     formBackground.style.display = 'none';
     formBackground.setAttribute('aria-hidden', 'true');
-    this.background.style.display = 'block';
+    this.app.style.display = 'block';
   }
 
   validate(event) {

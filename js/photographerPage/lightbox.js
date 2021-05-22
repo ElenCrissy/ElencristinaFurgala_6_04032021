@@ -1,7 +1,7 @@
 class Lightbox {
-    constructor(selector, background) {
+    constructor(selector, app) {
         this.selector = selector;
-        this.background = background;
+        this.app = app;
     }
 
     createLightbox() {
@@ -17,6 +17,7 @@ class Lightbox {
         lightbox.setAttribute('aria-label', 'diaporama');
         lightbox.setAttribute('aria-hidden', 'true');
         lightbox.setAttribute('aria-modal', 'true');
+        lightbox.setAttribute('tabindex', '0');
         
         lightboxModal.classList.add('lightbox-modal');
         lightboxModal.setAttribute('aria-label', 'lightbox image agrandie');
@@ -40,16 +41,16 @@ class Lightbox {
         lightboxModal.append(lightboxCloseBtn, navLeft, lightboxContent, navRight);
         this.selector.appendChild(lightbox);
 
+        // événements fermeture lightbox
         lightboxCloseBtn.addEventListener('click', this.closeLightbox.bind(this));
         lightboxCloseBtn.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 this.closeLightbox();
             }
         });
-        // accessibilité - fermeture lightbox
-        window.addEventListener('keypress', (event) => {
-            if (event.key === 'Escape') {
-              this.closeLightbox();
+        window.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                this.closeLightbox();
             }
         });
     }
@@ -95,7 +96,7 @@ class Lightbox {
         const lightbox = document.querySelector('.lightbox');
         lightbox.style.display = 'block';
         lightbox.setAttribute('aria-hidden', 'false');
-        this.background.style.display = 'none';
+        this.app.style.display = 'none';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         // affichage du média lightbox qui correspond à la miniature sélectionnée dans la galerie
         lightboxMedias.forEach(lightboxMedia => {
@@ -109,8 +110,9 @@ class Lightbox {
         const lightbox = document.querySelector('.lightbox');
         lightbox.style.display = "none";
         lightbox.setAttribute('aria-hidden', 'true');
-        this.background.style.display = 'block';
+        this.app.style.display = 'block';
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
+
         lightboxMedias.forEach(lightboxMedia => {
             if(lightboxMedia.classList.contains('active')){
             lightboxMedia.classList.remove('active');

@@ -23,6 +23,7 @@ class Dropdown {
         const options = [optionPopularity, optionDate, optionTitle];
 
         mediaSelection.classList.add('media-selection');
+        mediaSelection.setAttribute('tabindex', '0');
         orderBy.classList.add('orderby');
         orderBy.setAttribute('id', 'orderby');
 

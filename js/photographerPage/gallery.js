@@ -9,6 +9,7 @@ class Gallery{
     createGallery() {
         const gallery = document.createElement('div');
         gallery.classList.add('gallery');
+        gallery.setAttribute('tabindex', '0');
         this.selector.appendChild(gallery);
     }
 

@@ -7,9 +7,11 @@ class Header{
     createHeader(){        
         const headerElements = document.createElement('div');
         headerElements.classList.add('header-elements');
+        headerElements.setAttribute('tabindex', '0');
 
         const logoLink = document.createElement('a');
         logoLink.setAttribute('href', 'index.html');
+        logoLink.setAttribute('tabindex', '2');
         logoLink.setAttribute('aria-current', 'page');
         logoLink.classList.add('logo');
         
@@ -24,6 +26,8 @@ class Header{
 
         const navbar = this.createNavbar();
 
+        this.selector.setAttribute('tabindex', '1');
+
         logoLink.appendChild(logoImg);
         headerElements.append(logoLink, goToMain, navbar);
         this.selector.appendChild(headerElements);
@@ -32,6 +36,7 @@ class Header{
     createNavbar() {
         const navbar = document.createElement('nav');
         navbar.setAttribute('role', 'navigation');
+        navbar.setAttribute('tabindex', '0');
         navbar.setAttribute('aria-label', 'navigation_principale');
         const tagsName = ['portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];
         tagsName.forEach(tagName => {
@@ -53,21 +58,21 @@ class Header{
         return navbar;
     }
 
-    selectNavTag() {
-        const navTags = document.querySelectorAll('.tag');
-        navTags.forEach((navTag) => {
-            const navTagContent = navTag.dataset['tagName'];
-            // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
-            navTag.addEventListener('click', () => {
-                if(!(navTag.classList.contains('active'))) {
-                    navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
-                    navTag.classList.add('active');
-                    return this.photographerList.displayRelevantCards(navTagContent);
-                } else {
-                    navTag.classList.remove('active');
-                    return this.photographerList.displayRelevantCards(undefined);
-                }
-            });
-        });
-    }
+    // selectNavTag() {
+    //     const navTags = document.querySelectorAll('.tag');
+    //     navTags.forEach((navTag) => {
+    //         const navTagContent = navTag.dataset['tagName'];
+    //         // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
+    //         navTag.addEventListener('click', () => {
+    //             if(!(navTag.classList.contains('active'))) {
+    //                 navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
+    //                 navTag.classList.add('active');
+    //                 return this.photographerList.displayRelevantCards(navTagContent);
+    //             } else {
+    //                 navTag.classList.remove('active');
+    //                 return this.photographerList.displayRelevantCards(undefined);
+    //             }
+    //         });
+    //     });
+    // }
 }

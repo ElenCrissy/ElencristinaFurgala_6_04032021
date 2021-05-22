@@ -632,13 +632,15 @@ const { photographers } = parsedData;
 // fetchJson();
 
 const header = document.querySelector('.header-index');
+const mainTitle = document.querySelector('.main-title');
 const sectionHomepage = document.querySelector('#section-homepage');
 
 window.onload = () => {
   const photographerList = new PhotographerList(sectionHomepage, photographers);
   const headerContent = new Header(header, photographerList);
   headerContent.createHeader();
+  mainTitle.appendChild(document.createTextNode('Nos photographes'));
   photographerList.displayRelevantCards();
-  headerContent.selectNavTag();
+  photographerList.selectTag();
 
 };

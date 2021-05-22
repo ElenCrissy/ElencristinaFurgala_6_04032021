@@ -20,6 +20,7 @@ class Hero{
         const contactButton = document.createElement('input');
   
         hero.classList.add('hero');
+        hero.setAttribute('tabindex', '0');
         heroInfo.classList.add('info');
         heroInfo.setAttribute('aria-label', 'info photographe');
         heroButton.classList.add('hero-button');
@@ -66,6 +67,7 @@ class Hero{
 
         // ouverture formulaire
         contactButton.addEventListener('click', () => {
+            let previousActiveElement;
             this.form.launchForm(contactButton);
         });
         
