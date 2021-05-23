@@ -43,20 +43,21 @@ class Hero{
         photographerTags.forEach((photographerTag) => {
             const tag = document.createElement('div');
             tag.classList.add('tag');
+            tag.setAttribute('aria-label', `${photographerTag}`);
+            tag.setAttribute('role', 'button');
             const tagContent = document.createTextNode(`#${photographerTag}`);
             tag.appendChild(tagContent);
             tagbox.appendChild(tag);
             tag.setAttribute('tabindex', '0');
 
+            // // contenu pour les lecteurs d'écran
+            // const span = document.createElement('span');
+            // const spanContent = document.createTextNode(`${photographerTag}`);
+            // span.classList.add('sr-only');
+            // span.appendChild(spanContent);
+            // tag.appendChild(span);
 
-            // contenu pour les lecteurs d'écran
-            const span = document.createElement('span');
-            const spanContent = document.createTextNode(`${photographerTag}`);
-            span.classList.add('sr-only');
-            span.appendChild(spanContent);
-            tag.appendChild(span);
-
-            tag.dataset['tagName'] = span.innerText;
+            tag.dataset['tagName'] = photographerTag;
         });
 
         heroInfo.append(name, location, tagline, tagbox);

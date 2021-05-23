@@ -39,21 +39,9 @@ class Header{
         navbar.setAttribute('tabindex', '0');
         navbar.setAttribute('aria-label', 'navigation_principale');
         const tagsName = ['portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];
+
         tagsName.forEach(tagName => {
-            const tagNameDiv = document.createElement('div');
-            tagNameDiv.classList.add('navigation-item', 'tag');
-            tagNameDiv.appendChild(document.createTextNode(`#${tagName}`));
-            tagNameDiv.setAttribute('tabindex', '0');
-
-            // contenu pour screenreader
-            const span = document.createElement('span');
-            span.appendChild(document.createTextNode(`${tagName}`));
-            span.classList.add('sr-only');
-            tagNameDiv.appendChild(span);
-
-            tagNameDiv.dataset['tagName'] = span.innerText;
-
-            navbar.appendChild(tagNameDiv);
+            console.log(this.photographerList.createTag(navbar, tagName))
         })
         return navbar;
     }

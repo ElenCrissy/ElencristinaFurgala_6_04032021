@@ -79,25 +79,47 @@ class PhotographerList{
     // tags
     const photographerTags = photographer.tags;
     photographerTags.forEach((photographerTag) => {
-      const tag = document.createElement('a');
-      tag.classList.add('tag');
-      const tagContent = document.createTextNode(`#${photographerTag}`);
-      tag.appendChild(tagContent);
-      tagbox.appendChild(tag);
-      tag.setAttribute('tabindex', '0');
-      tag.dataset['tagName'] = `${photographerTag}`;
+      this.createTag(tagbox, photographerTag);
+      // const tag = document.createElement('a');
+      // tag.classList.add('tag');
+      // const tagContent = document.createTextNode(`#${photographerTag}`);
+      // tag.appendChild(tagContent);
+      // tagbox.appendChild(tag);
+      // tag.setAttribute('tabindex', '0');
+      // tag.dataset['tagName'] = `${photographerTag}`;
   
-      // contenu du tag pour les lecteurs d'écran
-      const spanCard = document.createElement('span');
-      const spanCardContent = document.createTextNode(`${photographerTag}`);
-      spanCard.classList.add('sr-only');
-      spanCard.appendChild(spanCardContent);
-      tag.appendChild(spanCard);
+      // // contenu du tag pour les lecteurs d'écran
+      // const spanCard = document.createElement('span');
+      // const spanCardContent = document.createTextNode(`${photographerTag}`);
+      // spanCard.classList.add('sr-only');
+      // spanCard.appendChild(spanCardContent);
+      // tag.appendChild(spanCard);
     });
 
     cardInfo.append(location, tagline, price, tagbox);
-
+    
     return card;
+  }
+
+  createTag(selector, tagName) {
+    const tag = document.createElement('div');
+    tag.classList.add('tag');
+    if(this.element === 'navbar') {
+      tag.classList.add('navigation-item');
+    }
+    tag.setAttribute('aria-label', `${tagName}`)
+    tag.setAttribute('role', 'button');
+    tag.appendChild(document.createTextNode(`#${tagName}`));
+    tag.setAttribute('tabindex', '0');
+    tag.dataset['tagName'] = tagName;
+
+    selector.appendChild(tag);
+
+    tag.addEventListener('click', (e) => {
+      // e.preventDefault;
+      this.selectTag2(tag);
+    });
+    return tag
   }
 
   // selectCardTag(tagbox) {
@@ -119,25 +141,59 @@ class PhotographerList{
   //   });
   // }
 
-  selectTag() {
-    const tags = document.querySelectorAll('.tag');
-    console.log(tags)
-    tags.forEach((tag) => {
+
+  selectTag2(tag) {
+    if (!(tag.classList.contains('active'))) {
       const tagContent = tag.dataset['tagName'];
-      // au clic sur un tag, classe active appliquée et cartes affichées
-      tag.addEventListener('click', () => {
-        if(!(tag.classList.contains('active'))) {
-          console.log(tag);
-          tag.classList.add('active');
-          tags.forEach((otherTags) => otherTags.classList.remove('active'));
-          return this.displayRelevantCards(tagContent);
+      const tags = document.querySelectorAll('.tag');
+      tags.forEach(otherTag => {
+        if (otherTag.dataset['tagName'] === tagContent){
+          otherTag.classList.add('active');
         } else {
-          console.log('a la classe active');
-          tag.classList.remove('active');
-          return this.displayRelevantCards(undefined);
+          otherTag.classList.remove('active');
         }
       });
-    });
+      tag.classList.add('active');
+      return this.displayRelevantCards(tagContent);
+    } else {
+      tag.classList.remove('active');
+      return this.displayRelevantCards(undefined);
+    }
   }
+
+  // selectTag() {
+  //   const tags = document.querySelectorAll('.tag');
+  //   tags.forEach(tag => {
+  //     // au clic sur un tag, classe active appliquée et cartes affichées
+  //     tag.addEventListener('click', () => {
+  //       if (!(tag.classList.contains('active'))) {
+  //         const tagContent = tag.dataset['tagName'];
+  //         tags.forEach(otherTag => {
+  //           if (otherTag.dataset['tagName'] === tagContent){
+  //             otherTag.classList.add('active');
+  //           } else {
+  //             otherTag.classList.remove('active')
+  //           }
+  //         });
+  //         tag.classList.add('active');
+  //         return this.displayRelevantCards(tagContent);
+  //       } else {
+  //         tag.classList.remove('active');
+  //         return this.displayRelevantCards(undefined);
+  //       }
+
+  //       // if(!(tag.classList.contains('active'))) {
+  //       //   console.log(tag);
+  //       //   tag.classList.add('active');
+  //       //   tags.forEach((otherTags) => otherTags.classList.remove('active'));
+  //       //   return this.displayRelevantCards(tagContent);
+  //       // } else {
+  //       //   console.log('a la classe active');
+  //       //   tag.classList.remove('active');
+  //       //   return this.displayRelevantCards();
+  //       // }
+  //     });
+  //   });
+  // }
   
 }
