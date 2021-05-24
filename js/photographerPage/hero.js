@@ -30,6 +30,7 @@ class Hero{
         location.classList.add('location');
         tagline.classList.add('tagline');
         tagbox.classList.add('tagbox');
+        tagbox.setAttribute('role', 'navigation');
         contactButton.classList.add('btn-contact');
         contactButton.type = 'button';
         contactButton.value = 'Contactez-moi';
@@ -43,21 +44,19 @@ class Hero{
         photographerTags.forEach((photographerTag) => {
             const tag = document.createElement('div');
             tag.classList.add('tag');
-            tag.setAttribute('aria-label', `${photographerTag}`);
+            tag.setAttribute('aria-label', `${photographerTag} appuyez pour sélectionner`)
             tag.setAttribute('role', 'button');
-            const tagContent = document.createTextNode(`#${photographerTag}`);
-            tag.appendChild(tagContent);
-            tagbox.appendChild(tag);
+            tag.appendChild(document.createTextNode(`#${photographerTag}`));
             tag.setAttribute('tabindex', '0');
-
-            // // contenu pour les lecteurs d'écran
-            // const span = document.createElement('span');
-            // const spanContent = document.createTextNode(`${photographerTag}`);
-            // span.classList.add('sr-only');
-            // span.appendChild(spanContent);
-            // tag.appendChild(span);
-
             tag.dataset['tagName'] = photographerTag;
+
+            tagbox.appendChild(tag);
+
+            tag.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                  this.selectHeroTag();
+                }
+              });
         });
 
         heroInfo.append(name, location, tagline, tagbox);
@@ -66,10 +65,12 @@ class Hero{
         hero.append(heroInfo, heroButton, heroImage);
         this.selector.appendChild(hero);
 
+        hero.focus();
+
         // ouverture formulaire
         contactButton.addEventListener('click', () => {
             let previousActiveElement;
-            this.form.launchForm(contactButton);
+            this.form.launchForm(previousActiveElement);
         });
         
         return contactButton;

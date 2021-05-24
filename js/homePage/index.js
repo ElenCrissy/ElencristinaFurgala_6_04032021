@@ -641,6 +641,4 @@ window.onload = () => {
   headerContent.createHeader();
   mainTitle.appendChild(document.createTextNode('Nos photographes'));
   photographerList.displayRelevantCards();
-  // photographerList.selectTag();
-
 };

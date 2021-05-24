@@ -41,26 +41,10 @@ class Header{
         const tagsName = ['portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];
 
         tagsName.forEach(tagName => {
-            console.log(this.photographerList.createTag(navbar, tagName))
+            const tag = this.photographerList.createTag(navbar, tagName);
+            tag.classList.add('navigation-item');
+            return tag;
         })
         return navbar;
     }
-
-    // selectNavTag() {
-    //     const navTags = document.querySelectorAll('.tag');
-    //     navTags.forEach((navTag) => {
-    //         const navTagContent = navTag.dataset['tagName'];
-    //         // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
-    //         navTag.addEventListener('click', () => {
-    //             if(!(navTag.classList.contains('active'))) {
-    //                 navTags.forEach((otherNavTags) => otherNavTags.classList.remove('active'));
-    //                 navTag.classList.add('active');
-    //                 return this.photographerList.displayRelevantCards(navTagContent);
-    //             } else {
-    //                 navTag.classList.remove('active');
-    //                 return this.photographerList.displayRelevantCards(undefined);
-    //             }
-    //         });
-    //     });
-    // }
 }

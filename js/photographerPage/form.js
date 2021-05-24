@@ -6,8 +6,9 @@ class Form {
   }
 
   createForm() {
-    const formBackground = document.createElement('div');
+    const formWindow = document.createElement('div');
     const formContent = document.createElement('div');
+    const formMask = document.createElement('div');
     const close = document.createElement('span');
     const formBody = document.createElement('div');
     const formTitle = document.createElement('h1');
@@ -37,14 +38,16 @@ class Form {
     const submitBtn = document.createElement('button');
     const confirmationMsg = document.createElement('div');
   
-    formBackground.classList.add('form-background');
-    formBackground.setAttribute('role', 'dialog');
-    formBackground.setAttribute('aria-hidden', 'true');
-    formBackground.setAttribute('aria-modal', 'false');
-    formBackground.setAttribute('aria-labelledby', 'modal-heading');
+    formWindow.classList.add('form-window');
+    formWindow.setAttribute('role', 'dialog');
+    formWindow.setAttribute('aria-hidden', 'true');
+    formWindow.setAttribute('aria-modal', 'false');
+    formWindow.setAttribute('aria-labelledby', 'modal-heading');
 
     formContent.classList.add('form-content');
     formContent.setAttribute('tabindex', '0');
+
+    formMask.classList.add('form-mask');
 
     close.classList.add('close');
     close.setAttribute('aria-label', 'Fermer modale');
@@ -128,12 +131,13 @@ class Form {
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('value', 'Envoyer');
     submitBtn.appendChild(document.createTextNode('Envoyer'));
+
     submitBtn.addEventListener('click', this.validate.bind(this));
   
     confirmationMsg.setAttribute('id', 'confirmationMsg');
     confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
 
-    formBackground.appendChild(formContent);
+    formWindow.append(formContent, formMask);
     formContent.append(close, formBody, confirmationMsg);
     formBody.append(formTitle, form, submitBtn);
     formTitle.appendChild(recipientName);
@@ -143,51 +147,66 @@ class Form {
     email.append(emailLabel, emailInput, emailError);
     message.append(messageLabel, messageInput, messageError);
   
-    this.selector.appendChild(formBackground);
+    this.selector.appendChild(formWindow);
+
+    // événements
+    allInputs.forEach(input => {
+      input.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          this.validate();
+        }
+      });
+    });
+    
+  }
+
+  launchForm() {
+    const formWindow = document.querySelector('.form-window');
+    const formMask = document.querySelector('.form-mask');
+    const close = document.querySelector('.close');
+
+    formWindow.style.display = 'flex';
+    formWindow.removeAttribute('aria-hidden');
+    formWindow.setAttribute('aria-modal', 'true');
+
+    this.app.setAttribute('aria-hidden', 'true');
+    const first = document.querySelector('input[name=first]');
+    first.focus();
 
     // événements fermeture modale
     window.addEventListener('keydown', (e) => {
       if(e.key === 'Escape') {
-        this.closeForm();
+        console.log(this.closeForm(selector))
+        this.closeForm(selector);
       }
     });
   
     close.addEventListener('click', this.closeForm.bind(this));
     close.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
-        this.closeForm();
+        this.closeForm(selector).bind(this);
       }
+    });
+
+    formMask.addEventListener('click', () => {
+      this.closeForm();
     });
   }
 
-  launchForm() {
-    const formBackground = document.querySelector('.form-background');
-    previousActiveElement = document.activeElement;
-
-    formBackground.style.display = 'block';
-    formBackground.removeAttribute('aria-hidden');
-    formBackground.setAttribute('aria-modal', 'true');
-
-    this.app.setAttribute('aria-hidden', 'true');
-    console.log(this.app);
-    const first = document.querySelector('input[name=first]');
-    first.focus();
-  }
-
   closeForm() {
-    const formBackground = document.querySelector('.form-background'); 
-    formBackground.style.display = 'none';
-    formBackground.setAttribute('aria-hidden', 'true');
+    const formWindow = document.querySelector('.form-window'); 
+    const contactButton = document.querySelector('.btn-contact');
+    formWindow.style.display = 'none';
+    formWindow.setAttribute('aria-hidden', 'true');
     this.app.style.display = 'block';
+    contactButton.focus();
   }
 
-  validate(event) {
-    const form = document.getElementById('contact');
+  validate() {
+    const form = document.querySelector('#contact');
     const confirmationMsg = document.querySelector('#confirmationMsg');
     const submitBtn = document.querySelector('.btn-submit');
     let formOk;
-
-    event.preventDefault();
 
     const checkInputs = () => {
       const first = document.querySelector('input[name=first]');
@@ -231,8 +250,8 @@ class Form {
       }
 
       const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
-      console.log(contactContent)
-      return formOk = true;
+      console.log(contactContent);
+      return formOk === true
     }
     
     checkInputs();

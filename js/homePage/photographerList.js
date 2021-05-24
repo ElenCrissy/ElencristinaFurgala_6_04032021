@@ -78,7 +78,7 @@ class PhotographerList{
   
     // tags
     const photographerTags = photographer.tags;
-    photographerTags.forEach((photographerTag) => {
+    photographerTags.forEach(photographerTag => {
       this.createTag(tagbox, photographerTag);
       // const tag = document.createElement('a');
       // tag.classList.add('tag');
@@ -101,51 +101,41 @@ class PhotographerList{
     return card;
   }
 
-  createTag(selector, tagName) {
+  createTag(parentElement, tagName) {
     const tag = document.createElement('div');
     tag.classList.add('tag');
-    if(this.element === 'navbar') {
-      tag.classList.add('navigation-item');
-    }
-    tag.setAttribute('aria-label', `${tagName}`)
+    tag.setAttribute('aria-label', `${tagName} appuyez pour sélectionner`)
     tag.setAttribute('role', 'button');
     tag.appendChild(document.createTextNode(`#${tagName}`));
     tag.setAttribute('tabindex', '0');
     tag.dataset['tagName'] = tagName;
 
-    selector.appendChild(tag);
+    parentElement.appendChild(tag);
 
-    tag.addEventListener('click', (e) => {
-      // e.preventDefault;
-      this.selectTag2(tag);
+    // événements
+    tag.addEventListener('click', () => {
+      this.selectTag(tag);
     });
-    return tag
+    tag.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        this.selectTag(tag);
+      }
+    });
+
+    return tag;
   }
 
-  // selectCardTag(tagbox) {
-  //   const cardTags = tagbox.querySelectorAll('.card .tag');
-  //   // à revoir
-  //   cardTags.forEach((cardTag) => {
-  //     cardTag.addEventListener('click', () => {
-  //       if (!(cardTag.classList.contains('active'))) {
-  //         cardTag.classList.add('active');
-  //         cardTags.forEach((otherCardTags) => otherCardTags.classList.remove('active'));
-  //         const selectedCardTag = cardTag.getAttribute('data-tag-name');
-  //         return this.displayRelevantCardsFromCardTag(selectedCardTag);
-  //       } else {
-  //         cardTag.classList.remove('active');
-  //         console.log('hello')
-  //         return this.displayRelevantCardsFromCardTag(undefined);
-  //       }
-  //     });
-  //   });
-  // }
-
-
-  selectTag2(tag) {
-    if (!(tag.classList.contains('active'))) {
-      const tagContent = tag.dataset['tagName'];
+  selectTag(selectedTag) {
+    if (!(selectedTag.classList.contains('active'))) {
+      const tagContent = selectedTag.dataset['tagName'];
+      this.displayRelevantCards(tagContent);
       const tags = document.querySelectorAll('.tag');
+      let relevantTagArray = [];
+      tags.forEach(tag => {
+        const dataName = tag.dataset['tagName'];
+        relevantTagArray.push(dataName);
+        return relevantTagArray
+      });
       tags.forEach(otherTag => {
         if (otherTag.dataset['tagName'] === tagContent){
           otherTag.classList.add('active');
@@ -153,47 +143,16 @@ class PhotographerList{
           otherTag.classList.remove('active');
         }
       });
-      tag.classList.add('active');
-      return this.displayRelevantCards(tagContent);
     } else {
-      tag.classList.remove('active');
-      return this.displayRelevantCards(undefined);
+      const tagContent = selectedTag.dataset['tagName'];
+      const tags = document.querySelectorAll('.tag');
+      this.displayRelevantCards(undefined);
+      tags.forEach(otherTag => {
+        if (otherTag.dataset['tagName'] === tagContent){
+          otherTag.classList.remove('active');
+        }
+      })
+      selectedTag.classList.remove('active');
     }
   }
-
-  // selectTag() {
-  //   const tags = document.querySelectorAll('.tag');
-  //   tags.forEach(tag => {
-  //     // au clic sur un tag, classe active appliquée et cartes affichées
-  //     tag.addEventListener('click', () => {
-  //       if (!(tag.classList.contains('active'))) {
-  //         const tagContent = tag.dataset['tagName'];
-  //         tags.forEach(otherTag => {
-  //           if (otherTag.dataset['tagName'] === tagContent){
-  //             otherTag.classList.add('active');
-  //           } else {
-  //             otherTag.classList.remove('active')
-  //           }
-  //         });
-  //         tag.classList.add('active');
-  //         return this.displayRelevantCards(tagContent);
-  //       } else {
-  //         tag.classList.remove('active');
-  //         return this.displayRelevantCards(undefined);
-  //       }
-
-  //       // if(!(tag.classList.contains('active'))) {
-  //       //   console.log(tag);
-  //       //   tag.classList.add('active');
-  //       //   tags.forEach((otherTags) => otherTags.classList.remove('active'));
-  //       //   return this.displayRelevantCards(tagContent);
-  //       // } else {
-  //       //   console.log('a la classe active');
-  //       //   tag.classList.remove('active');
-  //       //   return this.displayRelevantCards();
-  //       // }
-  //     });
-  //   });
-  // }
-  
 }
