@@ -42,6 +42,12 @@ class Gallery{
             mediaCardFirstChild.addEventListener('click', () => {
                 this.lightbox.openLightbox(mediaCardId);
             });
+
+            mediaCardFirstChild.addEventListener('keydown', (e) => {
+                if(e.key === 'Enter') {
+                  this.lightbox.openLightbox(mediaCardId);
+                }
+            });
         });
         
         this.createBottomBox();

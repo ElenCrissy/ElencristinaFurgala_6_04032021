@@ -70,12 +70,7 @@ class Dropdown {
         dropdownToggle.textContent = "Popularité";
         
         // au survol, les options apparaissent
-        dropdownTrigger.addEventListener('click', this.openDropdownMenu);
-        dropdownTrigger.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-              this.openDropdownMenu.bind(this);
-            }
-        });
+        dropdownToggle.addEventListener('click', this.openDropdownMenu);
 
         options.forEach(option => {
             // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
@@ -84,13 +79,12 @@ class Dropdown {
             option.addEventListener('click', () => {
                 this.selectOption(options, option);
             })
-            option.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    console.log('triiiiiiiiii')
-                    this.selectOption(options, option).bind(this);
+            option.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    this.selectOption(options, option);
                 }
             });
-        }); 
+        });
     }
 
     selectOption(options, option) {
@@ -137,7 +131,7 @@ class Dropdown {
             if (dropdownToggle.textContent === option.textContent) {
                 option.style.display = 'none';
             }
-        });
+        }); 
     }
 
     sortGallery(sortCategory) {

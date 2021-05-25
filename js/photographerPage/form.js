@@ -176,15 +176,14 @@ class Form {
     // événements fermeture modale
     window.addEventListener('keydown', (e) => {
       if(e.key === 'Escape') {
-        console.log(this.closeForm(selector))
-        this.closeForm(selector);
+        this.closeForm();
       }
     });
   
     close.addEventListener('click', this.closeForm.bind(this));
     close.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
-        this.closeForm(selector).bind(this);
+        this.closeForm();
       }
     });
 
@@ -256,7 +255,7 @@ class Form {
     
     checkInputs();
     
-    //help
+    // help
     if (formOk === true) {
       form.style.display = 'none';
       submitBtn.style.display = 'none';

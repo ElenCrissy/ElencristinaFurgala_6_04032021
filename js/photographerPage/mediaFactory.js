@@ -28,7 +28,8 @@ class MediaFactory {
       
       mediaVideo.classList.add('media-video');
       mediaVideo.setAttribute('tabindex', '0');
-      mediaVideo.setAttribute('alt', `Agrandir ${this.titleContent}`);
+      mediaVideo.setAttribute('title', `${this.titleContent}`);
+      mediaVideo.setAttribute('controls', 'controls');
 
       mediaCardInfo.classList.add('media-card_info');
       mediaCardInfoText.classList.add('media-card_info__text');
@@ -44,6 +45,7 @@ class MediaFactory {
       price.appendChild(document.createTextNode(`${this.price}€`));
       mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
       mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
+      
       mediaCardInfoHeart.addEventListener('click', () => {
         mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
       })
@@ -74,12 +76,10 @@ class MediaFactory {
   
       lightboxMedia.classList.add('lightbox-media');
       mediaContent.classList.add('media-content');
+      mediaContent.setAttribute('controls', 'controls');
       mediaCaption.classList.add('media-caption');
   
       mediaSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
-      mediaContent.addEventListener('click', () => {
-        mediaContent.play();
-      }, false);
       mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
       mediaContent.appendChild(mediaSrc);
       lightboxMedia.append(mediaContent, mediaCaption);
@@ -112,7 +112,7 @@ class MediaFactory {
       const src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
   
       mediaImage.setAttribute('tabindex', '0');
-      mediaImage.setAttribute('alt', `Agrandir ${this.titleContent}`);
+      mediaImage.setAttribute('alt', `${this.titleContent}`);
 
       mediaCardInfo.classList.add('media-card_info');
       mediaCardInfoText.classList.add('media-card_info__text');
@@ -126,8 +126,8 @@ class MediaFactory {
   
       title.appendChild(document.createTextNode(`${this.titleContent}`));
       price.appendChild(document.createTextNode(`${this.price}€`));
+
       mediaImage.src = src;
-      mediaImage.setAttribute('alt', `Agrandir ${this.titleContent}`);
       mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
       mediaCardInfoHeart.addEventListener('click', () => {
         mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;

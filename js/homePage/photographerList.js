@@ -104,7 +104,7 @@ class PhotographerList{
   createTag(parentElement, tagName) {
     const tag = document.createElement('div');
     tag.classList.add('tag');
-    tag.setAttribute('aria-label', `${tagName} appuyez pour sélectionner`)
+    tag.setAttribute('aria-label', `trier par ${tagName}`)
     tag.setAttribute('role', 'button');
     tag.appendChild(document.createTextNode(`#${tagName}`));
     tag.setAttribute('tabindex', '0');
