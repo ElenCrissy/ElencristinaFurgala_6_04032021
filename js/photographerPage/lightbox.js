@@ -74,22 +74,24 @@ class Lightbox {
         const lightboxMedias = sortedArray.map(this.createLightboxMedia);
 
         lightboxMedias.forEach(lightboxMedia => lightboxContentMedia.appendChild(lightboxMedia));
+        
         // médias positionnés entre les flèches de navigation
         lightboxContent.insertBefore(lightboxContentMedia, lightboxContent.children[2]);
 
+        // événements - navigation
         const navLeft = document.querySelector('.nav-left');
-        navLeft.addEventListener('click', this.previous(lightboxMedias));
+        navLeft.addEventListener('click', () => this.previous(lightboxMedias));
         navLeft.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                this.previous.bind(null, lightboxMedias);
+                this.previous(lightboxMedias);
             }
         });
 
         const navRight = document.querySelector('.nav-right');
-        navRight.addEventListener('click', this.next.bind(null, lightboxMedias));
+        navRight.addEventListener('click', () => this.next(lightboxMedias));
         navRight.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
-                this.next.bind(null, lightboxMedias);
+                this.next(lightboxMedias);
             }
         });
         
@@ -98,7 +100,7 @@ class Lightbox {
             if (event.key === 'ArrowLeft') {
                 this.previous(lightboxMedias);
             } else if (event.key === 'ArrowRight') {
-                this.next.bind(null, lightboxMedias);
+                this.next(lightboxMedias);
             }
         });
     }
@@ -153,22 +155,51 @@ class Lightbox {
     }
 
     next(mediaArray) {
+        const video = document.querySelector('.media-content');
+        const navRight = document.querySelector('.nav-right');
+        const navLeft = document.querySelector('.nav-left');
+
         for(let i = 0; i < mediaArray.length-1; i++) {
             if(mediaArray[i].classList.contains('active')) {
+                video.pause();
                 mediaArray[i].classList.remove('active');
                 const nextMedia = (i+=1);
                 mediaArray[nextMedia].classList.add('active');
+                const currentMediaParent = mediaArray[nextMedia].parentElement;
+                if(currentMediaParent.lastChild === mediaArray[nextMedia]) {
+                    navRight.style.visibility = 'hidden';
+                } else {
+                    navRight.style.visibility = 'visible';
+                }
             }
-          }
+        }
+
+        if(navLeft.style.visibility = 'hidden') {
+            navLeft.style.visibility = 'visible';
+        }
+
     }
 
     previous(mediaArray) {
+        const video = document.querySelector('.media-content');
+        const navLeft = document.querySelector('.nav-left');
+        const navRight = document.querySelector('.nav-right');
+
         for(let i = 1; i < mediaArray.length; i++) {
             if(mediaArray[i].classList.contains('active')) {
+                video.pause();
                 mediaArray[i].classList.remove('active');
-              const previousMedia = (i-=1);
-              mediaArray[previousMedia].classList.add('active');
+                const previousMedia = (i-=1);
+                mediaArray[previousMedia].classList.add('active');
+                const currentMediaParent = mediaArray[previousMedia].parentElement;
+                if(currentMediaParent.firstChild === mediaArray[previousMedia]) {
+                    navLeft.style.visibility = 'hidden';
+                }
             }
-          }
+        }
+
+        if(navRight.style.visibility = 'hidden') {
+            navRight.style.visibility = 'visible';
+        }
     }
 }

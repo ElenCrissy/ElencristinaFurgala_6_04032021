@@ -132,7 +132,7 @@ class Form {
     submitBtn.setAttribute('value', 'Envoyer');
     submitBtn.appendChild(document.createTextNode('Envoyer'));
 
-    submitBtn.addEventListener('click', this.validate.bind(this));
+    submitBtn.addEventListener('click', this.validate);
   
     confirmationMsg.setAttribute('id', 'confirmationMsg');
     confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
@@ -180,7 +180,7 @@ class Form {
       }
     });
   
-    close.addEventListener('click', this.closeForm.bind(this));
+    close.addEventListener('click', this.closeForm);
     close.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
         this.closeForm();
