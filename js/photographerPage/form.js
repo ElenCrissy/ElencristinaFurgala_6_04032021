@@ -132,9 +132,9 @@ class Form {
     submitBtn.setAttribute('value', 'Envoyer');
     submitBtn.appendChild(document.createTextNode('Envoyer'));
 
-    submitBtn.addEventListener('click', this.validate);
-  
-    confirmationMsg.setAttribute('id', 'confirmationMsg');
+    confirmationMsg.classList.add('confirmationMsg');
+    confirmationMsg.setAttribute('tabindex', '0');
+    confirmationMsg.setAttribute('aria-label', `Message envoyé à ${this.photographerName.name}`);
     confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
 
     formWindow.append(formContent, formMask);
@@ -150,10 +150,17 @@ class Form {
     this.selector.appendChild(formWindow);
 
     // événements
+    form.addEventListener('submit', (event) => {
+      this.validate(event);
+    });
+    submitBtn.addEventListener('click', (event) => {
+      this.validate(event);
+    });
+
     allInputs.forEach(input => {
       input.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-          this.validate();
+          this.validate(event);
         }
       });
     });
@@ -170,6 +177,7 @@ class Form {
     formWindow.setAttribute('aria-modal', 'true');
 
     this.app.setAttribute('aria-hidden', 'true');
+    
     const first = document.querySelector('input[name=first]');
     first.focus();
 
@@ -197,70 +205,80 @@ class Form {
     const contactButton = document.querySelector('.btn-contact');
     formWindow.style.display = 'none';
     formWindow.setAttribute('aria-hidden', 'true');
-    this.app.style.display = 'block';
     contactButton.focus();
   }
 
-  validate() {
+  validate(e) {
+    e.preventDefault();
     const form = document.querySelector('#contact');
-    const confirmationMsg = document.querySelector('#confirmationMsg');
+    const confirmationMsg = document.querySelector('.confirmationMsg');
     const submitBtn = document.querySelector('.btn-submit');
-    let formOk;
 
-    const checkInputs = () => {
-      const first = document.querySelector('input[name=first]');
-      const last = document.querySelector('input[name=last]');
-      const email = document.querySelector('input[name=email]');
-      const message = document.querySelector('textarea[name=message]');
-      const firstError = document.getElementById('firstNameError');
-      const lastError = document.getElementById('lastNameError');
-      const emailError = document.getElementById('emailError');
-      const messageError = document.getElementById('messageError');
-      let formOk = false;
-  
-      const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
-      if (verifName.exec(first.value) === null || first.length < 2) {
-        firstError.style.visibility = 'visible';
-        console.log('erreur sur checkinput first name');
-        first.setAttribute('aria-invalid', 'true');
-        return formOk === false;
-      }
-  
-      if (verifName.exec(last.value) === null || last.length < 2) {
-        lastError.style.visibility = 'visible';
-        console.log('erreur sur checkinput last name');
-        last.setAttribute('aria-invalid', 'true');
-        return formOk === false;
-      }
-  
-      const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-      if (verifEmail.exec(email.value) === null) {
-        emailError.style.visibility = 'visible';
-        console.log('erreur sur checkinput email');
-        email.setAttribute('aria-invalid', 'true');
-        return formOk === false;
-      }
-  
-      if (message.value === '') {
-        messageError.style.visibility = 'visible';
-        console.log('erreur sur checkinput message');
-        message.setAttribute('aria-invalid', 'true');
-        return formOk === false;
-      }
+    const first = document.querySelector('input[name=first]');
+    const last = document.querySelector('input[name=last]');
+    const email = document.querySelector('input[name=email]');
+    const message = document.querySelector('textarea[name=message]');
+    const firstError = document.getElementById('firstNameError');
+    const lastError = document.getElementById('lastNameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+    const errors = [firstError, lastError, emailError, messageError];
 
+    // regex pour validation des champs input
+    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/
+    // const verifName = /^[a-z ,.'-]+$/i;
+    const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+
+    let valid = true;
+
+    // check first name
+    if (verifName.exec(first.value) === null || first.length < 2) {
+      firstError.style.visibility = 'visible';
+      console.log('erreur sur checkinput first name');
+      first.setAttribute('aria-invalid', 'true');
+      return valid = false;
+    } else {
+      firstError.style.visibility = 'hidden';
+    }
+    
+    // check last name
+    if (verifName.exec(last.value) === null || last.length < 2) {
+      lastError.style.visibility = 'visible';
+      console.log('erreur sur checkinput last name');
+      last.setAttribute('aria-invalid', 'true');
+      return valid = false;
+    } else {
+      lastError.style.visibility = 'hidden';
+    }
+    
+    // check email
+    if (verifEmail.exec(email.value) === null) {
+      emailError.style.visibility = 'visible';
+      console.log('erreur sur checkinput email');
+      email.setAttribute('aria-invalid', 'true');
+      return valid = false;
+    } else {
+      emailError.style.visibility = 'hidden';
+    }
+    
+    // check message
+    if (message.value === '') {
+      messageError.style.visibility = 'visible';
+      console.log('erreur sur checkinput message');
+      message.setAttribute('aria-invalid', 'true');
+      return valid = false;
+    } else {
+      messageError.style.visibility = 'hidden';
+    }
+
+    if (valid = true) {
       const contactContent = `Prénom : ${first.value}, Nom : ${last.value}, Message : ${message.value}`;
       console.log(contactContent);
-      return formOk === true
+      form.style.visibility = 'hidden';
+      submitBtn.style.visibility = 'hidden';
+      errors.forEach(error => error.style.visibility = 'hidden');
+      confirmationMsg.classList.add('active');
+      confirmationMsg.focus();
     }
-    
-    checkInputs();
-    
-    // help
-    if (formOk === true) {
-      form.style.display = 'none';
-      submitBtn.style.display = 'none';
-      confirmationMsg.style.display = 'flex';
-    }
-    return true;
   }
 }

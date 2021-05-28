@@ -609,7 +609,6 @@ const { photographers } = parsedData;
 // // })
 // .then(data => {
 //   addMediaDescription(data);
-
 // })
 // .catch((err) => {
 //   console.log(`Fetch problem: ${err.message}`)
@@ -627,6 +626,7 @@ const { photographers } = parsedData;
 //   medias.forEach(media => {
 //     media.description = 'lorem ipsum dolor sit amet';
 //   })
+//   return data;
 // }
 
 // fetchJson();
@@ -636,6 +636,9 @@ const mainTitle = document.querySelector('.main-title');
 const sectionHomepage = document.querySelector('#section-homepage');
 
 window.onload = () => {
+
+
+  // console.log(data);
   const photographerList = new PhotographerList(sectionHomepage, photographers);
   const headerContent = new Header(header, photographerList);
   headerContent.createHeader();

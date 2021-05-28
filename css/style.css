@@ -600,14 +600,19 @@ nav a {
   margin-top: 10px;
 }
 
-#confirmationMsg {
+.confirmationMsg {
   display: none;
   justify-content: center;
   align-items: center;
-  height: 80%;
   margin: 0 50px;
   font-size: 30px;
   text-align: center;
+}
+.confirmationMsg.active {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .error {

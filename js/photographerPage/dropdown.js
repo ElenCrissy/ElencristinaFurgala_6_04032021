@@ -69,8 +69,8 @@ class Dropdown {
         
         dropdownToggle.textContent = "Popularité";
         
-        // au survol, les options apparaissent
-        dropdownToggle.addEventListener('click', this.openDropdownMenu);
+        // au clic, les options apparaissent
+        dropdownToggle.addEventListener('click', () => this.openDropdownMenu());
 
         options.forEach(option => {
             // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
@@ -109,6 +109,7 @@ class Dropdown {
     }
 
     openDropdownMenu() {
+
         const optionPopularity = document.querySelector('.option-popularity');
         const optionDate = document.querySelector('.option-date');
         const optionTitle = document.querySelector('.option-title');

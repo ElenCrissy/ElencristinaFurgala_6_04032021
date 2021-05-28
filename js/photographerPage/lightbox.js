@@ -15,13 +15,12 @@ class Lightbox {
 
         lightbox.classList.add('lightbox');
         lightbox.setAttribute('role', 'dialog');
-        lightbox.setAttribute('aria-label', 'diaporama');
+        lightbox.setAttribute('aria-label', 'image agrandie');
         lightbox.setAttribute('aria-hidden', 'true');
         lightbox.setAttribute('aria-modal', 'true');
         lightbox.setAttribute('tabindex', '0');
         
         lightboxModal.classList.add('lightbox-modal');
-        lightboxModal.setAttribute('aria-label', 'lightbox image agrandie');
 
         lightboxMask.classList.add('lightbox-mask');
 
@@ -94,15 +93,14 @@ class Lightbox {
                 this.next(lightboxMedias);
             }
         });
-        
-        // accessibilité - navigation lightbox
-        lightboxContent.addEventListener('keypress', (event) => {
-            if (event.key === 'ArrowLeft') {
-                this.previous(lightboxMedias);
-            } else if (event.key === 'ArrowRight') {
-                this.next(lightboxMedias);
+
+        // contrôle vidéo
+        window.addEventListener('keydown', (e) => {
+            if(e.key === ' ') {
+                const video = document.querySelector('video.media-content');
+                video.play();
             }
-        });
+        })
     }
 
     createLightboxMedia(mediaData) {
@@ -114,10 +112,12 @@ class Lightbox {
     openLightbox(mediaId) {
         let previousActiveElement = document.activeElement;
         const lightbox = document.querySelector('.lightbox');
+        const lightboxModal = document.querySelector('.lightbox-modal');
         const lightboxMask = document.querySelector('.lightbox-mask');
         lightbox.style.display = 'block';
         lightbox.setAttribute('aria-hidden', 'false');
         this.app.style.display = 'none';
+
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         // affichage du média lightbox qui correspond à la miniature sélectionnée dans la galerie
         lightboxMedias.forEach(lightboxMedia => {
@@ -126,14 +126,29 @@ class Lightbox {
             }
         });
 
-        // événements - fermeture lightbox
+        // accessibilité - navigation via window
         window.addEventListener('keydown', (e) => {
             if(e.key === 'Escape') {
               this.closeLightbox();
               previousActiveElement.focus();
+            } else if (e.key === 'ArrowLeft') {
+                this.previous(lightboxMedias);
+            } else if (e.key === 'ArrowRight') {
+                this.next(lightboxMedias);
             }
         });
 
+        // accessibilité - navigation lightbox focus media actif
+        const lightboxContent = document.querySelector('lightbox-content');
+        lightboxContent.addEventListener('keypress', (event) => {
+            if (event.key === 'ArrowLeft') {
+                this.previous(lightboxMedias);
+            } else if (event.key === 'ArrowRight') {
+                this.next(lightboxMedias);
+            }
+        });
+
+        // événements - fermeture lightbox au clic
         lightboxMask.addEventListener('click', () => {
             this.closeLightbox();
             previousActiveElement.focus();
@@ -155,7 +170,7 @@ class Lightbox {
     }
 
     next(mediaArray) {
-        const video = document.querySelector('.media-content');
+        const video = document.querySelector('video.media-content');
         const navRight = document.querySelector('.nav-right');
         const navLeft = document.querySelector('.nav-left');
 
@@ -177,11 +192,10 @@ class Lightbox {
         if(navLeft.style.visibility = 'hidden') {
             navLeft.style.visibility = 'visible';
         }
-
     }
 
     previous(mediaArray) {
-        const video = document.querySelector('.media-content');
+        const video = document.querySelector('video.media-content');
         const navLeft = document.querySelector('.nav-left');
         const navRight = document.querySelector('.nav-right');
 

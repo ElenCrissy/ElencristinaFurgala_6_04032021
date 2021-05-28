@@ -30,6 +30,7 @@ class MediaFactory {
       mediaVideo.setAttribute('tabindex', '0');
       mediaVideo.setAttribute('title', `${this.titleContent}`);
       mediaVideo.setAttribute('controls', 'controls');
+      mediaVideo.setAttribute('muted', 'muted');
 
       mediaCardInfo.classList.add('media-card_info');
       mediaCardInfoText.classList.add('media-card_info__text');
