@@ -118,7 +118,7 @@ class Form {
     emailError.setAttribute('id', 'emailError');
     messageError.setAttribute('id', 'messageError');
   
-    const errors = [firstNameError, lastNameError, emailError, messageError]
+    const errors = [firstNameError, lastNameError, emailError, messageError];
     errors.forEach(error => error.classList.add('error'));
   
     firstNameError.appendChild(document.createTextNode('Veuillez entrer votre prénom - 2 caractères minimum'));
@@ -127,7 +127,7 @@ class Form {
     messageError.appendChild(document.createTextNode('Entrez votre message'));
   
     submitBtn.classList.add('btn-submit', 'button');
-    submitBtn.setAttribute('aria-label', 'Envoyer')
+    submitBtn.setAttribute('aria-label', 'Envoyer');
     submitBtn.setAttribute('type', 'submit');
     submitBtn.setAttribute('value', 'Envoyer');
     submitBtn.appendChild(document.createTextNode('Envoyer'));
@@ -135,7 +135,7 @@ class Form {
     confirmationMsg.classList.add('confirmationMsg');
     confirmationMsg.setAttribute('tabindex', '0');
     confirmationMsg.setAttribute('aria-label', `Message envoyé à ${this.photographerName.name}`);
-    confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`
+    confirmationMsg.innerHTML = `Merci !<br> Votre message a été envoyé <br> à ${this.photographerName.name}.`;
 
     formWindow.append(formContent, formMask);
     formContent.append(close, formBody, confirmationMsg);
@@ -225,7 +225,7 @@ class Form {
     const errors = [firstError, lastError, emailError, messageError];
 
     // regex pour validation des champs input
-    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/
+    const verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
     // const verifName = /^[a-z ,.'-]+$/i;
     const verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
 
@@ -236,7 +236,8 @@ class Form {
       firstError.style.visibility = 'visible';
       console.log('erreur sur checkinput first name');
       first.setAttribute('aria-invalid', 'true');
-      return valid = false;
+      valid = false;
+      return valid;
     } else {
       firstError.style.visibility = 'hidden';
     }
@@ -246,7 +247,8 @@ class Form {
       lastError.style.visibility = 'visible';
       console.log('erreur sur checkinput last name');
       last.setAttribute('aria-invalid', 'true');
-      return valid = false;
+      valid = false;
+      return valid;
     } else {
       lastError.style.visibility = 'hidden';
     }
@@ -256,7 +258,8 @@ class Form {
       emailError.style.visibility = 'visible';
       console.log('erreur sur checkinput email');
       email.setAttribute('aria-invalid', 'true');
-      return valid = false;
+      valid = false;
+      return valid;
     } else {
       emailError.style.visibility = 'hidden';
     }
@@ -266,7 +269,8 @@ class Form {
       messageError.style.visibility = 'visible';
       console.log('erreur sur checkinput message');
       message.setAttribute('aria-invalid', 'true');
-      return valid = false;
+      valid = false;
+      return valid;
     } else {
       messageError.style.visibility = 'hidden';
     }

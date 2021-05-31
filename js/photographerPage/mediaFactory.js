@@ -2,7 +2,7 @@ class MediaFactory {
     static createMedia(mediaData) {
       if (mediaData.hasOwnProperty('image')) return new Image(mediaData.image, mediaData.photographerId, mediaData.price, mediaData.likes, mediaData.id);
       else if (mediaData.hasOwnProperty('video')) return new Video(mediaData.video, mediaData.photographerId, mediaData.price, mediaData.likes, mediaData.id);
-    };
+    }
   }
   
   class Video {
@@ -47,14 +47,14 @@ class MediaFactory {
       mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
       mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
       
-      mediaCardInfoHeart.addEventListener('click', () => {
-        mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      })
-      mediaCardInfoHeart.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-        }
-      });
+      // mediaCardInfoHeart.addEventListener('click', () => {
+      //   mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+      // });
+      // mediaCardInfoHeart.addEventListener('keypress', (event) => {
+      //   if (event.key === 'Enter') {
+      //     mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+      //   }
+      // });
   
       mediaVideo.appendChild(mediaVideoSrc);
       mediaCardInfo.appendChild(mediaCardInfoText);
@@ -64,9 +64,11 @@ class MediaFactory {
       cardVideo.append(mediaVideo, mediaCardInfo);
 
       cardVideo.dataset['mediaTitle'] = this.titleContent;
-  
+      cardVideo.dataset['mediaLikes'] = this.likes;
+
+
       return cardVideo;
-    };
+    }
   
     // Création élément DOM média de la lightbox
     createLightboxDom() {
@@ -130,14 +132,15 @@ class MediaFactory {
 
       mediaImage.src = src;
       mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
-      mediaCardInfoHeart.addEventListener('click', () => {
-        mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      });
-      mediaCardInfoHeart.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-          mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-        }
-      });
+      
+      // mediaCardInfoHeart.addEventListener('click', () => {
+      //   mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+      // });
+      // mediaCardInfoHeart.addEventListener('keypress', (event) => {
+      //   if (event.key === 'Enter') {
+      //     mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
+      //   }
+      // });
   
       mediaCardInfo.appendChild(mediaCardInfoText);
       mediaCardInfoText.append(title, price);
@@ -146,6 +149,7 @@ class MediaFactory {
       cardImage.append(mediaImage, mediaCardInfo);
 
       cardImage.dataset['mediaTitle'] = this.titleContent;
+      cardImage.dataset['mediaLikes'] = this.likes;
 
       return cardImage;
     }

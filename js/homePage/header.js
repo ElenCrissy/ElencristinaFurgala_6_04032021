@@ -44,7 +44,7 @@ class Header{
             const tag = this.photographerList.createTag(navbar, tagName);
             tag.classList.add('navigation-item');
             return tag;
-        })
+        });
         return navbar;
     }
 }

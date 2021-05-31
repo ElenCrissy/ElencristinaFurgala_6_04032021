@@ -78,7 +78,7 @@ class Dropdown {
             // la galerie est triée en fonction du contenu du trigger
             option.addEventListener('click', () => {
                 this.selectOption(options, option);
-            })
+            });
             option.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape') {
                     this.selectOption(options, option);
@@ -162,7 +162,7 @@ class Dropdown {
             return 1;
             }
             return 0; 
-            })
+            });
         }
     }
 }

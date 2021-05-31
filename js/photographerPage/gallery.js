@@ -17,7 +17,6 @@ class Gallery{
         const media = MediaFactory.createMedia(mediaData).createGalleryDom();
         media.classList.add('media-card');
         media.dataset['mediaId'] = mediaData.id;
-
         return media;
     }
 
@@ -38,6 +37,9 @@ class Gallery{
         mediaCards.forEach(mediaCard => {
             const mediaCardFirstChild = mediaCard.firstChild;
             const mediaCardId = mediaCard.getAttribute('data-media-id');
+            const mediaCardLikes = mediaCard.getAttribute('data-media-likes');
+            const mediaLastChild = mediaCard.lastChild;
+            this.addLike(mediaLastChild, mediaCardLikes);
 
             mediaCardFirstChild.addEventListener('click', () => {
                 this.lightbox.openLightbox(mediaCardId);
@@ -50,13 +52,25 @@ class Gallery{
             });
         });
         
-        this.createBottomBox();
-
         return gallery;
     }
 
+    addLike(selectedMediaInfo, likes) {
+        const likeBlock = selectedMediaInfo.lastChild;
+        const likesNumber = Number(likes);
+        likeBlock.addEventListener('click', () => {
+            const newLikes = likesNumber + 1;
+            likeBlock.innerHTML = `${newLikes} <i class="fas fa-heart"></i>`;
+
+            const rating = document.querySelector('.rating');
+            let counter = rating.innerHTML;
+            this.updateBottomBox(counter);
+
+            return newLikes;
+        });
+    }
+
     createBottomBox() {
-        const photographerPageMain = document.querySelector('.photographer-page_main');
         const mediasLikes = [];
         this.listMedia.forEach(media => {
             mediasLikes.push(media.likes);
@@ -72,11 +86,21 @@ class Gallery{
         pricePerDay.classList.add('price-per-day');
         heart.classList.add('fas', 'fa-heart');
 
-        rating.innerHTML = mediasLikes.reduce(reducer) + ' <i class="fas fa-heart"></i>';
+        const totalLikes = mediasLikes.reduce(reducer);
+        rating.innerHTML = totalLikes;
         pricePerDay.appendChild(document.createTextNode(`${this.photographer.price}€/jour`));
 
-        bottomBox.append(rating, pricePerDay);
-        photographerPageMain.appendChild(bottomBox);
+        bottomBox.append(rating, heart, pricePerDay);
+        this.selector.appendChild(bottomBox);
+
+        bottomBox.dataset['totalLikes'] = totalLikes;
+
         return bottomBox;
+    }
+
+    updateBottomBox(counter) {
+        const rating = document.querySelector('.rating');
+        rating.innerHTML = counter++;
+        console.log(counter);
     }
 }

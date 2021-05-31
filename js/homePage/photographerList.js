@@ -104,7 +104,7 @@ class PhotographerList{
   createTag(parentElement, tagName) {
     const tag = document.createElement('div');
     tag.classList.add('tag');
-    tag.setAttribute('aria-label', `trier par ${tagName}`)
+    tag.setAttribute('aria-label', `trier par ${tagName}`);
     tag.setAttribute('role', 'button');
     tag.appendChild(document.createTextNode(`#${tagName}`));
     tag.setAttribute('tabindex', '0');
@@ -134,7 +134,7 @@ class PhotographerList{
       tags.forEach(tag => {
         const dataName = tag.dataset['tagName'];
         relevantTagArray.push(dataName);
-        return relevantTagArray
+        return relevantTagArray;
       });
       tags.forEach(otherTag => {
         if (otherTag.dataset['tagName'] === tagContent){
@@ -151,7 +151,7 @@ class PhotographerList{
         if (otherTag.dataset['tagName'] === tagContent){
           otherTag.classList.remove('active');
         }
-      })
+      });
       selectedTag.classList.remove('active');
     }
   }

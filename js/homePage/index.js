@@ -17,13 +17,13 @@ fetch('../data.json')
   };
 })
 .catch(err => {
-  console.log(`Fetch problem: ${err.message}`)
-})
+  console.log(`Fetch problem: ${err.message}`);
+});
 
 function addMediaDescription (data) {
   const medias = data.media;
   medias.forEach(media => {
     media.description = 'lorem ipsum dolor sit amet';
-  })
+  });
   return data;
 }

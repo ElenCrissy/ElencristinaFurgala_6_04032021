@@ -3,11 +3,11 @@
 }
 
 .lightbox-modal {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     color: $colour-primary-red;
     left: 50%;
-    top: 50%;
+    top: 10%;
     transform: translate(-50%);
     max-width: calc(100vw - 20px);
     height: 450px;    
@@ -16,18 +16,16 @@
     display: flex;
     justify-content: center;
     @include medium{
-        width: 90%;    
+        width: 80%;    
     }
     & .nav-left, .nav-right{
         font-size: 42px;
         display: flex;
         align-items: center;
         margin: 30px;
-        @include medium{
-            font-size: 23px;    
-        }
         @include small{
-            margin: 10px; 
+            margin: 10px;
+            font-size: 23px;   
         }
     }
     & .lightbox-content{

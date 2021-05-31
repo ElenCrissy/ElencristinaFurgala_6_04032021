@@ -44,7 +44,7 @@ class Hero{
         photographerTags.forEach((photographerTag) => {
             const tag = document.createElement('div');
             tag.classList.add('tag');
-            tag.setAttribute('aria-label', `trier par ${photographerTag}`)
+            tag.setAttribute('aria-label', `trier par ${photographerTag}`);
             tag.setAttribute('role', 'button');
             tag.appendChild(document.createTextNode(`#${photographerTag}`));
             tag.setAttribute('tabindex', '0');
@@ -103,7 +103,7 @@ class Hero{
           return this.listMedia;
         }
         const filteredMedias = this.listMedia.filter((media) => {
-            return media.tags.includes(filterTag)
+            return media.tags.includes(filterTag);
         });
         return filteredMedias;
     }

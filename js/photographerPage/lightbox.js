@@ -100,7 +100,7 @@ class Lightbox {
                 const video = document.querySelector('video.media-content');
                 video.play();
             }
-        })
+        });
     }
 
     createLightboxMedia(mediaData) {
@@ -112,11 +112,12 @@ class Lightbox {
     openLightbox(mediaId) {
         let previousActiveElement = document.activeElement;
         const lightbox = document.querySelector('.lightbox');
-        const lightboxModal = document.querySelector('.lightbox-modal');
         const lightboxMask = document.querySelector('.lightbox-mask');
+        const header = document.querySelector('header');
         lightbox.style.display = 'block';
         lightbox.setAttribute('aria-hidden', 'false');
         this.app.style.display = 'none';
+        header.style.display = 'none';
 
         const lightboxMedias = document.querySelectorAll('.lightbox-media');
         // affichage du média lightbox qui correspond à la miniature sélectionnée dans la galerie
@@ -138,16 +139,6 @@ class Lightbox {
             }
         });
 
-        // accessibilité - navigation lightbox focus media actif
-        const lightboxContent = document.querySelector('lightbox-content');
-        lightboxContent.addEventListener('keypress', (event) => {
-            if (event.key === 'ArrowLeft') {
-                this.previous(lightboxMedias);
-            } else if (event.key === 'ArrowRight') {
-                this.next(lightboxMedias);
-            }
-        });
-
         // événements - fermeture lightbox au clic
         lightboxMask.addEventListener('click', () => {
             this.closeLightbox();
@@ -157,16 +148,19 @@ class Lightbox {
 
     closeLightbox() {
         const lightbox = document.querySelector('.lightbox');
+        const header = document.querySelector('header');
+
         lightbox.style.display = "none";
         lightbox.setAttribute('aria-hidden', 'true');
         this.app.style.display = 'block';
-        const lightboxMedias = document.querySelectorAll('.lightbox-media');
+        header.style.display = 'block';
 
+        const lightboxMedias = document.querySelectorAll('.lightbox-media');
         lightboxMedias.forEach(lightboxMedia => {
             if(lightboxMedia.classList.contains('active')){
             lightboxMedia.classList.remove('active');
             }
-        })
+        });
     }
 
     next(mediaArray) {
