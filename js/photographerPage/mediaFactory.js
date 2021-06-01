@@ -23,6 +23,8 @@ class MediaFactory {
       const mediaCardInfo = document.createElement('div');
       const mediaCardInfoText = document.createElement('div');
       const mediaCardInfoHeart = document.createElement('div');
+      const heartNumber = document.createElement('div');
+      const heart = document.createElement('i');
       const title = document.createElement('div');
       const price = document.createElement('div');
       
@@ -37,7 +39,10 @@ class MediaFactory {
 
       mediaCardInfoHeart.classList.add('media-card_info__heart');
       mediaCardInfoHeart.setAttribute('tabindex', '0');
-      mediaCardInfoHeart.setAttribute('aria-label', 'likes');
+      mediaCardInfoHeart.setAttribute('aria-label', 'likes cliquez pour ajouter un like');
+
+      heartNumber.classList.add('heart-number');
+      heart.classList.add('fas', 'fa-heart');
 
       title.classList.add('title');
       price.classList.add('price');
@@ -45,20 +50,13 @@ class MediaFactory {
       title.appendChild(document.createTextNode(`${this.titleContent}`));
       price.appendChild(document.createTextNode(`${this.price}€`));
       mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
-      mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
-      
-      // mediaCardInfoHeart.addEventListener('click', () => {
-      //   mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      // });
-      // mediaCardInfoHeart.addEventListener('keypress', (event) => {
-      //   if (event.key === 'Enter') {
-      //     mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      //   }
-      // });
+      heartNumber.innerHTML = this.likes;
+
   
       mediaVideo.appendChild(mediaVideoSrc);
       mediaCardInfo.appendChild(mediaCardInfoText);
       mediaCardInfoText.append(title, price);
+      mediaCardInfoHeart.append(heartNumber,heart);
       mediaCardInfo.appendChild(mediaCardInfoHeart);
   
       cardVideo.append(mediaVideo, mediaCardInfo);
@@ -110,6 +108,8 @@ class MediaFactory {
       const mediaCardInfo = document.createElement('div');
       const mediaCardInfoText = document.createElement('div');
       const mediaCardInfoHeart = document.createElement('div');
+      const heartNumber = document.createElement('div');
+      const heart = document.createElement('i');
       const title = document.createElement('div');
       const price = document.createElement('div');
       const src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
@@ -122,7 +122,10 @@ class MediaFactory {
 
       mediaCardInfoHeart.classList.add('media-card_info__heart');
       mediaCardInfoHeart.setAttribute('tabindex', '0');
-      mediaCardInfoHeart.setAttribute('aria-label', 'likes');
+      mediaCardInfoHeart.setAttribute('aria-label', 'likes cliquez pour ajouter un like');
+
+      heartNumber.classList.add('heart-number');
+      heart.classList.add('fas', 'fa-heart');
 
       title.classList.add('title');
       price.classList.add('price');
@@ -131,19 +134,11 @@ class MediaFactory {
       price.appendChild(document.createTextNode(`${this.price}€`));
 
       mediaImage.src = src;
-      mediaCardInfoHeart.innerHTML = `${this.likes} <i class="fas fa-heart" aria-label="likes cliquez pour ajouter un like"></i>`;
-      
-      // mediaCardInfoHeart.addEventListener('click', () => {
-      //   mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      // });
-      // mediaCardInfoHeart.addEventListener('keypress', (event) => {
-      //   if (event.key === 'Enter') {
-      //     mediaCardInfoHeart.innerHTML = `${this.likes + 1} <i class="fas fa-heart"></i>`;
-      //   }
-      // });
+      heartNumber.innerHTML = this.likes;
   
       mediaCardInfo.appendChild(mediaCardInfoText);
       mediaCardInfoText.append(title, price);
+      mediaCardInfoHeart.append(heartNumber,heart);
       mediaCardInfo.appendChild(mediaCardInfoHeart);
   
       cardImage.append(mediaImage, mediaCardInfo);

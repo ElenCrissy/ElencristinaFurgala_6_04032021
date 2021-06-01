@@ -15,4 +15,12 @@
     @include small{
         display: none;
     }
+    & .rating-section{
+        display: flex;
+        & .heart{
+            display: flex;
+            align-items: center;
+            margin-left: 3px;
+        }
+    }
 }

@@ -77,6 +77,14 @@ a {
     display: none;
   }
 }
+.bottom-box .rating-section {
+  display: flex;
+}
+.bottom-box .rating-section .heart {
+  display: flex;
+  align-items: center;
+  margin-left: 3px;
+}
 
 .card {
   text-align: center;
@@ -278,6 +286,15 @@ a {
 .media-card_info__heart {
   width: 20%;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+.media-card_info__heart .heart-number {
+  margin-right: 3px;
+}
+.media-card_info__heart .fa-heart {
+  display: flex;
+  align-items: center;
 }
 
 .header-index {

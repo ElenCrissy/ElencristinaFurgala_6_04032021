@@ -25,6 +25,8 @@ class Gallery{
         const mediaGallery = document.createElement('div');
         const mediaCards = mediaArray.map(this.createMediaCard);
         mediaGallery.classList.add('media-gallery');
+
+        // réinitialisation de la galerie
         while (gallery.firstChild) {
             gallery.removeChild(gallery.firstChild);
         }
@@ -33,14 +35,15 @@ class Gallery{
             mediaGallery.appendChild(mediaCard);
         }); 
     
-        // ouverture de la lightbox affichant le média sur lequel on a cliqué
         mediaCards.forEach(mediaCard => {
             const mediaCardFirstChild = mediaCard.firstChild;
             const mediaCardId = mediaCard.getAttribute('data-media-id');
-            const mediaCardLikes = mediaCard.getAttribute('data-media-likes');
-            const mediaLastChild = mediaCard.lastChild;
-            this.addLike(mediaLastChild, mediaCardLikes);
+            const heartBlock = mediaCard.querySelector('.media-card_info__heart');
+            const mediaHeartNumber = mediaCard.querySelector('.heart-number');
+            const rating = document.querySelector('.rating');
+            this.addLike(mediaHeartNumber, heartBlock, rating);
 
+            // ouverture de la lightbox affichant le média sur lequel on a cliqué
             mediaCardFirstChild.addEventListener('click', () => {
                 this.lightbox.openLightbox(mediaCardId);
             });
@@ -55,19 +58,21 @@ class Gallery{
         return gallery;
     }
 
-    addLike(selectedMediaInfo, likes) {
-        const likeBlock = selectedMediaInfo.lastChild;
-        const likesNumber = Number(likes);
-        likeBlock.addEventListener('click', () => {
-            const newLikes = likesNumber + 1;
-            likeBlock.innerHTML = `${newLikes} <i class="fas fa-heart"></i>`;
+    // ajout/suppression de like
+    addLike(likes, block, rating) {
+        let likeNumber = Number(likes.innerHTML);
 
-            const rating = document.querySelector('.rating');
-            let counter = rating.innerHTML;
-            this.updateBottomBox(counter);
-
-            return newLikes;
+        block.addEventListener('click', () => {
+            if (likeNumber === Number(likes.innerHTML)){
+                likes.innerHTML = likeNumber + 1;
+                rating.innerHTML ++;
+            } else {
+                likes.innerHTML = likeNumber;
+                rating.innerHTML --;
+            }
         });
+
+        return rating.innerHTML
     }
 
     createBottomBox() {
@@ -77,30 +82,25 @@ class Gallery{
         });
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         const bottomBox = document.createElement('div');
+        const ratingSection = document.createElement('div');
         const rating = document.createElement('div');
         const pricePerDay = document.createElement('div');
         const heart = document.createElement('i');
 
         bottomBox.classList.add('bottom-box');
+        ratingSection.classList.add('rating-section');
         rating.classList.add('rating');
         pricePerDay.classList.add('price-per-day');
-        heart.classList.add('fas', 'fa-heart');
+        heart.classList.add('heart','fas', 'fa-heart');
 
         const totalLikes = mediasLikes.reduce(reducer);
         rating.innerHTML = totalLikes;
         pricePerDay.appendChild(document.createTextNode(`${this.photographer.price}€/jour`));
 
-        bottomBox.append(rating, heart, pricePerDay);
+        ratingSection.append(rating, heart);
+        bottomBox.append(ratingSection, pricePerDay);
         this.selector.appendChild(bottomBox);
 
-        bottomBox.dataset['totalLikes'] = totalLikes;
-
         return bottomBox;
-    }
-
-    updateBottomBox(counter) {
-        const rating = document.querySelector('.rating');
-        rating.innerHTML = counter++;
-        console.log(counter);
     }
 }
