@@ -10,6 +10,8 @@ class Gallery{
         const gallery = document.createElement('div');
         gallery.classList.add('gallery');
         gallery.setAttribute('tabindex', '0');
+        gallery.setAttribute('role', 'region');
+        gallery.setAttribute('aria-label', 'galerie médias');
         this.selector.appendChild(gallery);
     }
 
@@ -30,6 +32,7 @@ class Gallery{
         while (gallery.firstChild) {
             gallery.removeChild(gallery.firstChild);
         }
+        
         gallery.appendChild(mediaGallery);
         mediaCards.forEach(mediaCard => {
             mediaGallery.appendChild(mediaCard);
@@ -72,6 +75,18 @@ class Gallery{
             }
         });
 
+        block.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (likeNumber === Number(likes.innerHTML)){
+                    likes.innerHTML = likeNumber + 1;
+                    rating.innerHTML ++;
+                } else {
+                    likes.innerHTML = likeNumber;
+                    rating.innerHTML --;
+                }
+            }
+        });
+
         return rating.innerHTML
     }
 
@@ -88,6 +103,7 @@ class Gallery{
         const heart = document.createElement('i');
 
         bottomBox.classList.add('bottom-box');
+        bottomBox.setAttribute('aria-label', 'popularité et prix');
         ratingSection.classList.add('rating-section');
         rating.classList.add('rating');
         pricePerDay.classList.add('price-per-day');

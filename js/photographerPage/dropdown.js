@@ -23,16 +23,18 @@ class Dropdown {
         const options = [optionPopularity, optionDate, optionTitle];
 
         mediaSelection.classList.add('media-selection');
-        mediaSelection.setAttribute('tabindex', '0');
         orderBy.classList.add('orderby');
         orderBy.setAttribute('id', 'orderby');
 
         dropdown.classList.add('dropdown');
         dropdown.setAttribute('role', 'menuBar');
+        dropdown.setAttribute('aria-labelledby', 'orderby');
 
         dropdownTrigger.classList.add('dropdown-trigger');
+        dropdownTrigger.setAttribute('tabindex', '0');
 
         dropdownToggle.classList.add('dropdown-toggle');
+        dropdownToggle.setAttribute('tabindex', '0');
         dropdownToggle.setAttribute('aria-haspopup', 'listbox');
         dropdownToggle.setAttribute('aria-expanded', 'false');
         dropdownToggle.setAttribute('role', 'button');
@@ -41,7 +43,6 @@ class Dropdown {
 
         dropdownMenu.classList.add('dropdown-menu');
         dropdownMenu.setAttribute('role', 'listbox');
-        dropdownMenu.setAttribute('aria-labelledbyid', 'orderby');
 
         optionPopularity.classList.add('option', 'option-popularity');
         optionPopularity.setAttribute('id', 'popularity');
@@ -69,19 +70,36 @@ class Dropdown {
         
         dropdownToggle.textContent = "Popularité";
         
-        // au clic, les options apparaissent
-        dropdownToggle.addEventListener('click', () => this.openDropdownMenu());
+        // au survol, les options apparaissent
+        dropdown.addEventListener('mouseover', () => {
+            this.openDropdownMenu();
+        });
+        dropdown.addEventListener('mouseout', () => {
+            if (arrow.classList.contains('active')){
+                this.closeDropdownMenu();
+            }
+        });
+        dropdown.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !(arrow.classList.contains('active'))) {
+                this.openDropdownMenu();
+                console.log('hi')
+            } else if (event.key === 'Escape'){
+                this.closeDropdownMenu();
+                console.log('bye')
+            }
+        });
 
+        // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
+        // les autres apparaissent
+        // la galerie est triée en fonction du contenu du trigger
         options.forEach(option => {
-            // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
-            // les autres apparaissent
-            // la galerie est triée en fonction du contenu du trigger
             option.addEventListener('click', () => {
                 this.selectOption(options, option);
             });
             option.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape') {
+                if (event.key === 'Enter') {
                     this.selectOption(options, option);
+                    this.closeDropdownMenu();
                 }
             });
         });
@@ -109,7 +127,6 @@ class Dropdown {
     }
 
     openDropdownMenu() {
-
         const optionPopularity = document.querySelector('.option-popularity');
         const optionDate = document.querySelector('.option-date');
         const optionTitle = document.querySelector('.option-title');
@@ -119,13 +136,10 @@ class Dropdown {
         const options = [optionPopularity, optionDate, optionTitle];
 
         dropdownToggle.setAttribute('aria-expanded', 'true');
-        arrow.classList.toggle('active');
+        arrow.classList.add('active');
 
-        if (menuDropDown.style.display === 'none') {
-            menuDropDown.style.display = 'block';
-        } else {
-            menuDropDown.style.display = 'none';
-        }
+        menuDropDown.style.display = 'none';
+        menuDropDown.style.display = 'block';
 
         options.forEach(option => {
             // l'option correspondant au trigger n'apparaît pas
@@ -133,6 +147,16 @@ class Dropdown {
                 option.style.display = 'none';
             }
         }); 
+    }
+
+    closeDropdownMenu() {
+        const arrow = document.querySelector('.arrow');
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const menuDropDown = document.querySelector('.dropdown-menu');
+
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+        arrow.classList.remove('active');
+        menuDropDown.style.display = 'none';
     }
 
     sortGallery(sortCategory) {
@@ -148,20 +172,20 @@ class Dropdown {
             return b.likes - a.likes;
           });
         } else if (dropdownContent === 'Date') {
-        return relevantMediasArray.sort(function (a, b) {
-          return new Date(b.date) - new Date(a.date);
-        });
+            return relevantMediasArray.sort(function (a, b) {
+                return new Date(b.date) - new Date(a.date);
+            });
         } else if (dropdownContent === 'Titre') {
-        return relevantMediasArray.sort(function (a, b) {
-            const titreA = a.image || a.video;
-            const titreB = b.image || b.video;
-            if(titreA < titreB) {
-            return -1;
-            }
-            if(titreA > titreB) {
-            return 1;
-            }
-            return 0; 
+            return relevantMediasArray.sort(function (a, b) {
+                const titreA = a.image || a.video;
+                const titreB = b.image || b.video;
+                if(titreA < titreB) {
+                    return -1;
+                }
+                if(titreA > titreB) {
+                    return 1;
+                }
+                return 0; 
             });
         }
     }
