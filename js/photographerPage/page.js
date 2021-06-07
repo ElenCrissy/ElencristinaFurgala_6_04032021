@@ -6,7 +6,8 @@ const getData = () => {
     return data;
   })
   .catch(error => {
-    console.log(`Fetch problem: ${error}`);
+    // console.log(`Fetch problem: ${error}`);
+    throw error;
   });
 }
 
@@ -60,15 +61,10 @@ window.onload = () => {
     gallery.createBottomBox();
     dropdownMenu.initializeDropdownMenu();
 
-    const heroSection = document.querySelector('.hero');
-    const dropdownSection = document.querySelector('.dropdown');
     const gallerySection = document.querySelector('.gallery');
-    const bottomBox = document.querySelector('.bottom-box');
     
-    heroSection.setAttribute('tabindex', '1');
-    dropdownSection.setAttribute('tabindex', '2');
     gallerySection.setAttribute('tabindex', '3');
-    bottomBox.setAttribute('tabindex', '4');
+    gallerySection.setAttribute('role', 'tab');
   })
   
 };

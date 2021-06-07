@@ -6,7 +6,8 @@ const getData = () => {
     return data;
   })
   .catch(error => {
-    console.log(`Fetch problem: ${error}`);
+    // console.log(`Fetch problem: ${error}`);
+    throw error;
   });
 }
 
@@ -33,6 +34,9 @@ window.onload = () => {
     headerContent.createHeader();
     mainTitle.appendChild(document.createTextNode('Nos photographes'));
     photographerList.displayRelevantCards();
+    sectionHomepage.setAttribute('tabindex', '5');
+    sectionHomepage.setAttribute('aria-label', 'cartes des photographes');
+
   })
   
 }

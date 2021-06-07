@@ -1,7 +1,7 @@
 class PhotographerList{
   constructor(selector, photographers){
-      this.selector = selector;
-      this.photographers = photographers;
+    this.selector = selector;
+    this.photographers = photographers;
   }
 
   getRelevantPhotographers(filterTag) {
@@ -25,18 +25,6 @@ class PhotographerList{
     });
   }
 
-  // displayRelevantCardsFromCardTag(selectedCardTag) {
-  //   const relevantPhotographers = this.getRelevantPhotographers(selectedCardTag);
-  //   // nettoyage de l'élément parent
-  //   while (this.selector.firstChild) {
-  //     this.selector.removeChild(this.selector.firstChild);
-  //   }
-  //   relevantPhotographers.forEach((relevantPhotographer) => {
-  //     const card = this.createCard(relevantPhotographer);
-  //     this.selector.appendChild(card);
-  //   });
-  // }
-
   createCard(photographer) {
     const { id } = photographer;
     const card = document.createElement('div');
@@ -50,7 +38,6 @@ class PhotographerList{
     const tagbox = document.createElement('div');
   
     card.classList.add('card');
-    card.setAttribute('tabindex', '0');
 
     cardLink.classList.add('card-link');
     portrait.classList.add('portrait');
@@ -104,10 +91,9 @@ class PhotographerList{
   createTag(parentElement, tagName) {
     const tag = document.createElement('div');
     tag.classList.add('tag');
-    tag.setAttribute('aria-label', `trier par ${tagName}`);
+    tag.setAttribute('aria-label', `tag ${tagName}`);
     tag.setAttribute('role', 'button');
     tag.appendChild(document.createTextNode(`#${tagName}`));
-    tag.setAttribute('tabindex', '0');
     tag.dataset['tagName'] = tagName;
 
     parentElement.appendChild(tag);

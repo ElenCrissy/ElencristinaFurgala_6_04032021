@@ -104,6 +104,8 @@ class Gallery{
 
         bottomBox.classList.add('bottom-box');
         bottomBox.setAttribute('aria-label', 'popularité et prix');
+        bottomBox.setAttribute('tabindex', '4');
+        bottomBox.setAttribute('role', 'tab');
         ratingSection.classList.add('rating-section');
         rating.classList.add('rating');
         pricePerDay.classList.add('price-per-day');

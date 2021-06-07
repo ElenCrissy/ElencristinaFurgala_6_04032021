@@ -164,6 +164,12 @@ class Form {
         }
       });
     });
+
+    confirmationMsg.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        this.closeForm();
+      }
+    });
     
   }
 

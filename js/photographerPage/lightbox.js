@@ -15,12 +15,14 @@ class Lightbox {
 
         lightbox.classList.add('lightbox');
         lightbox.setAttribute('role', 'dialog');
-        lightbox.setAttribute('aria-label', 'image agrandie');
+        lightbox.setAttribute('aria-label', 'image agrandie lightbox');
         lightbox.setAttribute('aria-hidden', 'true');
         lightbox.setAttribute('aria-modal', 'true');
         lightbox.setAttribute('tabindex', '0');
         
         lightboxModal.classList.add('lightbox-modal');
+        lightboxModal.setAttribute('aria-label', 'lightbox');
+        lightboxModal.setAttribute('tabindex', '0');
 
         lightboxMask.classList.add('lightbox-mask');
 

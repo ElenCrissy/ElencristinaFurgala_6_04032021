@@ -9,8 +9,7 @@ class Dropdown {
     createDropdownMenu() {
         const mediaSelection = document.createElement('div');
         const orderBy = document.createElement('label');
-        const dropdown = document.createElement('nav');
-        const dropdownTrigger = document.createElement('div');
+        const dropdown = document.createElement('div');
         const dropdownToggle = document.createElement('button');
         const arrow = document.createElement('div');
         const dropdownMenu = document.createElement('ul');
@@ -27,14 +26,10 @@ class Dropdown {
         orderBy.setAttribute('id', 'orderby');
 
         dropdown.classList.add('dropdown');
-        dropdown.setAttribute('role', 'menuBar');
         dropdown.setAttribute('aria-labelledby', 'orderby');
-
-        dropdownTrigger.classList.add('dropdown-trigger');
-        dropdownTrigger.setAttribute('tabindex', '0');
+        dropdown.setAttribute('tabindex', '2');
 
         dropdownToggle.classList.add('dropdown-toggle');
-        dropdownToggle.setAttribute('tabindex', '0');
         dropdownToggle.setAttribute('aria-haspopup', 'listbox');
         dropdownToggle.setAttribute('aria-expanded', 'false');
         dropdownToggle.setAttribute('role', 'button');
@@ -59,12 +54,11 @@ class Dropdown {
         optionDate.appendChild(document.createTextNode('Date'));
         optionTitle.appendChild(document.createTextNode('Titre'));
 
-        dropdownTrigger.append(dropdownToggle, arrow);
         listItemPopularity.appendChild(optionPopularity);
         listItemDate.appendChild(optionDate);
         listItemTitle.appendChild(optionTitle);
         dropdownMenu.append(listItemPopularity, listItemDate, listItemTitle);
-        dropdown.append(dropdownTrigger,dropdownMenu);
+        dropdown.append(dropdownToggle, arrow, dropdownMenu);
         mediaSelection.append(orderBy, dropdown);
         this.selector.appendChild(mediaSelection);
         
@@ -89,9 +83,9 @@ class Dropdown {
             }
         });
 
-        // au clic sur une option, son contenu apparaît dans le trigger et elle disparaît de la liste
+        // au clic sur une option, son contenu apparaît dans le toggle et elle disparaît de la liste
         // les autres apparaissent
-        // la galerie est triée en fonction du contenu du trigger
+        // la galerie est triée en fonction du contenu du toggle
         options.forEach(option => {
             option.addEventListener('click', () => {
                 this.selectOption(options, option);
@@ -99,7 +93,9 @@ class Dropdown {
             option.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     this.selectOption(options, option);
-                    this.closeDropdownMenu();
+                    dropdownToggle.focus();
+                    console.log('yo');
+                    event.stopPropagation();
                 }
             });
         });
@@ -142,7 +138,7 @@ class Dropdown {
         menuDropDown.style.display = 'block';
 
         options.forEach(option => {
-            // l'option correspondant au trigger n'apparaît pas
+            // l'option correspondant au toggle n'apparaît pas
             if (dropdownToggle.textContent === option.textContent) {
                 option.style.display = 'none';
             }

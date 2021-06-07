@@ -21,8 +21,10 @@ class Hero{
   
         hero.classList.add('hero');
         hero.setAttribute('role', 'region');
+        hero.setAttribute('role', 'tab');
+        hero.setAttribute('tabindex', '1');
+        hero.setAttribute('aria-label', `info photographe ${this.photographer.name}`);
         heroInfo.classList.add('info');
-        heroInfo.setAttribute('aria-label', 'info photographe');
         heroButton.classList.add('hero-button');
         heroImage.classList.add('hero-image');
         portrait.classList.add('portrait');
@@ -44,7 +46,7 @@ class Hero{
         photographerTags.forEach((photographerTag) => {
             const tag = document.createElement('div');
             tag.classList.add('tag');
-            tag.setAttribute('aria-label', `trier par ${photographerTag}`);
+            tag.setAttribute('aria-label', `tag ${photographerTag}`);
             tag.setAttribute('role', 'button');
             tag.appendChild(document.createTextNode(`#${photographerTag}`));
             tag.setAttribute('tabindex', '0');
