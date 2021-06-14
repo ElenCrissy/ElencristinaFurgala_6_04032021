@@ -39,10 +39,11 @@ class Video {
 
     mediaCardInfoHeart.classList.add('media-card_info__heart');
     mediaCardInfoHeart.setAttribute('tabindex', '0');
-    mediaCardInfoHeart.setAttribute('aria-label', 'likes cliquez pour ajouter un like');
+    mediaCardInfoHeart.setAttribute('aria-label', `${this.likes} likes cliquez pour ajouter un like`);
 
     heartNumber.classList.add('heart-number');
     heart.classList.add('fas', 'fa-heart');
+    heart.setAttribute('title', 'likes');
 
     title.classList.add('title');
     price.classList.add('price');
@@ -120,10 +121,11 @@ class Image {
 
     mediaCardInfoHeart.classList.add('media-card_info__heart');
     mediaCardInfoHeart.setAttribute('tabindex', '0');
-    mediaCardInfoHeart.setAttribute('aria-label', 'likes cliquez pour ajouter un like');
+    mediaCardInfoHeart.setAttribute('aria-label', `${this.likes} likes cliquez pour ajouter un like`);
 
     heartNumber.classList.add('heart-number');
     heart.classList.add('fas', 'fa-heart');
+    heart.setAttribute('title', 'likes');
 
     title.classList.add('title');
     price.classList.add('price');

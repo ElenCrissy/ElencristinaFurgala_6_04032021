@@ -103,17 +103,6 @@ a {
   position: relative;
   z-index: 2;
 }
-.card img:after {
-  display: block;
-  content: url("");
-  position: absolute;
-  top: calc(50% + 8px);
-  left: calc(50% + 10px);
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  filter: blur(10px);
-  opacity: 0.85;
-}
 
 .card .name {
   font-weight: normal;
@@ -339,6 +328,7 @@ a {
   display: flex;
   font-size: 14px;
   color: #901C1C;
+  align-items: center;
 }
 .media-card_info__text {
   width: 80%;
@@ -346,12 +336,14 @@ a {
   justify-content: space-between;
   text-overflow: ellipsis;
   overflow: hidden;
+  align-items: center;
 }
 .media-card_info__heart {
   width: 20%;
   text-align: right;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .media-card_info__heart .heart-number {
   margin-right: 3px;

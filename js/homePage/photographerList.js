@@ -11,7 +11,7 @@ class PhotographerList{
       const filteredPhotographers = this.photographers.filter((photographer) => photographer.tags.includes(filterTag));
       return filteredPhotographers;
   }
-
+  
   displayRelevantCards(selectedTag) {
     this.selector.setAttribute('tabindex', '0');
     const relevantPhotographers = this.getRelevantPhotographers(selectedTag);

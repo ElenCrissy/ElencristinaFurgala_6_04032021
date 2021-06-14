@@ -35,6 +35,7 @@ class Dropdown {
         dropdownToggle.setAttribute('role', 'button');
 
         arrow.classList.add('arrow');
+        arrow.setAttribute('title', 'flèche vers le bas menu fermé');
 
         dropdownMenu.classList.add('dropdown-menu');
         dropdownMenu.setAttribute('role', 'listbox');
@@ -67,19 +68,21 @@ class Dropdown {
         // au survol, les options apparaissent
         dropdown.addEventListener('mouseover', () => {
             this.openDropdownMenu();
+            arrow.setAttribute('title', 'flèche vers le haut menu ouvert');
         });
         dropdown.addEventListener('mouseout', () => {
             if (arrow.classList.contains('active')){
                 this.closeDropdownMenu();
+                arrow.setAttribute('title', 'flèche vers le bas menu fermé');
             }
         });
         dropdown.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && !(arrow.classList.contains('active'))) {
                 this.openDropdownMenu();
-                console.log('hi')
+                arrow.setAttribute('title', 'flèche vers le haut menu ouvert');
             } else if (event.key === 'Escape'){
                 this.closeDropdownMenu();
-                console.log('bye')
+                arrow.setAttribute('title', 'flèche vers le bas menu fermé');
             }
         });
 
@@ -89,13 +92,16 @@ class Dropdown {
         options.forEach(option => {
             option.addEventListener('click', () => {
                 this.selectOption(options, option);
+                this.closeDropdownMenu();
+                arrow.setAttribute('title', 'flèche vers le bas menu fermé');
             });
             option.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter') {
                     this.selectOption(options, option);
                     dropdownToggle.focus();
-                    console.log('yo');
                     event.stopPropagation();
+                    this.closeDropdownMenu();
+                    arrow.setAttribute('title', 'flèche vers le bas menu fermé');
                 }
             });
         });

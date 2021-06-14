@@ -50,7 +50,7 @@ class Form {
     formMask.classList.add('form-mask');
 
     close.classList.add('close');
-    close.setAttribute('aria-label', 'Fermer modale');
+    close.setAttribute('aria-label', 'icône croix fermer modale');
     close.setAttribute('tabindex', '0');
     close.setAttribute('role', 'button');
 

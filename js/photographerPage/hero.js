@@ -21,7 +21,6 @@ class Hero{
   
         hero.classList.add('hero');
         hero.setAttribute('role', 'region');
-        hero.setAttribute('role', 'tab');
         hero.setAttribute('tabindex', '1');
         hero.setAttribute('aria-label', `info photographe ${this.photographer.name}`);
         heroInfo.classList.add('info');

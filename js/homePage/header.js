@@ -37,9 +37,9 @@ class Header{
 
     createNavbar() {
         const navbar = document.createElement('nav');
-        navbar.setAttribute('role', 'tab');
+        navbar.setAttribute('role', 'nav');
         navbar.setAttribute('tabindex', '3');
-        navbar.setAttribute('aria-label', 'navigation_principale');
+        navbar.setAttribute('aria-label', 'navigation principale');
         const tagsName = ['portrait', 'art', 'fashion', 'architecture', 'travel', 'sport', 'animals', 'events'];
 
         tagsName.forEach(tagName => {

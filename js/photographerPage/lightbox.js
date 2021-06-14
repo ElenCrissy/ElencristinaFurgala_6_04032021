@@ -27,11 +27,11 @@ class Lightbox {
         lightboxMask.classList.add('lightbox-mask');
 
         lightboxCloseBtn.classList.add('lightbox-close-btn');
-        lightboxCloseBtn.setAttribute('aria-label', 'fermer lightbox');
+        lightboxCloseBtn.setAttribute('aria-label', 'icône croix fermer lightbox');
         lightboxCloseBtn.setAttribute('tabindex', '0');
 
         navLeft.classList.add('nav-left', 'fas', 'fa-chevron-left');
-        navLeft.setAttribute('aria-label', 'image précédente');
+        navLeft.setAttribute('aria-label', 'flèche vers la gauche image précédente');
         navLeft.setAttribute('role', 'button');
         navLeft.setAttribute('tabindex', '0');
 
@@ -40,7 +40,7 @@ class Lightbox {
         lightboxContent.setAttribute('aria-label', 'naviguer avec flèches du clavier');
 
         navRight.classList.add('nav-right', 'fas', 'fa-chevron-right');
-        navRight.setAttribute('aria-label', 'image suivante');
+        navRight.setAttribute('aria-label', 'flèche vers la droite image suivante');
         navLeft.setAttribute('role', 'button');
         navRight.setAttribute('tabindex', '0');
 

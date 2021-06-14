@@ -23,18 +23,21 @@
     display: flex;
     font-size: 14px;
     color: $colour-primary-red;
+    align-items: center;
     &__text{
         width: 80%;
         display: flex;
         justify-content: space-between;
         text-overflow: ellipsis;
         overflow: hidden;
+        align-items: center;
     }
     &__heart{
         width: 20%;
         text-align: right;
         display: flex;
         justify-content: flex-end;
+        align-items: center;
         & .heart-number{
             margin-right: 3px;
         }
