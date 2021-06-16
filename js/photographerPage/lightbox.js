@@ -85,6 +85,8 @@ class Lightbox {
         navLeft.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 this.previous(lightboxMedias);
+                // const currentMedia = document.querySelector('.lightbox-media.active');
+                // currentMedia.lastChild.focus();
             }
         });
 

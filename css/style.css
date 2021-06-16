@@ -149,7 +149,7 @@ a {
     padding: 0;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
   .hero {
     padding: 0 0 30px 0;
   }
@@ -191,7 +191,7 @@ a {
     height: 120px;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
   .hero img {
     width: 90px;
     height: 90px;
@@ -236,6 +236,7 @@ a {
   border: none;
   font-size: small;
   letter-spacing: 1px;
+  z-index: 99;
 }
 
 .loader {
@@ -301,7 +302,7 @@ a {
   }
 }
 .media-card {
-  width: 27%;
+  width: 31%;
   margin: 10px;
   position: relative;
 }
@@ -404,7 +405,7 @@ a {
     margin: 25PX 0 30PX 10PX;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
   .logo img {
     width: 100%;
   }
@@ -468,7 +469,7 @@ nav a {
     font-size: 18px;
   }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
   .nos-photographes {
     height: 90px;
     margin-bottom: 70px;
@@ -502,7 +503,7 @@ nav a {
   font-weight: bold;
   margin: 30px 0;
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 380px) {
   .media-selection {
     display: none;
   }
@@ -598,8 +599,12 @@ nav a {
 .media-gallery {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   padding-bottom: 35px;
+}
+@media screen and (max-width: 380px) {
+  .media-gallery {
+    padding-bottom: 80px;
+  }
 }
 
 .form-window {

@@ -50,7 +50,7 @@ class Video {
 
     title.appendChild(document.createTextNode(`${this.titleContent}`));
     price.appendChild(document.createTextNode(`${this.price}€`));
-    mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
+    mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
     heartNumber.innerHTML = this.likes;
 
 
@@ -78,8 +78,9 @@ class Video {
     mediaContent.classList.add('media-content');
     mediaContent.setAttribute('controls', 'controls');
     mediaCaption.classList.add('media-caption');
+    mediaCaption.setAttribute('tabindex', '0');
 
-    mediaSrc.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
+    mediaSrc.src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
     mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
     mediaContent.appendChild(mediaSrc);
     lightboxMedia.append(mediaContent, mediaCaption);
@@ -111,7 +112,7 @@ class Image {
     const heart = document.createElement('i');
     const title = document.createElement('div');
     const price = document.createElement('div');
-    const src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
+    const src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
 
     mediaImage.setAttribute('tabindex', '0');
     mediaImage.setAttribute('alt', `${this.titleContent}`);
@@ -162,9 +163,10 @@ class Image {
     lightboxMedia.classList.add('lightbox-media');
     mediaContent.classList.add('media-content');
     mediaCaption.classList.add('media-caption');
+    mediaCaption.setAttribute('tabindex', '0');
 
     mediaContent.setAttribute('alt', `${this.titleContent}`);
-    mediaContent.src = `images/Sample_Photos/${this.photographerId}/${this.fileName}`;
+    mediaContent.src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
     mediaCaption.appendChild(document.createTextNode(`${this.titleContent}`));
     lightboxMedia.append(mediaContent, mediaCaption);
 

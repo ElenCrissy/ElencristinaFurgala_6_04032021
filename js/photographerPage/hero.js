@@ -27,6 +27,7 @@ class Hero{
         heroButton.classList.add('hero-button');
         heroImage.classList.add('hero-image');
         portrait.classList.add('portrait');
+        portrait.setAttribute('alt', `portrait ${this.photographer.name}`)
         name.classList.add('name');
         location.classList.add('location');
         tagline.classList.add('tagline');
@@ -36,7 +37,7 @@ class Hero{
         contactButton.type = 'button';
         contactButton.value = 'Contactez-moi';
 
-        portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${this.photographer.portrait}`;
+        portrait.src = `images/Sample_Photos/Photographers_ID_Photos/Resized_images/${this.photographer.portrait}`;
         name.appendChild(document.createTextNode(this.photographer.name));
         location.appendChild(document.createTextNode(`${this.photographer.city}, ${this.photographer.country}`));
         tagline.appendChild(document.createTextNode(this.photographer.tagline));
@@ -57,7 +58,7 @@ class Hero{
                 if (e.key === 'Enter') {
                   this.selectHeroTag();
                 }
-              });
+            });
         });
 
         heroInfo.append(name, location, tagline, tagbox);
@@ -77,7 +78,7 @@ class Hero{
     
     selectHeroTag() {
         const heroTags = document.querySelectorAll('.tag');
-        heroTags.forEach((heroTag) => {
+        heroTags.forEach(heroTag => {
             const heroTagContent = heroTag.dataset['tagName'];
             // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
             // au deuxième clic, classe active retirée et toutes les cartes sont affichées
@@ -92,7 +93,7 @@ class Hero{
                     const relevantMedias = this.getRelevantMedias();
                     return this.gallery.displayMediaGallery(relevantMedias);
                 }
-                
+
             });
         });
     }

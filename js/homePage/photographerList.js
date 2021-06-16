@@ -4,25 +4,44 @@ class PhotographerList{
     this.photographers = photographers;
   }
 
-  getRelevantPhotographers(filterTag) {
-      if (filterTag === undefined) {
-        return this.photographers;
-      }
+  getRelevantPhotographers(filterTags) {
+    if (filterTags === undefined) {
+      return this.photographers;
+    }
+    let filteredPhotographersArray = [];
+    filterTags.forEach(filterTag => {
       const filteredPhotographers = this.photographers.filter((photographer) => photographer.tags.includes(filterTag));
-      return filteredPhotographers;
+      filteredPhotographersArray.push(filteredPhotographers);
+    })
+    return filteredPhotographersArray
   }
   
-  displayRelevantCards(selectedTag) {
+  displayRelevantCards(selectedTags) {
     this.selector.setAttribute('tabindex', '0');
-    const relevantPhotographers = this.getRelevantPhotographers(selectedTag);
+    const relevantPhotographers = this.getRelevantPhotographers(selectedTags);
+    
     // nettoyage de l'élément parent
     while (this.selector.firstChild) {
         this.selector.removeChild(this.selector.firstChild);
     }
-    relevantPhotographers.forEach((relevantPhotographer) => {
+
+    // si l'argument n'est pas undefined, seules les cartes correspondantes au(x) tag(s) sélectionnés sont affichées 
+    // sinon toutes les cartes sont affichées
+    if (!(selectedTags === undefined)) {
+      // différents tableaux contenant photographes ayant un tag spécifique sont fusionnés
+      let relevantPhotographersArraysJoined = [].concat.apply([], relevantPhotographers);
+      // doublons supprimés
+      relevantPhotographersArraysJoined = [... new Set(relevantPhotographersArraysJoined)];
+      relevantPhotographersArraysJoined.forEach(relevantPhotographer => {
         const card = this.createCard(relevantPhotographer);
         this.selector.appendChild(card);
-    });
+      });
+    } else {
+      relevantPhotographers.forEach(relevantPhotographer => {
+          const card = this.createCard(relevantPhotographer);
+          this.selector.appendChild(card);
+      });
+    }
   }
 
   createCard(photographer) {
@@ -38,6 +57,7 @@ class PhotographerList{
     const tagbox = document.createElement('div');
   
     card.classList.add('card');
+    card.dataset['photographerName'] = photographer.name;
 
     cardLink.classList.add('card-link');
     portrait.classList.add('portrait');
@@ -53,7 +73,7 @@ class PhotographerList{
     cardLink.setAttribute('aria-label', `${photographer.name}`);
   
     portrait.setAttribute('alt', `${photographer.name}`);
-    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/${photographer.portrait}`;
+    portrait.src = `images/Sample_Photos/Photographers_ID_Photos/Resized_images/${photographer.portrait}`;
     cardH2.appendChild(document.createTextNode(photographer.name));
     location.appendChild(document.createTextNode(`${photographer.city}, ${photographer.country}`));
     tagline.appendChild(document.createTextNode(photographer.tagline));
@@ -67,20 +87,6 @@ class PhotographerList{
     const photographerTags = photographer.tags;
     photographerTags.forEach(photographerTag => {
       this.createTag(tagbox, photographerTag);
-      // const tag = document.createElement('a');
-      // tag.classList.add('tag');
-      // const tagContent = document.createTextNode(`#${photographerTag}`);
-      // tag.appendChild(tagContent);
-      // tagbox.appendChild(tag);
-      // tag.setAttribute('tabindex', '0');
-      // tag.dataset['tagName'] = `${photographerTag}`;
-  
-      // // contenu du tag pour les lecteurs d'écran
-      // const spanCard = document.createElement('span');
-      // const spanCardContent = document.createTextNode(`${photographerTag}`);
-      // spanCard.classList.add('sr-only');
-      // spanCard.appendChild(spanCardContent);
-      // tag.appendChild(spanCard);
     });
 
     cardInfo.append(location, tagline, price, tagbox);
@@ -101,44 +107,48 @@ class PhotographerList{
     // événements
     tag.addEventListener('click', () => {
       this.selectTag(tag);
+      this.getTagContent();
     });
     tag.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         this.selectTag(tag);
+        this.getTagContent();
       }
     });
-
     return tag;
   }
 
   selectTag(selectedTag) {
     if (!(selectedTag.classList.contains('active'))) {
       const tagContent = selectedTag.dataset['tagName'];
-      this.displayRelevantCards(tagContent);
-      const tags = document.querySelectorAll('.tag');
-      let relevantTagArray = [];
+      const tags = Array.from(document.querySelectorAll('.tag'));
+      console.log(tags)
       tags.forEach(tag => {
-        const dataName = tag.dataset['tagName'];
-        relevantTagArray.push(dataName);
-        return relevantTagArray;
+        if (tag.dataset['tagName'] === tagContent){
+          tag.classList.add('active');
+        } 
       });
-      tags.forEach(otherTag => {
-        if (otherTag.dataset['tagName'] === tagContent){
-          otherTag.classList.add('active');
-        } else {
-          otherTag.classList.remove('active');
-        }
-      });
+      return tagContent;
     } else {
+      selectedTag.classList.remove('active');
       const tagContent = selectedTag.dataset['tagName'];
       const tags = document.querySelectorAll('.tag');
-      this.displayRelevantCards(undefined);
-      tags.forEach(otherTag => {
-        if (otherTag.dataset['tagName'] === tagContent){
-          otherTag.classList.remove('active');
+      tags.forEach(tag => {
+        if (tag.dataset['tagName'] === tagContent){
+          tag.classList.remove('active');
         }
       });
-      selectedTag.classList.remove('active');
+    }
+  }
+
+  getTagContent() {
+    const navItem = document.querySelectorAll('.navigation-item.active');
+    const activeTagsContent = Array.from(navItem).map(activeTag => {
+      return activeTag.dataset['tagName'];
+    });
+    this.displayRelevantCards(activeTagsContent);
+    if (activeTagsContent.length === 0) {
+      this.displayRelevantCards(undefined);
     }
   }
 }
