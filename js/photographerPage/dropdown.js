@@ -65,17 +65,21 @@ class Dropdown {
         
         dropdownToggle.textContent = "Popularité";
         
-        // au survol, les options apparaissent
+        // au survol du dropdown, les options apparaissent
         dropdown.addEventListener('mouseover', () => {
             this.openDropdownMenu();
             arrow.setAttribute('title', 'flèche vers le haut menu ouvert');
         });
+
+        // quand le curseur sort du dropdown, les options disparaissent
         dropdown.addEventListener('mouseout', () => {
             if (arrow.classList.contains('active')){
                 this.closeDropdownMenu();
                 arrow.setAttribute('title', 'flèche vers le bas menu fermé');
             }
         });
+
+        // navigation clavier
         dropdown.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' && !(arrow.classList.contains('active'))) {
                 this.openDropdownMenu();
@@ -99,6 +103,7 @@ class Dropdown {
                 if (event.key === 'Enter') {
                     this.selectOption(options, option);
                     dropdownToggle.focus();
+                    dropdownToggle.setAttribute('aria-label', `galerie triée par ${option.innerHTML}`)
                     event.stopPropagation();
                     this.closeDropdownMenu();
                     arrow.setAttribute('title', 'flèche vers le bas menu fermé');
@@ -113,16 +118,17 @@ class Dropdown {
         dropdownToggle.setAttribute('aria-activedescendant', `${optionId}`);
         dropdownToggle.textContent = option.textContent;
         const toggleContentAfterSelection = dropdownToggle.textContent;
+        // options qui ne correspondent pas à celle du toggle sont affichées
         options.forEach(otherOptions => otherOptions.style.display = 'block');
+        // option qui correspond au toggle disparaît
         option.style.display = 'none';
         return this.sortGallery(toggleContentAfterSelection);
     }
 
+    // galerie et lightbox triées par défaut en fonction de la popularité
     initializeDropdownMenu() {
         const dropdownToggle = document.querySelector('.dropdown-toggle');
         const toggleContent = dropdownToggle.textContent;
-        // galerie triée par défaut en fonction de la popularité
-        // lightbox aussi
         const sortedRelevantMediasPopularity = this.sortRelevantMedias(toggleContent, this.listMedia);
         this.gallery.displayMediaGallery(sortedRelevantMediasPopularity);
         this.lightbox.generateLightboxMedias(sortedRelevantMediasPopularity);
@@ -161,6 +167,7 @@ class Dropdown {
         menuDropDown.style.display = 'none';
     }
 
+    // fonction de tri de la galerie et de la lightbox en fonction de l'option choisie
     sortGallery(sortCategory) {
         const sortedRelevantMedias = this.sortRelevantMedias(sortCategory, this.listMedia);
         this.gallery.displayMediaGallery(sortedRelevantMedias); 

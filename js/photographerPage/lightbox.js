@@ -178,8 +178,16 @@ class Lightbox {
                 mediaArray[i].classList.remove('active');
                 const nextMedia = (i+=1);
                 mediaArray[nextMedia].classList.add('active');
+
+                // feedback média devenu actif
+                const lastMediaChild = mediaArray[nextMedia].lastChild;
+                const lastMediaChildContent = lastMediaChild.innerHTML;
+                navRight.setAttribute('aria-label', `${lastMediaChildContent} flèche vers la droite image suivante`);
+
+                // si dernier média actif, flèche droite disparaît
                 const currentMediaParent = mediaArray[nextMedia].parentElement;
                 if(currentMediaParent.lastChild === mediaArray[nextMedia]) {
+                    lastMediaChild.focus();
                     navRight.style.visibility = 'hidden';
                 } else {
                     navRight.style.visibility = 'visible';
@@ -203,9 +211,19 @@ class Lightbox {
                 mediaArray[i].classList.remove('active');
                 const previousMedia = (i-=1);
                 mediaArray[previousMedia].classList.add('active');
+
+                // feedback média devenu actif
+                const lastMediaChild = mediaArray[previousMedia].lastChild;
+                const lastMediaChildContent = lastMediaChild.innerHTML;
+                navLeft.setAttribute('aria-label', ` ${lastMediaChildContent} flèche vers la gauche image précédente `);
+
+                // si premier média actif, flèche gauche disparaît
                 const currentMediaParent = mediaArray[previousMedia].parentElement;
                 if(currentMediaParent.firstChild === mediaArray[previousMedia]) {
+                    lastMediaChild.focus();
                     navLeft.style.visibility = 'hidden';
+                }  else {
+                    navLeft.style.visibility = 'visible';
                 }
             }
         }

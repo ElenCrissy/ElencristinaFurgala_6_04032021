@@ -44,16 +44,6 @@ class Gallery{
             const heartBlock = mediaCard.querySelector('.media-card_info__heart');
             const mediaHeartNumber = mediaCard.querySelector('.heart-number');
             const rating = document.querySelector('.rating');
-            // let likeNumber = Number(mediaHeartNumber.innerHTML);
-            // heartBlock.addEventListener('click', () => {
-            //     if (likeNumber === Number(mediaHeartNumber.innerHTML)){
-            //         this.addLike(mediaHeartNumber, rating)
-            //         likeNumber = likeNumber + 1 
-            //         console.log(likeNumber)
-            //     } else {
-            //         this.removeLike(mediaHeartNumber, rating)
-            //     }
-            // });
 
             this.addLike(mediaHeartNumber, heartBlock, rating)
 
@@ -73,7 +63,7 @@ class Gallery{
     }
 
     // ajout/suppression de like
-    addLike(likes, block, rating) {
+    addOrRemoveLike(likes, block, rating) {
         let likeNumber = Number(likes.innerHTML);
 
         block.addEventListener('click', () => {
@@ -93,27 +83,16 @@ class Gallery{
                 if (likeNumber === Number(likes.innerHTML)){
                     likes.innerHTML = likeNumber + 1;
                     rating.innerHTML ++;
+                    block.setAttribute('aria-label', 'like ajouté');
                 } else {
                     likes.innerHTML = likeNumber;
                     rating.innerHTML --;
+                    block.setAttribute('aria-label', 'like retiré');
                 }
             }
         });
-
         return rating.innerHTML
     }
-
-    // addLike(likes, rating) {
-    //     likes = likes + 1;
-    //     rating.innerHTML ++;
-    //     return rating.innerHTML
-    // } 
-
-    // removeLike(likes, rating) {
-    //     likes = likes;
-    //     rating.innerHTML --;
-    //     return rating.innerHTML
-    // }
 
     createBottomBox() {
         const mediasLikes = [];

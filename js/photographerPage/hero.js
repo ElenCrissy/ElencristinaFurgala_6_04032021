@@ -86,10 +86,12 @@ class Hero{
                 if (!(heroTag.classList.contains('active'))) {
                     heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
                     heroTag.classList.add('active');
+                    heroTag.setAttribute('aria-label', `médias filtrés par ${heroTagContent}`)
                     const relevantMedias = this.getRelevantMedias(heroTagContent);
                     return this.gallery.displayMediaGallery(relevantMedias);
                 } else {
                     heroTag.classList.remove('active');
+                    heroTag.setAttribute('aria-label', `filtre ${heroTagContent} retiré`);
                     const relevantMedias = this.getRelevantMedias();
                     return this.gallery.displayMediaGallery(relevantMedias);
                 }

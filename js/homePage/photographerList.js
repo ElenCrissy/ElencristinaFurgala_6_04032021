@@ -121,8 +121,8 @@ class PhotographerList{
   selectTag(selectedTag) {
     if (!(selectedTag.classList.contains('active'))) {
       const tagContent = selectedTag.dataset['tagName'];
+      selectedTag.setAttribute('aria-label', `photographes filtrés par ${tagContent}`);
       const tags = Array.from(document.querySelectorAll('.tag'));
-      console.log(tags)
       tags.forEach(tag => {
         if (tag.dataset['tagName'] === tagContent){
           tag.classList.add('active');
@@ -130,8 +130,9 @@ class PhotographerList{
       });
       return tagContent;
     } else {
-      selectedTag.classList.remove('active');
       const tagContent = selectedTag.dataset['tagName'];
+      selectedTag.classList.remove('active');
+      selectedTag.setAttribute('aria-label', `filtre ${tagContent} retiré`);
       const tags = document.querySelectorAll('.tag');
       tags.forEach(tag => {
         if (tag.dataset['tagName'] === tagContent){

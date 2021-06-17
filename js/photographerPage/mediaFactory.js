@@ -112,7 +112,6 @@ class Image {
     const heart = document.createElement('i');
     const title = document.createElement('div');
     const price = document.createElement('div');
-    const src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
 
     mediaImage.setAttribute('tabindex', '0');
     mediaImage.setAttribute('alt', `${this.titleContent}`);
@@ -134,12 +133,7 @@ class Image {
     title.appendChild(document.createTextNode(`${this.titleContent}`));
     price.appendChild(document.createTextNode(`${this.price}€`));
 
-    const loader = new Loader;
-    const spinner = loader.createLoader();
-    // mediaImage.onload = () => {
-    //   mediaImage.src = loader;
-    // }
-    mediaImage.src = src;
+    mediaImage.src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
     heartNumber.innerHTML = this.likes;
 
     mediaCardInfo.appendChild(mediaCardInfoText);
@@ -147,7 +141,7 @@ class Image {
     mediaCardInfoHeart.append(heartNumber, heart);
     mediaCardInfo.appendChild(mediaCardInfoHeart);
 
-    cardImage.append(mediaImage, mediaCardInfo, spinner);
+    cardImage.append(mediaImage, mediaCardInfo);
 
     cardImage.dataset['mediaTitle'] = this.titleContent;
 
@@ -173,13 +167,5 @@ class Image {
     lightboxMedia.dataset['mediaId'] = this.id;
 
     return lightboxMedia;
-  }
-}
-
-class Loader{
-  createLoader() {
-    const loader = document.createElement('span');
-    loader.classList.add('loader', 'loader__spinner');
-    return loader;
   }
 }
