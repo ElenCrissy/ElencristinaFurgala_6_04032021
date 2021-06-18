@@ -150,13 +150,19 @@ class Form {
     this.selector.appendChild(formWindow);
 
     // événements
+
+    // vérification du formulaire
+    // à la soumission du formulaire
     form.addEventListener('submit', (event) => {
       this.validate(event);
     });
+
+    // au clic sur bouton de soumission
     submitBtn.addEventListener('click', (event) => {
       this.validate(event);
     });
 
+    // à chaque pression sur touche Entrée quand input sélectionné
     allInputs.forEach(input => {
       input.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
@@ -240,7 +246,6 @@ class Form {
     // check first name
     if (verifName.exec(first.value) === null || first.length < 2) {
       firstError.style.visibility = 'visible';
-      console.log('erreur sur checkinput first name');
       first.setAttribute('aria-invalid', 'true');
       valid = false;
       return valid;
@@ -251,7 +256,6 @@ class Form {
     // check last name
     if (verifName.exec(last.value) === null || last.length < 2) {
       lastError.style.visibility = 'visible';
-      console.log('erreur sur checkinput last name');
       last.setAttribute('aria-invalid', 'true');
       valid = false;
       return valid;
@@ -262,7 +266,6 @@ class Form {
     // check email
     if (verifEmail.exec(email.value) === null) {
       emailError.style.visibility = 'visible';
-      console.log('erreur sur checkinput email');
       email.setAttribute('aria-invalid', 'true');
       valid = false;
       return valid;
@@ -273,7 +276,6 @@ class Form {
     // check message
     if (message.value === '') {
       messageError.style.visibility = 'visible';
-      console.log('erreur sur checkinput message');
       message.setAttribute('aria-invalid', 'true');
       valid = false;
       return valid;

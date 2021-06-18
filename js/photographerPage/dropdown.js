@@ -35,7 +35,7 @@ class Dropdown {
         dropdownToggle.setAttribute('role', 'button');
 
         arrow.classList.add('arrow');
-        arrow.setAttribute('title', 'flèche vers le bas menu fermé');
+        arrow.setAttribute('aria-label', 'flèche vers le bas menu fermé');
 
         dropdownMenu.classList.add('dropdown-menu');
         dropdownMenu.setAttribute('role', 'listbox');
@@ -68,7 +68,7 @@ class Dropdown {
         // au survol du dropdown, les options apparaissent
         dropdown.addEventListener('mouseover', () => {
             this.openDropdownMenu();
-            arrow.setAttribute('title', 'flèche vers le haut menu ouvert');
+            arrow.setAttribute('aria-label', 'flèche vers le haut menu ouvert');
         });
 
         // quand le curseur sort du dropdown, les options disparaissent
@@ -103,7 +103,7 @@ class Dropdown {
                 if (event.key === 'Enter') {
                     this.selectOption(options, option);
                     dropdownToggle.focus();
-                    dropdownToggle.setAttribute('aria-label', `galerie triée par ${option.innerHTML}`)
+                    dropdownToggle.setAttribute('aria-label', `galerie triée par ${option.innerHTML}`);
                     event.stopPropagation();
                     this.closeDropdownMenu();
                     arrow.setAttribute('title', 'flèche vers le bas menu fermé');

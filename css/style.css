@@ -239,68 +239,6 @@ a {
   z-index: 99;
 }
 
-.loader {
-  width: 25px;
-  height: 25px;
-  display: block;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 200ms ease 3s;
-  position: absolute;
-  top: 0;
-}
-.loader__spinner {
-  border-radius: 50px;
-  border: 6px solid transparent;
-  border-top-color: #343434;
-  border-bottom-color: #878787;
-  animation: spin 1s linear 3;
-}
-.loader__spinner::after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  bottom: 5px;
-  left: 5px;
-  right: 5px;
-  border-radius: 50px;
-  border: 6px solid transparent;
-  border-top-color: #343434;
-  border-bottom-color: #878787;
-  opacity: 0.6;
-  animation: spinreverse 1500ms linear 2;
-}
-.loader__spinner::before {
-  content: "";
-  position: absolute;
-  top: 15px;
-  bottom: 15px;
-  left: 15px;
-  right: 15px;
-  border-radius: 50px;
-  border: 3px solid transparent;
-  border-top-color: #1a1a1a;
-  border-bottom-color: #6d6d6d;
-  opacity: 0.4;
-  animation: spinreverse 3s linear;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes spinreverse {
-  from {
-    transform: rotate(-360deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 .media-card {
   width: 31%;
   margin: 10px;
@@ -412,7 +350,7 @@ a {
 }
 
 nav {
-  width: 60%;
+  width: 65%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -664,6 +602,12 @@ nav a {
 .close::after {
   transform: rotate(-45deg);
 }
+@media screen and (max-width: 380px) {
+  .close {
+    width: 30px;
+    height: 30px;
+  }
+}
 
 .form-body {
   margin: 30px;
@@ -673,6 +617,11 @@ nav a {
   margin: 0;
   color: black;
   font-weight: bold;
+}
+@media screen and (max-width: 380px) {
+  .form-body .form-title {
+    font-size: 20px;
+  }
 }
 
 #contact {
@@ -734,6 +683,11 @@ nav a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+}
+@media screen and (max-width: 380px) {
+  .confirmationMsg {
+    font-size: 22px;
+  }
 }
 
 .error {

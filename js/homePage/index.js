@@ -6,10 +6,9 @@ const getData = () => {
     return data;
   })
   .catch(error => {
-    // console.log(`Fetch problem: ${error}`);
-    throw error;
+    console.log(`Fetch problem: ${error}`);
   });
-}
+};
 
 function addMediaDescription (data) {
   const medias = data.media;
@@ -36,7 +35,6 @@ window.onload = () => {
     photographerList.displayRelevantCards();
     sectionHomepage.setAttribute('tabindex', '5');
     sectionHomepage.setAttribute('aria-label', 'cartes des photographes');
-
-  })
+  });
   
-}
+};

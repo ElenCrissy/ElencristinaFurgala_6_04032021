@@ -12,8 +12,8 @@ class PhotographerList{
     filterTags.forEach(filterTag => {
       const filteredPhotographers = this.photographers.filter((photographer) => photographer.tags.includes(filterTag));
       filteredPhotographersArray.push(filteredPhotographers);
-    })
-    return filteredPhotographersArray
+    });
+    return filteredPhotographersArray;
   }
   
   displayRelevantCards(selectedTags) {
@@ -41,7 +41,19 @@ class PhotographerList{
           const card = this.createCard(relevantPhotographer);
           this.selector.appendChild(card);
       });
-    }
+    } 
+
+    // ajout de la classe active aux autres tags similaires si besoin
+    const tags = Array.from(document.querySelectorAll('.tag'));
+    tags.forEach(tag => {
+      selectedTags.forEach(selectedTag => {
+        if (tag.dataset['tagName'] === selectedTag){
+          tag.classList.add('active');
+          tag.setAttribute('aria-label', `filtré par ${tag.innerHTML}`);
+        }
+      });
+    });
+
   }
 
   createCard(photographer) {
@@ -99,12 +111,13 @@ class PhotographerList{
     tag.classList.add('tag');
     tag.setAttribute('aria-label', `tag ${tagName}`);
     tag.setAttribute('role', 'button');
+    tag.setAttribute('tabindex', '0');
     tag.appendChild(document.createTextNode(`#${tagName}`));
     tag.dataset['tagName'] = tagName;
 
     parentElement.appendChild(tag);
 
-    // événements
+    // événements sélection tag
     tag.addEventListener('click', () => {
       this.selectTag(tag);
       this.getTagContent();
@@ -119,6 +132,8 @@ class PhotographerList{
   }
 
   selectTag(selectedTag) {
+    // si tag sélectionné n'est pas actif
+    // son contenu est retourné
     if (!(selectedTag.classList.contains('active'))) {
       const tagContent = selectedTag.dataset['tagName'];
       selectedTag.setAttribute('aria-label', `photographes filtrés par ${tagContent}`);
@@ -143,10 +158,12 @@ class PhotographerList{
   }
 
   getTagContent() {
-    const navItem = document.querySelectorAll('.navigation-item.active');
-    const activeTagsContent = Array.from(navItem).map(activeTag => {
+    const activeTags = document.querySelectorAll('.tag.active');
+    // tableau contenant les tags est renvoyé
+    const activeTagsContent = Array.from(activeTags).map(activeTag => {
       return activeTag.dataset['tagName'];
     });
+    // tableau utilisé comme argument pour la fonction qui affiche les cartes
     this.displayRelevantCards(activeTagsContent);
     if (activeTagsContent.length === 0) {
       this.displayRelevantCards(undefined);

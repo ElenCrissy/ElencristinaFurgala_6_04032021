@@ -54,6 +54,10 @@
     &::after{
         transform: rotate(-45deg);
     }
+    @include xsmall {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .form-body {
@@ -63,6 +67,9 @@
             margin: 0;
             color: black;
             font-weight: bold;
+            @include xsmall {
+                font-size: 20px;
+            }
         }
 }
 
@@ -125,6 +132,9 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+    }
+    @include xsmall {
+        font-size : 22px;
     }
 }
 

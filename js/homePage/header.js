@@ -18,7 +18,7 @@ class Header{
         logoImg.setAttribute('alt', 'FishEye Home Page');
 
         const goToMain = document.createElement('a');
-        goToMain.setAttribute('href', '#index_main');
+        goToMain.setAttribute('href', '#section-homepage');
         goToMain.classList.add('go_to_main');
         goToMain.setAttribute('tabindex', '2');
         goToMain.appendChild(document.createTextNode('Passer au contenu'));

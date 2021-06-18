@@ -6,10 +6,9 @@ const getData = () => {
     return data;
   })
   .catch(error => {
-    // console.log(`Fetch problem: ${error}`);
-    throw error;
+    console.log(`Fetch problem: ${error}`);
   });
-}
+};
 
 function addMediaDescription (data) {
   const medias = data.media;
@@ -53,7 +52,6 @@ window.onload = () => {
     const dropdownMenu = new Dropdown(relevantMediasDefault, photographerPageMain, gallery, lightbox);
 
     hero.createDomHero();
-    hero.selectHeroTag(gallery);
     form.createForm();
     lightbox.createLightbox();
     dropdownMenu.createDropdownMenu();
@@ -65,6 +63,6 @@ window.onload = () => {
     
     gallerySection.setAttribute('tabindex', '3');
     gallerySection.setAttribute('role', 'tab');
-  })
+  });
   
 };

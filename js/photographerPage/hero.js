@@ -27,7 +27,7 @@ class Hero{
         heroButton.classList.add('hero-button');
         heroImage.classList.add('hero-image');
         portrait.classList.add('portrait');
-        portrait.setAttribute('alt', `portrait ${this.photographer.name}`)
+        portrait.setAttribute('alt', `portrait ${this.photographer.name}`);
         name.classList.add('name');
         location.classList.add('location');
         tagline.classList.add('tagline');
@@ -54,11 +54,17 @@ class Hero{
 
             tagbox.appendChild(tag);
 
+            tag.addEventListener('click', () => {
+                this.selectHeroTag(tag);           
+            });
+
             tag.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
-                  this.selectHeroTag();
+                    this.selectHeroTag(tag);          
                 }
             });
+
+            return tag;
         });
 
         heroInfo.append(name, location, tagline, tagbox);
@@ -76,28 +82,22 @@ class Hero{
         return contactButton;
     }
     
-    selectHeroTag() {
-        const heroTags = document.querySelectorAll('.tag');
-        heroTags.forEach(heroTag => {
-            const heroTagContent = heroTag.dataset['tagName'];
-            // au clic sur un tag de la navbar, classe active appliquée et cartes affichées
-            // au deuxième clic, classe active retirée et toutes les cartes sont affichées
-            heroTag.addEventListener('click', () => {
-                if (!(heroTag.classList.contains('active'))) {
-                    heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
-                    heroTag.classList.add('active');
-                    heroTag.setAttribute('aria-label', `médias filtrés par ${heroTagContent}`)
-                    const relevantMedias = this.getRelevantMedias(heroTagContent);
-                    return this.gallery.displayMediaGallery(relevantMedias);
-                } else {
-                    heroTag.classList.remove('active');
-                    heroTag.setAttribute('aria-label', `filtre ${heroTagContent} retiré`);
-                    const relevantMedias = this.getRelevantMedias();
-                    return this.gallery.displayMediaGallery(relevantMedias);
-                }
-
-            });
-        });
+    selectHeroTag(tag) {
+        if (!(tag.classList.contains('active'))) {
+            const heroTags = document.querySelectorAll('.tag');
+            const heroTagContent = tag.dataset['tagName'];
+            heroTags.forEach((otherHeroTags) => otherHeroTags.classList.remove('active'));
+            tag.classList.add('active');
+            tag.setAttribute('aria-label', `médias filtrés par ${heroTagContent}`);
+            const relevantMedias = this.getRelevantMedias(heroTagContent);
+            return this.gallery.displayMediaGallery(relevantMedias);
+        } else {
+            const heroTagContent = tag.dataset['tagName'];
+            tag.classList.remove('active');
+            tag.setAttribute('aria-label', `filtre ${heroTagContent} retiré`);
+            const relevantMedias = this.getRelevantMedias();
+            return this.gallery.displayMediaGallery(relevantMedias);
+        } 
     }
 
     getRelevantMedias(filterTag) {

@@ -27,8 +27,8 @@ class Lightbox {
         lightboxMask.classList.add('lightbox-mask');
 
         lightboxCloseBtn.classList.add('lightbox-close-btn');
-        lightboxCloseBtn.setAttribute('aria-label', 'icône croix fermer lightbox');
         lightboxCloseBtn.setAttribute('tabindex', '0');
+        lightboxCloseBtn.setAttribute('aria-label', 'icône croix fermer lightbox');
 
         navLeft.classList.add('nav-left', 'fas', 'fa-chevron-left');
         navLeft.setAttribute('aria-label', 'flèche vers la gauche image précédente');
@@ -184,7 +184,7 @@ class Lightbox {
                 const lastMediaChildContent = lastMediaChild.innerHTML;
                 navRight.setAttribute('aria-label', `${lastMediaChildContent} flèche vers la droite image suivante`);
 
-                // si dernier média actif, flèche droite disparaît
+                // si dernier média actif, flèche droite disparaît et focus sur le titre du média devenu actif
                 const currentMediaParent = mediaArray[nextMedia].parentElement;
                 if(currentMediaParent.lastChild === mediaArray[nextMedia]) {
                     lastMediaChild.focus();
@@ -217,7 +217,7 @@ class Lightbox {
                 const lastMediaChildContent = lastMediaChild.innerHTML;
                 navLeft.setAttribute('aria-label', ` ${lastMediaChildContent} flèche vers la gauche image précédente `);
 
-                // si premier média actif, flèche gauche disparaît
+                // si premier média actif, flèche gauche disparaît et focus sur le titre du média devenu actif
                 const currentMediaParent = mediaArray[previousMedia].parentElement;
                 if(currentMediaParent.firstChild === mediaArray[previousMedia]) {
                     lastMediaChild.focus();

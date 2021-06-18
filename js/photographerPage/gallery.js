@@ -45,7 +45,7 @@ class Gallery{
             const mediaHeartNumber = mediaCard.querySelector('.heart-number');
             const rating = document.querySelector('.rating');
 
-            this.addLike(mediaHeartNumber, heartBlock, rating)
+            this.addOrRemoveLike(mediaHeartNumber, heartBlock, rating);
 
             // ouverture de la lightbox affichant le média sur lequel on a cliqué
             mediaCardFirstChild.addEventListener('click', () => {
@@ -91,7 +91,7 @@ class Gallery{
                 }
             }
         });
-        return rating.innerHTML
+        return rating.innerHTML;
     }
 
     createBottomBox() {
@@ -109,11 +109,11 @@ class Gallery{
         bottomBox.classList.add('bottom-box');
         bottomBox.setAttribute('aria-label', 'popularité et prix');
         bottomBox.setAttribute('tabindex', '4');
-        bottomBox.setAttribute('role', 'tab');
         ratingSection.classList.add('rating-section');
         rating.classList.add('rating');
         pricePerDay.classList.add('price-per-day');
         heart.classList.add('heart','fas', 'fa-heart');
+        heart.setAttribute('aria-label', 'likes');
 
         const totalLikes = mediasLikes.reduce(reducer);
         rating.innerHTML = totalLikes;
