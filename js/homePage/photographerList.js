@@ -45,14 +45,16 @@ class PhotographerList{
 
     // ajout de la classe active aux autres tags similaires si besoin
     const tags = Array.from(document.querySelectorAll('.tag'));
-    tags.forEach(tag => {
+    if (!(selectedTags === undefined)) {
       selectedTags.forEach(selectedTag => {
-        if (tag.dataset['tagName'] === selectedTag){
-          tag.classList.add('active');
-          tag.setAttribute('aria-label', `filtré par ${tag.innerHTML}`);
-        }
+        tags.forEach(tag => {
+          if (tag.dataset['tagName'] === selectedTag){
+            tag.classList.add('active');
+            tag.setAttribute('aria-label', `filtré par ${tag.innerHTML}`);
+          }
+        });
       });
-    });
+    }
 
   }
 
@@ -60,7 +62,9 @@ class PhotographerList{
     const { id } = photographer;
     const card = document.createElement('div');
     const cardLink = document.createElement('a');
+    const cardFigure = document.createElement('figure');
     const portrait = document.createElement('img');
+    const cardFigureCaption = document.createElement('figcaption');
     const cardH2 = document.createElement('h2');
     const cardInfo = document.createElement('div');
     const location = document.createElement('div');
@@ -91,8 +95,10 @@ class PhotographerList{
     tagline.appendChild(document.createTextNode(photographer.tagline));
     price.appendChild(document.createTextNode(`${photographer.price}€/jour`));
   
+    cardFigureCaption.appendChild(cardH2);
+    cardFigure.append(portrait, cardFigureCaption);
     card.appendChild(cardLink);
-    cardLink.append(portrait, cardH2);
+    cardLink.appendChild(cardFigure);
     card.appendChild(cardInfo);
   
     // tags

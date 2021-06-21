@@ -17,10 +17,10 @@ class Video {
 
   // Création élément DOM média de la galerie
   createGalleryDom() {
-    const cardVideo = document.createElement('div');
+    const cardVideo = document.createElement('figure');
     const mediaVideo = document.createElement('video');
     const mediaVideoSrc = document.createElement('source');
-    const mediaCardInfo = document.createElement('div');
+    const mediaCardInfo = document.createElement('figcaption');
     const mediaCardInfoText = document.createElement('div');
     const mediaCardInfoHeart = document.createElement('div');
     const heartNumber = document.createElement('div');
@@ -53,7 +53,6 @@ class Video {
     mediaVideoSrc.src = `images/Sample_Photos/${this.photographerId}/Resized_images/${this.fileName}`;
     heartNumber.innerHTML = this.likes;
 
-
     mediaVideo.appendChild(mediaVideoSrc);
     mediaCardInfo.appendChild(mediaCardInfoText);
     mediaCardInfoText.append(title, price);
@@ -69,10 +68,10 @@ class Video {
 
   // Création élément DOM média de la lightbox
   createLightboxDom() {
-    const lightboxMedia = document.createElement('div');
+    const lightboxMedia = document.createElement('figure');
     const mediaContent = document.createElement('video');
     const mediaSrc = document.createElement('source');
-    const mediaCaption = document.createElement('div');
+    const mediaCaption = document.createElement('figcaption');
 
     lightboxMedia.classList.add('lightbox-media');
     mediaContent.classList.add('media-content');
@@ -103,9 +102,9 @@ class Image {
 
   // Création élément DOM média de la galerie
   createGalleryDom() {
-    const cardImage = document.createElement('div');
+    const cardImage = document.createElement('figure');
     const mediaImage = document.createElement('img');
-    const mediaCardInfo = document.createElement('div');
+    const mediaCardInfo = document.createElement('figcaption');
     const mediaCardInfoText = document.createElement('div');
     const mediaCardInfoHeart = document.createElement('div');
     const heartNumber = document.createElement('div');
@@ -150,9 +149,9 @@ class Image {
 
   // Création élément DOM média de la lightbox
   createLightboxDom() {
-    const lightboxMedia = document.createElement('div');
+    const lightboxMedia = document.createElement('figure');
     const mediaContent = document.createElement('img');
-    const mediaCaption = document.createElement('div');
+    const mediaCaption = document.createElement('figcaption');
 
     lightboxMedia.classList.add('lightbox-media');
     mediaContent.classList.add('media-content');

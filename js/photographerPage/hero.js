@@ -12,6 +12,7 @@ class Hero{
         const heroInfo = document.createElement('div');
         const heroButton = document.createElement('div');
         const heroImage = document.createElement('div');
+        const heroFigure = document.createElement('figure');
         const portrait = document.createElement('img');
         const name = document.createElement('h1');
         const location = document.createElement('div');
@@ -69,7 +70,8 @@ class Hero{
 
         heroInfo.append(name, location, tagline, tagbox);
         heroButton.appendChild(contactButton);
-        heroImage.appendChild(portrait);
+        heroFigure.appendChild(portrait);
+        heroImage.appendChild(heroFigure);
         hero.append(heroInfo, heroButton, heroImage);
         this.selector.appendChild(hero);
 
