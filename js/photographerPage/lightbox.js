@@ -1,4 +1,6 @@
-class Lightbox {
+import MediaFactory from './mediaFactory.js';
+
+export default class Lightbox {
     constructor(selector, app) {
         this.selector = selector;
         this.app = app;
@@ -195,7 +197,7 @@ class Lightbox {
             }
         }
 
-        if(navLeft.style.visibility = 'hidden') {
+        if(navLeft.style.visibility === 'hidden') {
             navLeft.style.visibility = 'visible';
         }
     }
@@ -228,7 +230,7 @@ class Lightbox {
             }
         }
 
-        if(navRight.style.visibility = 'hidden') {
+        if(navRight.style.visibility === 'hidden') {
             navRight.style.visibility = 'visible';
         }
     }

@@ -1,4 +1,4 @@
-class PhotographerList{
+export default class PhotographerList{
   constructor(selector, photographers){
     this.selector = selector;
     this.photographers = photographers;

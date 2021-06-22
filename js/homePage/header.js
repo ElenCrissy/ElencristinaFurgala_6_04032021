@@ -1,4 +1,4 @@
-class Header{
+export default class Header{
     constructor(selector, photographerList){
         this.selector = selector;
         this.photographerList = photographerList;

@@ -1,4 +1,4 @@
-class Hero{
+export default class Hero{
     constructor(photographer, selector, form, listMedia, gallery){
         this.photographer = photographer;
         this.selector = selector;

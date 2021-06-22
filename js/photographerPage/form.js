@@ -1,4 +1,4 @@
-class Form {
+export default class Form {
   constructor(photographerName, selector, app) {
     this.photographerName = photographerName;
     this.selector = selector;

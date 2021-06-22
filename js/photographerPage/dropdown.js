@@ -1,4 +1,4 @@
-class Dropdown {
+export default class Dropdown {
     constructor(listMedia, selector, gallery, lightbox) {
         this.listMedia = listMedia;
         this.selector = selector;

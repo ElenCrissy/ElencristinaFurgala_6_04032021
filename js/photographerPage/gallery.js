@@ -1,4 +1,6 @@
-class Gallery{
+import MediaFactory from './mediaFactory.js';
+
+export default class Gallery{
     constructor(photographer, listMedia, selector, lightbox) {
         this.photographer = photographer;
         this.listMedia = listMedia;

@@ -1,11 +1,11 @@
-class MediaFactory {
+export default class MediaFactory {
   static createMedia(mediaData) {
     if (mediaData.hasOwnProperty('image')) return new Image(mediaData.image, mediaData.photographerId, mediaData.price, mediaData.likes, mediaData.id);
     else if (mediaData.hasOwnProperty('video')) return new Video(mediaData.video, mediaData.photographerId, mediaData.price, mediaData.likes, mediaData.id);
   }
 }
   
-class Video {
+export class Video {
   constructor(fileName, photographerId, price, likes, id) {
     this.fileName = fileName;
     this.photographerId = photographerId;
@@ -90,7 +90,7 @@ class Video {
   }
 }
 
-class Image {
+export class Image {
   constructor(fileName, photographerId, price, likes, id) {
     this.fileName = fileName;
     this.photographerId = photographerId;

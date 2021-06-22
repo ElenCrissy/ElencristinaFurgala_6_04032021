@@ -1,10 +1,16 @@
-export default class Page {
+import Form from './form.js';
+import Lightbox from './lightbox.js';
+import Gallery from './gallery.js';
+import Hero from './hero.js';
+import Dropdown from './dropdown.js';
+
+export default class PhotographerPage {
  
-  getData(){
+  static getData(){
     return fetch('data.json')
     .then(response => response.json())
     .then(data => {
-      this.addMediaDescription(data);
+      PhotographerPage.addMediaDescription(data);
       return data;
     })
     .catch(error => {
@@ -12,7 +18,7 @@ export default class Page {
     });
   }
 
-  addMediaDescription(data){
+  static addMediaDescription(data){
     const medias = data.media;
     medias.forEach(media => {
       media.description = 'lorem ipsum dolor sit amet';
@@ -20,8 +26,8 @@ export default class Page {
     return data;
   }
 
-  loadContent(){
-    const dataPromise = this.getData();
+  static init(){
+    const dataPromise = PhotographerPage.getData();
 
     window.onload = () => {
 
