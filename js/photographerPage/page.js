@@ -1,4 +1,4 @@
-export class Page {
+export default class Page {
  
   getData(){
     return fetch('data.json')

@@ -1,4 +1,4 @@
-export class Index {
+export default class Index {
 
   getData() {
     return fetch('data.json')
